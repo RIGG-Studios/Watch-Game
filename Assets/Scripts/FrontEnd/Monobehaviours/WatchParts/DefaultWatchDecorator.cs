@@ -4,7 +4,7 @@ using System.Threading.Tasks;
 using UnityEngine;
 
 //This decorator handles insertion and returning a dictionary of all components in the watch
-public abstract class AbstractWatchDecorator : MonoBehaviour, IWatch
+public class DefaultWatchDecorator : MonoBehaviour, IWatch
 {
     //Child watch part to delegate down to and inserting logic to know what to do when the player inserts something
     protected IWatch childWatchPart;

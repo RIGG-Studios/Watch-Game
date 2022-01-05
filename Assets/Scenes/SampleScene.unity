@@ -642,13 +642,14 @@ MonoBehaviour:
   m_GameObject: {fileID: 868841390}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 1b536d1d3395e5c4980344ecdc09dc98, type: 3}
+  m_Script: {fileID: 11500000, guid: 7cb20968aceeed44896e1ba3e026e8eb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  missingPart: {fileID: 1725907578}
+  missingPart: {fileID: 1743121060}
   destinations:
-  - {fileID: 805017221}
-  componentName: Spiddlyspoogly
+  - {fileID: 735906415}
+  - {fileID: 930943892}
+  componentName: Fiddlydiddly
 --- !u!1 &930943891
 GameObject:
   m_ObjectHideFlags: 0
@@ -907,13 +908,13 @@ MonoBehaviour:
   m_GameObject: {fileID: 1533872637}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 1b536d1d3395e5c4980344ecdc09dc98, type: 3}
+  m_Script: {fileID: 11500000, guid: 7cb20968aceeed44896e1ba3e026e8eb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  missingPart: {fileID: 1743121060}
+  missingPart: {fileID: 1725907578}
   destinations:
-  - {fileID: 735906415}
-  componentName: Fiddlydiddly
+  - {fileID: 805017221}
+  componentName: Spiddlyspoogly
 --- !u!1 &1725907578 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 2830177793075947673, guid: 54bb8df418f611f4b82a90cca9763879, type: 3}
