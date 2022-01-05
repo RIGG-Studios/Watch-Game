@@ -10,6 +10,7 @@ public class Player : MonoBehaviour
     public LayerMask componentsLayer;
     public LayerMask destinationsLayer;
 
+    //Current watch the player is working on
     public Transform currentWatch;
 
     //Input actions thingy for the new input system
@@ -51,7 +52,7 @@ public class Player : MonoBehaviour
                     //If the raycast hit something and we have something to insert then
                     if (raycastHit && currentComponent != null)
                     {
-                        //Tells the current watch to inser this part and passes the thing behind it the raycast hit, the destination transform
+                        //Tells the current watch to insert this part and passes the thing behind it the raycast hit, the destination transform
                         currentWatch.GetComponentInChildren<IWatch>().Insert(currentComponent.GetGameObject(), raycastHit.transform);
                     }
 

@@ -15,6 +15,7 @@ public class WatchEndPart : MonoBehaviour, IWatch
         insertingLogic = GetComponent<IInsertable>();
     }
 
+    //Returns the dictionary back when asked, creating a base condition for recursion
     public Dictionary<string, int> GetAllComponentsLeft(Dictionary<string, int> dictionary)
     {
         return dictionary;

@@ -5,7 +5,7 @@ using UnityEngine;
 //Default inserting behaviour, just positions the object if it is valid
 public class DefaultInsertion : MonoBehaviour, IInsertable
 {
-    //Transforming the insertObject to this object's position if it is the missing part
+    //Transforming the insertObject to this object's position
     public void Execute(GameObject insertObject, Transform destination)
     {
         insertObject.transform.position = destination.position;
