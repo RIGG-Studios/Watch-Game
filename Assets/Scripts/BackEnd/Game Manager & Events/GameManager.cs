@@ -40,11 +40,13 @@ public class GameManager : MonoBehaviour
     public delegate void LeavingSceneDelegate();
     public static LeavingSceneDelegate SceneLeaveEvent;
 
+    //gameState for places to access, but can't modify
     public GameStates gameState { get; private set; }
 
-
+    //this method should be called whenever the game wants to call a new event, more events should be implented but 4 will provide a good prototype for us.
     public void CallEvent(GameEvents type)
     {
+        //simply switch the type, getting the type and invoking the correct event
         switch (type)
         {
             case GameEvents.SceneLoad:
@@ -65,11 +67,14 @@ public class GameManager : MonoBehaviour
         }
     }
 
+    //method for setting our game state
     public void SetGameState(GameStates gameState)
     {
+        //check if our state is already set to the one we want to set it to, if so return because there is no point.
         if (this.gameState == gameState)
             return;
 
+        //assign the game state to the next state.
         this.gameState = gameState;
     }
 }
