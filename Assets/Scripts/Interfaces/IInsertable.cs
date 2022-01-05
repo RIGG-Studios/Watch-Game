@@ -6,8 +6,5 @@ using UnityEngine;
 public interface IInsertable
 {
     //Insert method, called by the player script, passes the object they're currently dragging
-    public void Insert(Transform insertObject);
-
-    //Returns the part this inserter is looking for
-    public GameObject GetMissingPart();
+    public void Insert(Transform insertObject, Transform destination);
 }

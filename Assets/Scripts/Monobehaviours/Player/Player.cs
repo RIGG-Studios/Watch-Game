@@ -10,6 +10,8 @@ public class Player : MonoBehaviour
     public LayerMask componentsLayer;
     public LayerMask destinationsLayer;
 
+    public Transform currentWatch;
+
     //Input actions thingy for the new input system
     InputActions inputActions;
 
@@ -46,11 +48,11 @@ public class Player : MonoBehaviour
                     //Raycasts to the destinationsLayer with all the destinations
                     RaycastHit2D raycastHit = RaycastFromMousePosition(destinationsLayer);
                     
-                    //If the raycast hit something, that something can have something else inserted into it, and we have something to insert then
-                    if (raycastHit && raycastHit.collider.GetComponent<IInsertable>() != null && currentComponent != null)
+                    //If the raycast hit something and we have something to insert then
+                    if (raycastHit && currentComponent != null)
                     {
-                        //Inserts the current component into it, acceptance or refusal of the component is handled by IInsertable
-                        raycastHit.collider.GetComponent<IInsertable>().Insert(currentComponent.GetTransform());
+                        //Tells the current watch to inser this part and passes the thing behind it the raycast hit, the destination transform
+                        currentWatch.GetComponentInChildren<IWatch>().Insert(currentComponent.GetTransform(), raycastHit.transform);
                     }
 
                     //Calls StopDraggingObject on the currentComponent and sets currentComponent to null
