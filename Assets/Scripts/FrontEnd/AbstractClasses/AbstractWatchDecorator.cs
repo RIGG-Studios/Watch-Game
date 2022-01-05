@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using System.Threading.Tasks;
 using UnityEngine;
 
 public abstract class AbstractWatchDecorator : MonoBehaviour, IWatch
@@ -20,16 +21,32 @@ public abstract class AbstractWatchDecorator : MonoBehaviour, IWatch
         insertLogic = GetComponent<IInsertable>();
     }
 
-    public virtual Dictionary<string, int> GetAllComponentsLeft(Dictionary<string, int> dictionary)
+    public virtual Dictionary<string, int> GetAllComponentsLeft(Dictionary<string, int> suppliedDictionary)
     {
-        throw new System.NotImplementedException();
+        Dictionary<string, int> currentDictionary;
+
+        if (suppliedDictionary == null)
+        {
+            Dictionary<string, int> newDictionary = new Dictionary<string, int>();
+            currentDictionary = newDictionary;
+        }
+        else
+        {
+            currentDictionary = suppliedDictionary;
+        }
+
+        currentDictionary.Add(componentName, destinations.Count - filledDestinations);
+
+        childWatchPart.GetAllComponentsLeft(currentDictionary);
+
+        return currentDictionary;
     }
 
     public virtual void Insert(GameObject insertObject, Transform destination)
     {
         if(insertObject == missingPart && DestinationExists(destination))
         {
-            insertLogic.Insert(insertObject, destination);
+            insertLogic.Execute(insertObject, destination);
             filledDestinations++;
         }
         else
