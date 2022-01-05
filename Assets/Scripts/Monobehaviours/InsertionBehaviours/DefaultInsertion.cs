@@ -6,9 +6,9 @@ using UnityEngine;
 public class DefaultInsertion : MonoBehaviour, IInsertable
 {
     //Transforming the insertObject to this object's position if it is the missing part
-    public void Insert(Transform insertObject, Transform destination)
+    public void Insert(GameObject insertObject, Transform destination)
     {
-        insertObject.position = destination.position;
+        insertObject.transform.position = destination.position;
 
         Debug.Log("Inserted successfully UwU");
     }

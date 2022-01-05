@@ -52,7 +52,7 @@ public class Player : MonoBehaviour
                     if (raycastHit && currentComponent != null)
                     {
                         //Tells the current watch to inser this part and passes the thing behind it the raycast hit, the destination transform
-                        currentWatch.GetComponentInChildren<IWatch>().Insert(currentComponent.GetTransform(), raycastHit.transform);
+                        currentWatch.GetComponentInChildren<IWatch>().Insert(currentComponent.GetGameObject(), raycastHit.transform);
                     }
 
                     //Calls StopDraggingObject on the currentComponent and sets currentComponent to null

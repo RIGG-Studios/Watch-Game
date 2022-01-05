@@ -6,7 +6,7 @@ using UnityEngine;
 public class DefaultDragging : MonoBehaviour, IDraggable
 {
     //Supplying the method with the transform
-    public Transform GetTransform() => transform;
+    public GameObject GetGameObject() => gameObject;
 
     //Doing nothing
     public void StartDraggingObject()

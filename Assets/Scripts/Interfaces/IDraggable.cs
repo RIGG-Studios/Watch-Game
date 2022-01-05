@@ -15,5 +15,5 @@ public interface IDraggable
     public void WhileDragging(Vector2 mousePosition);
 
     //method to return the object's transform to be used in IInsertable
-    public Transform GetTransform();
+    public GameObject GetGameObject();
 }

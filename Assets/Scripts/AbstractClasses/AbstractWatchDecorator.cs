@@ -7,7 +7,7 @@ public abstract class AbstractWatchDecorator : MonoBehaviour, IWatch
     protected IWatch childWatchPart;
     protected IInsertable insertLogic;
 
-    public Transform missingPart;
+    public GameObject missingPart;
     public List<Transform> destinations;
 
     public string componentName;
@@ -25,7 +25,7 @@ public abstract class AbstractWatchDecorator : MonoBehaviour, IWatch
         throw new System.NotImplementedException();
     }
 
-    public virtual void Insert(Transform insertObject, Transform destination)
+    public virtual void Insert(GameObject insertObject, Transform destination)
     {
         if(insertObject == missingPart && DestinationExists(destination))
         {

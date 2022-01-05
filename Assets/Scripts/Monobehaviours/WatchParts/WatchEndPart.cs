@@ -16,7 +16,7 @@ public class WatchEndPart : MonoBehaviour, IWatch
         return null;
     }
 
-    public void Insert(Transform insertObject, Transform destination)
+    public void Insert(GameObject insertObject, Transform destination)
     {
         insertingLogic.Insert(insertObject, destination);
     }

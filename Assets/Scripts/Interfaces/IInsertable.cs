@@ -6,5 +6,5 @@ using UnityEngine;
 public interface IInsertable
 {
     //Insert method, called by the player script, passes the object they're currently dragging
-    public void Insert(Transform insertObject, Transform destination);
+    public void Insert(GameObject insertObject, Transform destination);
 }

@@ -645,7 +645,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1b536d1d3395e5c4980344ecdc09dc98, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  missingPart: {fileID: 1725907579}
+  missingPart: {fileID: 1725907578}
   destinations:
   - {fileID: 805017221}
   componentName: Spiddlyspoogly
@@ -910,14 +910,24 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1b536d1d3395e5c4980344ecdc09dc98, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  missingPart: {fileID: 1743121061}
+  missingPart: {fileID: 1743121060}
   destinations:
   - {fileID: 735906415}
   componentName: Fiddlydiddly
+--- !u!1 &1725907578 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 2830177793075947673, guid: 54bb8df418f611f4b82a90cca9763879, type: 3}
+  m_PrefabInstance: {fileID: 2830177793514597091}
+  m_PrefabAsset: {fileID: 0}
 --- !u!4 &1725907579 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 2830177793075947672, guid: 54bb8df418f611f4b82a90cca9763879, type: 3}
   m_PrefabInstance: {fileID: 2830177793514597091}
+  m_PrefabAsset: {fileID: 0}
+--- !u!1 &1743121060 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 8648137316525755810, guid: a01d57f8f8948a044bd903dfd1bab211, type: 3}
+  m_PrefabInstance: {fileID: 5894552182826146367}
   m_PrefabAsset: {fileID: 0}
 --- !u!4 &1743121061 stripped
 Transform:

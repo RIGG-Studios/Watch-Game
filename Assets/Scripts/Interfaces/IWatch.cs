@@ -6,5 +6,5 @@ public interface IWatch
 {
     public Dictionary<string, int> GetAllComponentsLeft(Dictionary<string, int> dictionary);
 
-    public void Insert(Transform part, Transform destination);
+    public void Insert(GameObject part, Transform destination);
 }
