@@ -35,30 +35,31 @@ public class SlotManager : MonoBehaviour
 
     //when we add an item, we need to add it to our slot, but also update the other slots
     //we also need a reference to our inventory list, which is sent through an array
-    public void UpdateSlots(Item[] items)
+    public void AddItemToSlot(Item item)
     {
         //loop through all the slots
         for(int i = 0; i < slots.Count; i++)
         {
-            //if this iteration is less then the the length of our inventory, meaning its avaliable to add
-            //an item too, we can set it up with the items[i] because the size of the inventory is equal
-            //to the size of the slots list so no null problems should occur
-            if (i < items.Length)
-                slots[i].SetupSlot(items[i]);
-            else// otherwise, deselect the other items.
-                slots[i].DeselectSlot();
+            //we need to find a slot that has NO item attached to it
+            if (!slots[i].occupied)
+            {
+                //found our slot
+                slots[i].SetupSlot(item);
+                break; //break away because we dont need to continue searching
+            }
         }
     }
 
 
     //when we remove items, we need to do it differently
-    public void RemoveItem(Item item)
+    public void RemoveItemFromSlot(Item item)
     {
         //find the slot which has the item we are trying to remove
         Slot slot = FindSlotFromItem(item);
 
         //deselect the slot
-        slot.DeselectSlot();
+        if (slot != null)
+            slot.DeselectSlot();
     }
 
     private Slot FindSlotFromItem(Item item)

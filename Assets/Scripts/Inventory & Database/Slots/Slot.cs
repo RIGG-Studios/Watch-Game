@@ -4,7 +4,10 @@ using UnityEngine;
 public class Slot : MonoBehaviour
 {
     //slots have an image for the item sprite, and a corresponding item
+    public bool occupied => item != null;
+
     public Image imageSprite;
+
     private Item item;
 
     //method for setting up the slots

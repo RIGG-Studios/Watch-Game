@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Inventory : MonoBehaviour
+public class PlayerInventory : MonoBehaviour
 {
     //our inventory needs a list of items to know what items we have
     public List<Item> itemsInInventory = new List<Item>();
@@ -13,7 +13,6 @@ public class Inventory : MonoBehaviour
     //quick references to the database and slot manager.
     public Database database;
     public SlotManager slots;
-
 
     private void Start()
     {
@@ -29,7 +28,7 @@ public class Inventory : MonoBehaviour
 
         //if everything is clear, add the items and also update the slots
         itemsInInventory.Add(item);
-        slots.UpdateSlots(itemsInInventory.ToArray());
+        slots.AddItemToSlot(item);
     }
 
     //method for removing items from our inventory
@@ -41,7 +40,7 @@ public class Inventory : MonoBehaviour
 
         //remove the item from the list, and also call the slots remove item method
         itemsInInventory.Remove(item);
-        slots.RemoveItem(item);
+        slots.RemoveItemFromSlot(item);
     }
 
     //quick method for finding a random item in the inventory list
