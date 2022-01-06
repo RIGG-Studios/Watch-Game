@@ -9,7 +9,7 @@ public class DefaultDragging : MonoBehaviour, IDraggable
     public GameObject GetGameObject() => gameObject;
 
     //Doing nothing
-    public void StartDraggingObject()
+    public void StartDraggingObject(Vector2 mousePosition)
     {
         return;
     }

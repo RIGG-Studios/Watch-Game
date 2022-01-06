@@ -9,7 +9,7 @@ public interface IDraggable
     public void StopDraggingObject();
 
     //Method for what happens when dragging ends
-    public void StartDraggingObject();
+    public void StartDraggingObject(Vector2 mousePosition);
 
     //Method for what happens when the object is being dragged
     public void WhileDragging(Vector2 mousePosition);
