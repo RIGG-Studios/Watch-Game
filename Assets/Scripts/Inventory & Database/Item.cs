@@ -9,6 +9,8 @@ public class Item : ScriptableObject
     public string itemName;
     [TextArea]// text area so the area in the inspector looks nice and big, for the description of the item
     public string itemDescription;
+    //cost of the item
+    public int itemCost;
     //sprite of the item, will show up in the UI store, etc...
     public Sprite itemSprite;
 

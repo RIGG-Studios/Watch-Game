@@ -6,23 +6,27 @@ using UnityEngine;
 public class SlotManager : MonoBehaviour
 {  
     public GameObject slot;
+    public Transform slotGrid;
 
     private List<Slot> slots = new List<Slot>();
 
     //when we intiailize the inventory, also initialize the slots with the size
-    public void InitializeSlots(int size)
+    public void InitializeSlots(int size, Item[] item = null)
     {
         //loop through the size of the inventory
         for (int i = 0; i < size; i++)
         {
             //for every iteration, create a slot and assign its parent as the transform which has a 
             //grid layout on it.
-            GameObject slot = Instantiate(this.slot, transform);
+            GameObject slot = Instantiate(this.slot, slotGrid);
 
             //set the position, scale, and rotation to zero incase there are any mishaps in the vectors/rotations
             slot.transform.localPosition = Vector3.zero;
             slot.transform.localScale = Vector3.one;
             slot.transform.localRotation = Quaternion.identity;
+
+            if (item != null)
+                slot.GetComponent<Slot>().SetupSlot(item[i]);
 
             //finally add it to our slot list.
             slots.Add(slot.GetComponent<Slot>());
