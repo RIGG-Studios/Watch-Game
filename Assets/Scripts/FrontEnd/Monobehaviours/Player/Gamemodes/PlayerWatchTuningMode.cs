@@ -53,7 +53,11 @@ public class PlayerWatchTuningMode : MonoBehaviour, IGamemode
         }
         else
         {
-            currentHand = null;
+            if (currentHand != null)
+            {
+                currentHand.StopDraggingObject();
+                currentHand = null;
+            }
         }
     }
 

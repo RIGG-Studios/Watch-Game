@@ -7,10 +7,14 @@ public class RotateAroundPointDraggingBehaviour : MonoBehaviour, IDraggable
     //Variables that must be set in the inspector
     public Transform rotationPoint;
     public Transform watchHandFront;
-    public float tolorence;
+    public float rotateTolorence;
     public float rotateSpeed;
+    public int angleToWin;
+    public int winTolorence;
 
     bool isMovingleft;
+    bool isMovingLeftLastFrame;
+    float currentRotation;
 
 
     public GameObject GetGameObject() => transform.parent.gameObject;
@@ -22,7 +26,10 @@ public class RotateAroundPointDraggingBehaviour : MonoBehaviour, IDraggable
 
     public void StopDraggingObject()
     {
-        return;
+        if(currentRotation < angleToWin + winTolorence && currentRotation > angleToWin - winTolorence || currentRotation < (-360 + angleToWin) + winTolorence && currentRotation > (-360 + angleToWin) - winTolorence)
+        {
+            Debug.Log("Hand is in the right place");
+        }
     }
 
     public void WhileDragging(Vector2 mousePosition)
@@ -32,9 +39,9 @@ public class RotateAroundPointDraggingBehaviour : MonoBehaviour, IDraggable
         Vector2 rotateToVector = (mousePosition - rotationPointTo2DVector).normalized;
         Vector2 rotateFromVector = (new Vector2(watchHandFront.position.x, watchHandFront.position.y) - rotationPointTo2DVector).normalized;
 
-        float anglebetweenVectors = Mathf.Acos(Vector2.Dot(rotateToVector, rotateFromVector)) * rotateSpeed;
+        float anglebetweenVectors = Vector2.Angle(rotateFromVector, rotateToVector);
 
-        if(rotateToVector.y - tolorence > 0)
+        if (rotateToVector.y - rotateTolorence > 0)
         {
             if(rotateToVector.x - rotateFromVector.x > 0)
             {
@@ -45,7 +52,7 @@ public class RotateAroundPointDraggingBehaviour : MonoBehaviour, IDraggable
                 isMovingleft = true;
             }
         }
-        else if(rotateToVector.y + tolorence < 0)
+        else if(rotateToVector.y + rotateTolorence < 0)
         {
             if (rotateToVector.x - rotateFromVector.x > 0)
             {
@@ -56,14 +63,27 @@ public class RotateAroundPointDraggingBehaviour : MonoBehaviour, IDraggable
                 isMovingleft = false;
             }
         }
+        else
+        {
+            isMovingleft = !isMovingLeftLastFrame;
+        }
 
         if (isMovingleft)
         {
             transform.Rotate(Vector3.forward, anglebetweenVectors);
+            currentRotation -= anglebetweenVectors;
         }
         else if (!isMovingleft)
         {
             transform.Rotate(Vector3.forward, -anglebetweenVectors);
+            currentRotation += anglebetweenVectors;
         }
+
+        if(currentRotation > 360 || currentRotation < -360)
+        {
+            currentRotation = 0;
+        }
+
+        isMovingLeftLastFrame = isMovingleft;
     }
 }
