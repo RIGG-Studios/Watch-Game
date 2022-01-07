@@ -12,8 +12,8 @@ public class DefaultWatchDecorator : MonoBehaviour, IWatch
 
     //Missing part is used to check if the part the player is trying to insert is the part relevant to this layer
     //Destinations denotes which destinations this missing part will be accepted into
-    public GameObject missingPart;
-    public List<Transform> destinations;
+    public GameObject missingPartPrefab;
+    public List<GameObject> destinations;
 
     //Component name is used solely in the GetAllComponentsLeft() as a unique key to identify this part by
     public string componentName;
@@ -21,11 +21,26 @@ public class DefaultWatchDecorator : MonoBehaviour, IWatch
     //Tracks how many destinations the player has inserted a missingPart into
     protected int filledDestinations;
 
+    List<GameObject> instantiatedParts;
+
     public void Awake()
     {
         //Setting some variables
         childWatchPart = transform.GetChild(0).GetComponent<IWatch>();
         insertLogic = GetComponent<IInsertable>();
+        instantiatedParts = new List<GameObject>();
+
+        for(int i = 0; i < destinations.Count; i++)
+        {
+            GameObject watchPartClone = Instantiate(missingPartPrefab, transform.parent);
+            watchPartClone.transform.position = new Vector2(Random.Range(-3, 3), Random.Range(-3, 3));
+            watchPartClone.name = missingPartPrefab.name;
+            instantiatedParts.Add(watchPartClone);
+
+            destinations[i].SetActive(true);
+        }
+
+        transform.GetChild(0).gameObject.SetActive(false);
     }
 
     //Recursive function, returns a dictionary containing the names of all of the parts on the watch and how many unfilled destinations they all have
@@ -61,11 +76,22 @@ public class DefaultWatchDecorator : MonoBehaviour, IWatch
     public virtual void Insert(GameObject insertObject, Transform destination)
     {
         //If the object trying to be inserted is the missingPart and the destination is valid
-        if(insertObject == missingPart && DestinationExists(destination))
+        if(insertObject.name == missingPartPrefab.name && DestinationExists(destination))
         {
             //Then delegate to insertLogic and increment filledDestinations
             insertLogic.Execute(insertObject, destination);
             filledDestinations++;
+
+            if(filledDestinations >= destinations.Count)
+            {
+                for(int i = 0; i < destinations.Count; i++)
+                {
+                    destinations[i].SetActive(false);
+                    instantiatedParts[i].SetActive(false);
+                }
+
+                transform.GetChild(0).gameObject.SetActive(true);
+            }
         }
         else
         {
@@ -83,7 +109,7 @@ public class DefaultWatchDecorator : MonoBehaviour, IWatch
         //If the destination the player provided is in the list of destinations
         for (int i = 0; i < destinations.Count; i++)
         {
-            if (destinations[i] == destination)
+            if (destinations[i] == destination.gameObject)
             {
                 //Then breaks and sets canInsert to true
                 canInsert = true;

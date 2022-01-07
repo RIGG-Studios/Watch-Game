@@ -6,6 +6,8 @@ using UnityEngine;
 //essentially this is the point where downwards delegation stops, every watch needs one of these at the end
 public class WatchEndPart : MonoBehaviour, IWatch
 {
+    public PlayerManager player;
+
     //Inserting logic to tell the watch end what to do when insert is called on it
     IInsertable insertingLogic;
 
@@ -13,6 +15,7 @@ public class WatchEndPart : MonoBehaviour, IWatch
     {
         //Gets inserting logic from its "layer"
         insertingLogic = GetComponent<IInsertable>();
+        player.TransitionGamemode(false);
     }
 
     //Returns the dictionary back when asked, creating a base condition for recursion

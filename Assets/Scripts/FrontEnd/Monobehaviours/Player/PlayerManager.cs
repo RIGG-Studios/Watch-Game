@@ -15,7 +15,9 @@ public class PlayerManager : MonoBehaviour
     InputActions inputActions;
 
     //Current gamemode the player is in
-    IGamemode currentGamemode;
+    public IGamemode currentGamemode;
+
+    public IGamemode[] gameModes;
 
     //Initializing and cleaning up the inputActions
     private void OnEnable() => inputActions.Enable();
@@ -24,9 +26,23 @@ public class PlayerManager : MonoBehaviour
 
     private void Start()
     {
+        gameModes = GetComponents<IGamemode>();
+
         //Setting some variables
-        currentGamemode = GetComponent<IGamemode>();
+        currentGamemode = gameModes[0];
         mainCamera = Camera.main;
+    }
+
+    public void TransitionGamemode(bool backToDefault)
+    {
+        if (!backToDefault)
+        {
+            currentGamemode = gameModes[1];
+        }
+        else
+        {
+            currentGamemode = gameModes[0];
+        }
     }
 
     private void Awake()
