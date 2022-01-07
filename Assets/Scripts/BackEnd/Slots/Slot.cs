@@ -24,6 +24,14 @@ public class Slot : MonoBehaviour
         imageSprite.sprite = null;
     }
 
+    public void ShowcaseItem()
+    {
+        ShopManager shop = FindObjectOfType<ShopManager>();
+
+        if (shop)
+            shop.ShowcaseItem(item);
+    }
+
     //get item is just our item variable up above.
     public Item GetItem() => item;
 }

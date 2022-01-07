@@ -16,6 +16,7 @@ MonoBehaviour:
   itemDescription: 'High damage diamond sword
 
 '
+  itemCost: 500
   itemSprite: {fileID: 21300000, guid: 13dc3c66f92028e46b90c2ca11c6635d, type: 3}
   watchBuildSpeed: 0
   watchBuildStations: 0

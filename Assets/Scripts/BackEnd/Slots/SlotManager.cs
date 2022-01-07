@@ -62,6 +62,18 @@ public class SlotManager : MonoBehaviour
             slot.DeselectSlot();
     }
 
+    public void RemoveSlot(Item item)
+    {
+        Slot slotToRemove = FindSlotFromItem(item);
+
+        //deselect the slot
+        if (slotToRemove != null)
+        {
+            slots.Remove(slotToRemove);
+            Destroy(slotToRemove);
+        }    
+    }
+
     private Slot FindSlotFromItem(Item item)
     {
         //loop DOWN the slots list, so we can find the latest item in the inventory

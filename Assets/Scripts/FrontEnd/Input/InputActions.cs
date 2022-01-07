@@ -41,6 +41,14 @@ public class @InputActions : IInputActionCollection, IDisposable
                     ""expectedControlType"": ""Button"",
                     ""processors"": """",
                     ""interactions"": """"
+                },
+                {
+                    ""name"": ""Escape"",
+                    ""type"": ""Button"",
+                    ""id"": ""d31746c2-ce61-4969-91d4-5067e12076df"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """"
                 }
             ],
             ""bindings"": [
@@ -76,6 +84,17 @@ public class @InputActions : IInputActionCollection, IDisposable
                     ""action"": ""RightClick"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""9a6ce46e-da36-4c69-afb9-ec19c9120e7d"",
+                    ""path"": ""<Keyboard>/escape"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": ""KeyboardAndMouse"",
+                    ""action"": ""Escape"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
                 }
             ]
         }
@@ -104,6 +123,7 @@ public class @InputActions : IInputActionCollection, IDisposable
         m_PCMap_LeftClick = m_PCMap.FindAction("LeftClick", throwIfNotFound: true);
         m_PCMap_MousePosition = m_PCMap.FindAction("MousePosition", throwIfNotFound: true);
         m_PCMap_RightClick = m_PCMap.FindAction("RightClick", throwIfNotFound: true);
+        m_PCMap_Escape = m_PCMap.FindAction("Escape", throwIfNotFound: true);
     }
 
     public void Dispose()
@@ -156,6 +176,7 @@ public class @InputActions : IInputActionCollection, IDisposable
     private readonly InputAction m_PCMap_LeftClick;
     private readonly InputAction m_PCMap_MousePosition;
     private readonly InputAction m_PCMap_RightClick;
+    private readonly InputAction m_PCMap_Escape;
     public struct PCMapActions
     {
         private @InputActions m_Wrapper;
@@ -163,6 +184,7 @@ public class @InputActions : IInputActionCollection, IDisposable
         public InputAction @LeftClick => m_Wrapper.m_PCMap_LeftClick;
         public InputAction @MousePosition => m_Wrapper.m_PCMap_MousePosition;
         public InputAction @RightClick => m_Wrapper.m_PCMap_RightClick;
+        public InputAction @Escape => m_Wrapper.m_PCMap_Escape;
         public InputActionMap Get() { return m_Wrapper.m_PCMap; }
         public void Enable() { Get().Enable(); }
         public void Disable() { Get().Disable(); }
@@ -181,6 +203,9 @@ public class @InputActions : IInputActionCollection, IDisposable
                 @RightClick.started -= m_Wrapper.m_PCMapActionsCallbackInterface.OnRightClick;
                 @RightClick.performed -= m_Wrapper.m_PCMapActionsCallbackInterface.OnRightClick;
                 @RightClick.canceled -= m_Wrapper.m_PCMapActionsCallbackInterface.OnRightClick;
+                @Escape.started -= m_Wrapper.m_PCMapActionsCallbackInterface.OnEscape;
+                @Escape.performed -= m_Wrapper.m_PCMapActionsCallbackInterface.OnEscape;
+                @Escape.canceled -= m_Wrapper.m_PCMapActionsCallbackInterface.OnEscape;
             }
             m_Wrapper.m_PCMapActionsCallbackInterface = instance;
             if (instance != null)
@@ -194,6 +219,9 @@ public class @InputActions : IInputActionCollection, IDisposable
                 @RightClick.started += instance.OnRightClick;
                 @RightClick.performed += instance.OnRightClick;
                 @RightClick.canceled += instance.OnRightClick;
+                @Escape.started += instance.OnEscape;
+                @Escape.performed += instance.OnEscape;
+                @Escape.canceled += instance.OnEscape;
             }
         }
     }
@@ -212,5 +240,6 @@ public class @InputActions : IInputActionCollection, IDisposable
         void OnLeftClick(InputAction.CallbackContext context);
         void OnMousePosition(InputAction.CallbackContext context);
         void OnRightClick(InputAction.CallbackContext context);
+        void OnEscape(InputAction.CallbackContext context);
     }
 }

@@ -5,6 +5,9 @@ using UnityEngine;
 //This class gathers input and delegates to the currentGamemode based on input
 public class PlayerManager : MonoBehaviour
 {
+    //The players money
+    public int playerMoney;
+
     //The player's camera
     Camera mainCamera;
 
@@ -39,5 +42,6 @@ public class PlayerManager : MonoBehaviour
 
         //Whenever the player right clicks
         inputActions.PCMap.RightClick.performed += ctx => currentGamemode.OnRightClick();
+
     }
 }
