@@ -8,6 +8,12 @@ public class PlayerManager : MonoBehaviour
     //The players money
     public int playerMoney;
 
+    //All of the monkeys the player will own, strings do nothing, I'll probably make this a list of interfaces later on
+    public List<string> monkeys;
+
+    //Amount of money the player will get per monkey
+    public int moneyPerMonkey;
+
     //The player's camera
     Camera mainCamera;
 
@@ -27,6 +33,7 @@ public class PlayerManager : MonoBehaviour
     private void Start()
     {
         gameModes = GetComponents<IGamemode>();
+        monkeys = new List<string>();
 
         //Setting some variables
         currentGamemode = gameModes[0];
@@ -59,5 +66,14 @@ public class PlayerManager : MonoBehaviour
         //Whenever the player right clicks
         inputActions.PCMap.RightClick.performed += ctx => currentGamemode.OnRightClick();
 
+    }
+
+    private void Update()
+    {
+        //Loops through the list and gives the player money based on how many monkeys they have
+        for(int i = 0; i < monkeys.Count; i++)
+        {
+            playerMoney += moneyPerMonkey;
+        }
     }
 }

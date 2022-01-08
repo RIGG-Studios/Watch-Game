@@ -1211,6 +1211,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   playerMoney: 0
+  monkeys: []
+  moneyPerMonkey: 1
 --- !u!1 &1206623734
 GameObject:
   m_ObjectHideFlags: 0
