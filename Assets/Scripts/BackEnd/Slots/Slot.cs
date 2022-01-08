@@ -8,6 +8,9 @@ public class Slot : MonoBehaviour
 
     public Image imageSprite;
 
+    public Text cost;
+    public Text name;
+
     private Item item;
 
     //method for setting up the slots
@@ -15,6 +18,12 @@ public class Slot : MonoBehaviour
     {
         this.item = item;
         imageSprite.sprite = item.itemSprite;
+
+        if (cost != null)
+            cost.text = item.itemCost.ToString()+ " Watches";
+
+        if (name != null)
+            name.text = item.itemName;
     }
 
     //method for deselecting our slots

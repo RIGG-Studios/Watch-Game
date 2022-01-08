@@ -10,13 +10,13 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 095dde6411de11c4d97619b92a270eca, type: 3}
-  m_Name: Diamond Sword
+  m_Name: Screwdriver
   m_EditorClassIdentifier: 
-  itemName: Diamond Sword
-  itemDescription: 'High damage diamond sword
+  itemName: Screwdriver
+  itemDescription: 'A screwdriver
 
 '
-  itemCost: 500
-  itemSprite: {fileID: 21300000, guid: 13dc3c66f92028e46b90c2ca11c6635d, type: 3}
+  itemCost: 15
+  itemSprite: {fileID: 21300000, guid: 8fa2115af1f1e0b44afa6430b69e6395, type: 3}
   watchBuildSpeed: 0
-  watchBuildStations: 0
+  watchBuildStations: 4

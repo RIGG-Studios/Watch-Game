@@ -23,15 +23,18 @@ public class ShopInput : MonoBehaviour
 
     private void ToggleShop()
     {
+        if (GameManager.instance.gameState != GameStates.InGame)
+            return;
+
         if (!shopShown)
         {
-            canvas.ShowElementGroup(canvas.FindElementGroupByID("Shop"), GroupTransitionMethods.Animation, false);          
+            canvas.ShowElementGroup(canvas.FindElementGroupByID("ShopGroup"), false);          
             shopShown = true;
         }
         else if (shopShown)
         {
 
-            canvas.HideElementGroup(canvas.FindElementGroupByID("Shop"), GroupTransitionMethods.Animation);
+            canvas.HideElementGroup(canvas.FindElementGroupByID("ShopGroup"));
             shopShown = false;
         }
     }

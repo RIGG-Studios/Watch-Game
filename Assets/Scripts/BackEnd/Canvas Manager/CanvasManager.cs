@@ -2,35 +2,49 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-//different ways to transition UI menus
-public enum GroupTransitionMethods
-{
-    Animation,
-    Fade,
-    None
-}
-
 //this class handles managing of the canvas and ui elements
 public class CanvasManager : EventBase
 {
     //create a list of our ui element groups, since this is the main things we modify
     private UIElementGroup[] allElements;
 
-    private void Start()
+    private void Awake()
     {
         //find the elements
         allElements = FindElements();
 
         //to start, play the hide animation on all elements so they aren't visible.
         foreach (UIElementGroup gr in allElements)
-            gr.PlayAnimation(false);
+            gr.UpdateElements(0, 1, false);
     }
+
+    public override void SceneLoadCallback()
+    {
+        UIElementGroup group = FindElementGroupByID("SceneIntroGroup");
+
+        ShowElementGroup(group, true);
+    }
+
+    public override void StartGameCallback()
+    {
+        UIElementGroup gameGroup = FindElementGroupByID("GameGroup");
+
+        ShowElementGroup(gameGroup, true);
+    }
+
+   
+    public override void EndGameCallback()
+    {
+        UIElementGroup watchBuilt = FindElementGroupByID("WatchCompleteGroup");
+
+        ShowElementGroup(watchBuilt, false);
+    }
+   
 
     private UIElementGroup[] FindElements()
     {
         //find all components that are a UIElementGroup underneath this gameobject
         UIElementGroup[] elements = GetComponentsInChildren<UIElementGroup>();
-
         //return it the array if its length is > 0.
         return elements.Length > 0 ? elements : null;
     }
@@ -51,58 +65,26 @@ public class CanvasManager : EventBase
     }
 
     //method for showing element groups
-    public void ShowElementGroup(UIElementGroup group, GroupTransitionMethods method, bool clearOtherElements)
+    public void ShowElementGroup(UIElementGroup group, bool clearOtherElements)
     {
         //loop through all of our elements
         foreach (UIElementGroup e in allElements)
         {
             //check which method we are using
-            if(method == GroupTransitionMethods.Fade)
+            if (group == e)
             {
-                //check if our group is equal to any of the ones in the list, meaning we found the one
-                if (group == e)
-                {
-                    group.LerpAlpha(1, 1);
-                }
-                else
-                {
-                    //for every other element, do we want to hide it?
-                    if (clearOtherElements)
-                        e.LerpAlpha(0, 1); //if we want to hide it, hide it based on the transition mode.
-                }
+                group.UpdateElements(1, 0.5f, true);
             }
-            else if(method == GroupTransitionMethods.Animation)
+            else
             {
-                //same method as above, but instead of lerping alphas we play an animation.
-                if (group == e)
-                {
-                    group.PlayAnimation(true);
-                }
-                else
-                {
-                    if (clearOtherElements)
-                        e.PlayAnimation(false);
-                }
+                //for every other element, do we want to hide it?
+                if (clearOtherElements)
+                    HideElementGroup(e);
             }
         }
+        
     }
-
 
     //method for hiding specific elements
-    public void HideElementGroup(UIElementGroup group, GroupTransitionMethods method)
-    {
-        //switch the transition type
-        switch (method)
-        {
-            case GroupTransitionMethods.Animation:
-                group.PlayAnimation(false); //play the hide animation on this group
-                break;
-
-            case GroupTransitionMethods.Fade:
-                group.LerpAlpha(0, 1); //lerp the element alpha to 0, over a duration of 1s
-                break;
-        }
-
-
-    }
+    public void HideElementGroup(UIElementGroup group) => group.UpdateElements(0, 1, false);
 }

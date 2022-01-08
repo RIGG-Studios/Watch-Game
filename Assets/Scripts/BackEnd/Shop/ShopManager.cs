@@ -31,7 +31,7 @@ public class ShopManager : MonoBehaviour
 
             //if its sellable, an that item to our shop list
             if (sellable)
-                AddItem(items[i], 1);
+                AddItem(items[i], 100);
         }
 
         //after the shop list has been initialized, initialize the slots for the shop
@@ -69,20 +69,17 @@ public class ShopManager : MonoBehaviour
         //when we select an item, set the selected item to the item
         selectedItem = item;
 
-        //create a variable of our next money
-        int nextMoney = player.playerMoney - selectedItem.itemCost;
-
-        //check if we can buy this item, by checking if our nextMoney is greater than 0
-        if (nextMoney > 0)
+        if (player.CanBuyItem(item.itemCost))
         {
             //find the Buy confirmation UI group in the canvas manager
-            UIElementGroup group = canvas.FindElementGroupByID("Buy_Confirmation_Group");
+            UIElementGroup group = canvas.FindElementGroupByID("BuyConfirmationGroup");
 
             //find a specific element in the group, and overriding its value with the item name
-            group.FindElement("buy_confirmation_item_name").OverrideValue(item.itemName);
+            group.FindElement("buyconfirmationitemname").OverrideValue(item.itemName);
 
             //finally, we must update the canvas.
-            canvas.ShowElementGroup(group, GroupTransitionMethods.Animation, false);
+            canvas.ShowElementGroup(group, false);
+            canvas.ShowElementGroup(group, false);
         }
     }
 
@@ -97,8 +94,8 @@ public class ShopManager : MonoBehaviour
         itemsInShop.TryGetValue(selectedItem, out stock);
 
         //deduct money from our playerMoney.
-        player.playerMoney -= selectedItem.itemCost;
-
+        player.playerWatches -= selectedItem.itemCost;
+        player.AddItem(selectedItem);
         //Remove the item from the shop
         RemoveItem(selectedItem); 
 
@@ -109,6 +106,11 @@ public class ShopManager : MonoBehaviour
         }
 
         //finally we will hide this menu in the canvas manager.
-        canvas.HideElementGroup(canvas.FindElementGroupByID("Buy_Confirmation_Group"), GroupTransitionMethods.Animation);
+        canvas.HideElementGroup(canvas.FindElementGroupByID("BuyConfirmationGroup"));
+    }
+
+    public void ShowShop()
+    {
+       canvas.ShowElementGroup(canvas.FindElementGroupByID("ShopGroup"), false);
     }
 }

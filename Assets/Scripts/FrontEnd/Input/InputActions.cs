@@ -49,6 +49,14 @@ public class @InputActions : IInputActionCollection, IDisposable
                     ""expectedControlType"": ""Button"",
                     ""processors"": """",
                     ""interactions"": """"
+                },
+                {
+                    ""name"": ""Space"",
+                    ""type"": ""Button"",
+                    ""id"": ""5b72d62b-fca3-4ba0-90ee-7bbb039fb5a2"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """"
                 }
             ],
             ""bindings"": [
@@ -95,6 +103,17 @@ public class @InputActions : IInputActionCollection, IDisposable
                     ""action"": ""Escape"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""741f52ce-577b-42f7-b76f-db4ae0915106"",
+                    ""path"": ""<Keyboard>/space"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": ""KeyboardAndMouse"",
+                    ""action"": ""Space"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
                 }
             ]
         }
@@ -124,6 +143,7 @@ public class @InputActions : IInputActionCollection, IDisposable
         m_PCMap_MousePosition = m_PCMap.FindAction("MousePosition", throwIfNotFound: true);
         m_PCMap_RightClick = m_PCMap.FindAction("RightClick", throwIfNotFound: true);
         m_PCMap_Escape = m_PCMap.FindAction("Escape", throwIfNotFound: true);
+        m_PCMap_Space = m_PCMap.FindAction("Space", throwIfNotFound: true);
     }
 
     public void Dispose()
@@ -177,6 +197,7 @@ public class @InputActions : IInputActionCollection, IDisposable
     private readonly InputAction m_PCMap_MousePosition;
     private readonly InputAction m_PCMap_RightClick;
     private readonly InputAction m_PCMap_Escape;
+    private readonly InputAction m_PCMap_Space;
     public struct PCMapActions
     {
         private @InputActions m_Wrapper;
@@ -185,6 +206,7 @@ public class @InputActions : IInputActionCollection, IDisposable
         public InputAction @MousePosition => m_Wrapper.m_PCMap_MousePosition;
         public InputAction @RightClick => m_Wrapper.m_PCMap_RightClick;
         public InputAction @Escape => m_Wrapper.m_PCMap_Escape;
+        public InputAction @Space => m_Wrapper.m_PCMap_Space;
         public InputActionMap Get() { return m_Wrapper.m_PCMap; }
         public void Enable() { Get().Enable(); }
         public void Disable() { Get().Disable(); }
@@ -206,6 +228,9 @@ public class @InputActions : IInputActionCollection, IDisposable
                 @Escape.started -= m_Wrapper.m_PCMapActionsCallbackInterface.OnEscape;
                 @Escape.performed -= m_Wrapper.m_PCMapActionsCallbackInterface.OnEscape;
                 @Escape.canceled -= m_Wrapper.m_PCMapActionsCallbackInterface.OnEscape;
+                @Space.started -= m_Wrapper.m_PCMapActionsCallbackInterface.OnSpace;
+                @Space.performed -= m_Wrapper.m_PCMapActionsCallbackInterface.OnSpace;
+                @Space.canceled -= m_Wrapper.m_PCMapActionsCallbackInterface.OnSpace;
             }
             m_Wrapper.m_PCMapActionsCallbackInterface = instance;
             if (instance != null)
@@ -222,6 +247,9 @@ public class @InputActions : IInputActionCollection, IDisposable
                 @Escape.started += instance.OnEscape;
                 @Escape.performed += instance.OnEscape;
                 @Escape.canceled += instance.OnEscape;
+                @Space.started += instance.OnSpace;
+                @Space.performed += instance.OnSpace;
+                @Space.canceled += instance.OnSpace;
             }
         }
     }
@@ -241,5 +269,6 @@ public class @InputActions : IInputActionCollection, IDisposable
         void OnMousePosition(InputAction.CallbackContext context);
         void OnRightClick(InputAction.CallbackContext context);
         void OnEscape(InputAction.CallbackContext context);
+        void OnSpace(InputAction.CallbackContext context);
     }
 }

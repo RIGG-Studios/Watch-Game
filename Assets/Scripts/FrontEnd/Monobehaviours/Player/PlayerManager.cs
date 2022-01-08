@@ -6,16 +6,20 @@ using UnityEngine;
 public class PlayerManager : MonoBehaviour
 {
     //The players money
-    public int playerMoney;
+    public float playerWatches;
+    public float watchesPerMoney = 0.1f;
 
     //All of the monkeys the player will own, strings do nothing, I'll probably make this a list of interfaces later on
     public List<string> monkeys;
 
     //Amount of money the player will get per monkey
-    public int moneyPerMonkey;
 
     //The player's camera
     Camera mainCamera;
+    GameManager gameManager;
+    CanvasManager canvas;
+    PlayerInventory inventory;
+    MonkeyManager monkeyManager;
 
     //Input actions thingy for the new input system
     InputActions inputActions;
@@ -33,6 +37,10 @@ public class PlayerManager : MonoBehaviour
     private void Start()
     {
         gameModes = GetComponents<IGamemode>();
+        gameManager = FindObjectOfType<GameManager>();
+        inventory = GetComponent<PlayerInventory>();
+        canvas = FindObjectOfType<CanvasManager>();
+        monkeyManager = FindObjectOfType<MonkeyManager>();
         monkeys = new List<string>();
 
         //Setting some variables
@@ -66,14 +74,43 @@ public class PlayerManager : MonoBehaviour
         //Whenever the player right clicks
         inputActions.PCMap.RightClick.performed += ctx => currentGamemode.OnRightClick();
 
+        inputActions.PCMap.Space.performed += ctx => OnSpacePress();
+    }
+
+    private void OnSpacePress()
+    {
+        if (gameManager.gameState != GameStates.PreGame)
+            return;
+
+        gameManager.CallEvent(GameEvents.StartGame);
     }
 
     private void Update()
     {
         //Loops through the list and gives the player money based on how many monkeys they have
-        for(int i = 0; i < monkeys.Count; i++)
+
+        if (monkeys.Count > 0)
         {
-            playerMoney += moneyPerMonkey;
+            for (int i = 0; i < monkeys.Count; i++)
+                playerWatches += watchesPerMoney;
+
+            canvas.FindElementGroupByID("GameGroup").FindElement("watchescounttext").OverrideValue(string.Format("{0} WATCHES BUILT", (int)playerWatches));
         }
+
+    }
+
+    public bool CanBuyItem(int cost) => (playerWatches - cost) >= 0;
+
+    public void AddItem(Item item)
+    {
+        if (item.itemName == "Monkey")
+        {
+            canvas.FindElementGroupByID("GameGroup").FindElement("monkeysboughttext").OverrideValue(string.Format("{0} MONKEYS BOUGHT", monkeys.Count + 1));
+            monkeys.Add(string.Empty);
+
+            monkeyManager.SpawnMonkey();
+        }
+
+        inventory.AddItem(item);
     }
 }

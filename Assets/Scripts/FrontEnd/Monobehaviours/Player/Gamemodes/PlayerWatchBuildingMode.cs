@@ -11,6 +11,7 @@ public class PlayerWatchBuildingMode : MonoBehaviour, IGamemode
 
     //The current camera
     Camera mainCamera;
+    GameManager gameManager;
 
     //Current watch the player is working on
     public Transform currentWatch;
@@ -23,6 +24,7 @@ public class PlayerWatchBuildingMode : MonoBehaviour, IGamemode
     private void Start()
     {
         mainCamera = Camera.main;
+        gameManager = FindObjectOfType<GameManager>();
     }
 
     //When the player moves their mouse, sets the mousePosition to the newMousePosition
@@ -36,8 +38,8 @@ public class PlayerWatchBuildingMode : MonoBehaviour, IGamemode
     //When the player left clicks
     public void OnLeftClick()
     {
-        //If the player clicked on a component
-        if (CheckIfClickedObject())
+        //If the player clicked on a component and check if were currently in game
+        if (CheckIfClickedObject()) 
         {
             //Inverts isDragging, tells us if the player released left click or pressed it
             isDragging = !isDragging;

@@ -5,8 +5,6 @@ using UnityEngine;
 //game states for in game, not sure if states will be necessary when we have events, for now they do nothing
 public enum GameStates
 {
-    MainMenu,
-    Loading,
     PreGame,
     InGame,
     EndGame
@@ -17,28 +15,30 @@ public enum GameEvents
     SceneLoad,
     StartGame,
     EndGame,
-    SceneLeave
+    SceneLeave,
 }
 
 public class GameManager : MonoBehaviour
 {
+    public static GameManager instance { get { return FindObjectOfType<GameManager>(); } }
     //first time in scene event, show staring hud, showcase scene, essentially have a cool transition
     //from the scene load
     public delegate void LoadedSceneDelegate();
-    public static LoadedSceneDelegate SceneLoadEvent;
+    public LoadedSceneDelegate SceneLoadEvent;
     
     //start game event // show and hide ui, enable interactions / watch manager starts with the first layer
     //camera set accordinly, etc...
     public delegate void StartGameDelegate();
-    public static StartGameDelegate StartGameEvent;
+    public StartGameDelegate StartGameEvent;
 
     //game end event // show or hide ui elements/disable player interactions/camera fov?, etc...
     public delegate void EndGameDelegate();
-    public static EndGameDelegate EndGameEvent;
+    public EndGameDelegate EndGameEvent;
 
     //leave scene to main menu/enable fadeaway hud
     public delegate void LeavingSceneDelegate();
-    public static LeavingSceneDelegate SceneLeaveEvent;
+    public LeavingSceneDelegate SceneLeaveEvent;
+
 
     //gameState for places to access, but can't modify
     public GameStates gameState { get; private set; }
@@ -51,14 +51,17 @@ public class GameManager : MonoBehaviour
         {
             case GameEvents.SceneLoad:
                 SceneLoadEvent.Invoke();
+                SetGameState(GameStates.PreGame);
                 break;
 
             case GameEvents.StartGame:
                 StartGameEvent.Invoke();
+                SetGameState(GameStates.InGame);
                 break;
 
             case GameEvents.EndGame:
                 EndGameEvent.Invoke();
+                SetGameState(GameStates.EndGame);
                 break;
 
             case GameEvents.SceneLeave:
@@ -77,4 +80,6 @@ public class GameManager : MonoBehaviour
         //assign the game state to the next state.
         this.gameState = gameState;
     }
+
+    public void StartGame() => CallEvent(GameEvents.StartGame);
 }

@@ -31,10 +31,9 @@ public class RotateAroundPointDraggingBehaviour : MonoBehaviour, IDraggable
     public void StopDraggingObject()
     {
         //If the player places the hand at the right angle plus or minus some tolorence
-        if(currentRotation < angleToWin + winTolorence && currentRotation > angleToWin - winTolorence || currentRotation < (-360 + angleToWin) + winTolorence && currentRotation > (-360 + angleToWin) - winTolorence)
+        if((currentRotation < angleToWin + winTolorence && currentRotation > angleToWin - winTolorence) || (currentRotation < (-360 + angleToWin) + winTolorence && currentRotation > (-360 + angleToWin) - winTolorence))
         {
-            //Then debug.logs for now, later on it'll probably call something on the player
-            Debug.Log("Hand is in the right place");
+            GameManager.instance.CallEvent(GameEvents.EndGame);
         }
     }
 
@@ -103,6 +102,7 @@ public class RotateAroundPointDraggingBehaviour : MonoBehaviour, IDraggable
         if (isMovingCounterClockwise)
         {
             transform.Rotate(Vector3.forward, anglebetweenVectors);
+
             currentRotation -= anglebetweenVectors;
         }
         //Else, rotate the hand clockwise and increase the current angle
@@ -112,8 +112,9 @@ public class RotateAroundPointDraggingBehaviour : MonoBehaviour, IDraggable
             currentRotation += anglebetweenVectors;
         }
 
+
         //If the current angle is greater than 360 or less than -360 then set it to 0
-        if(currentRotation > 360 || currentRotation < -360)
+        if (currentRotation > 360 || currentRotation < -360)
         {
             currentRotation = 0;
         }

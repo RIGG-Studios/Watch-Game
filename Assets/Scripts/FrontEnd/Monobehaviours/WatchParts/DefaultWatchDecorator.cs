@@ -4,7 +4,7 @@ using System.Threading.Tasks;
 using UnityEngine;
 
 //This decorator handles insertion and returning a dictionary of all components in the watch
-public class DefaultWatchDecorator : MonoBehaviour, IWatch
+public class DefaultWatchDecorator : EventBase, IWatch
 {
     //Child watch part to delegate down to and inserting logic to know what to do when the player inserts something
     protected IWatch childWatchPart;
@@ -25,12 +25,12 @@ public class DefaultWatchDecorator : MonoBehaviour, IWatch
 
     public void Awake()
     {
-        //Setting some variables
+        transform.GetChild(0).gameObject.SetActive(false);
         childWatchPart = transform.GetChild(0).GetComponent<IWatch>();
         insertLogic = GetComponent<IInsertable>();
         instantiatedParts = new List<GameObject>();
 
-        for(int i = 0; i < destinations.Count; i++)
+        for (int i = 0; i < destinations.Count; i++)
         {
             GameObject watchPartClone = Instantiate(missingPartPrefab, transform.parent);
             watchPartClone.transform.position = new Vector2(Random.Range(-3, 3), Random.Range(-3, 3));
@@ -42,6 +42,7 @@ public class DefaultWatchDecorator : MonoBehaviour, IWatch
 
         transform.GetChild(0).gameObject.SetActive(false);
     }
+
 
     //Recursive function, returns a dictionary containing the names of all of the parts on the watch and how many unfilled destinations they all have
     public virtual Dictionary<string, int> GetAllComponentsLeft(Dictionary<string, int> suppliedDictionary)
@@ -89,7 +90,6 @@ public class DefaultWatchDecorator : MonoBehaviour, IWatch
                     destinations[i].SetActive(false);
                     instantiatedParts[i].SetActive(false);
                 }
-
                 transform.GetChild(0).gameObject.SetActive(true);
             }
         }

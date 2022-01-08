@@ -1,6 +1,13 @@
 using System.Collections;
 using System.Collections.Generic;
+using UnityEngine.UI;
 using UnityEngine;
+
+public enum UpdateTypes
+{
+    Animation,
+    Fade
+}
 
 //this script handles grouping of different ui elements
 [RequireComponent(typeof(Animator))]
@@ -11,6 +18,10 @@ public class UIElementGroup : MonoBehaviour
 
     //list of elements this group contains
     public UIElement[] elementsInGroup;
+
+    public UpdateTypes hideType;
+
+    bool inShownPlace;
 
     //create a property of our animator
     private Animator animator
@@ -34,19 +45,37 @@ public class UIElementGroup : MonoBehaviour
         return null;
     }
 
-    //method for playing animations
-    public void PlayAnimation(bool show)
+    public void UpdateElements(float targetAlpha, float duration, bool show)
     {
-        if (show)
-            animator.SetTrigger("show");
-        else
-            animator.SetTrigger("hide");
+        switch (hideType)
+        {
+            case UpdateTypes.Animation:
+                PlayAnimation(show);
+                break;
+
+            case UpdateTypes.Fade:
+                StartCoroutine(IELerpAlpha(targetAlpha, duration));
+                break;
+        }
     }
 
-    //method for calling the Lerp Alpha IEnumerator
-    public void LerpAlpha(float targetAlpha, float duration)
+
+    //method for playing animations
+    private void PlayAnimation(bool show)
     {
-        StartCoroutine(IELerpAlpha(targetAlpha, duration));
+        if (show)
+        {
+            animator.SetTrigger("show");
+            inShownPlace = true;
+        }
+        else
+        {
+            if (inShownPlace)
+            {
+                animator.SetTrigger("hide");
+                inShownPlace = false;
+            }
+        }
     }
 
     private IEnumerator IELerpAlpha(float targetAlpha, float duration)
@@ -78,5 +107,34 @@ public class UIElementGroup : MonoBehaviour
 
         if (elements.Length > 0)
             elementsInGroup = elements;
+        else
+        {
+            Text[] texts = GetComponentsInChildren<Text>();
+
+            if (texts.Length > 0)
+            {
+                foreach (Text txt in texts)
+                {
+                    txt.gameObject.AddComponent<TextElement>();
+                    txt.gameObject.GetComponent<TextElement>().Setup();
+                }
+            }
+
+            Image[] images = GetComponentsInChildren<Image>();
+
+            if (images.Length > 0)
+            {
+                foreach (Image img in images)
+                {
+                    img.gameObject.AddComponent<ImageElement>();
+                    img.gameObject.GetComponent<ImageElement>().Setup();
+                }
+            }
+
+            UIElement[] elem = GetComponentsInChildren<UIElement>();
+
+            if (elem.Length > 0)
+                elementsInGroup = elem;
+        }
     } 
 }
