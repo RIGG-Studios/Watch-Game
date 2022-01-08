@@ -78,4 +78,9 @@ public class PlayerWatchTuningMode : MonoBehaviour, IGamemode
 
         return raycastHit;
     }
+
+    public void SetCurrentWatch(Transform currentWatch)
+    {
+        return;
+    }
 }

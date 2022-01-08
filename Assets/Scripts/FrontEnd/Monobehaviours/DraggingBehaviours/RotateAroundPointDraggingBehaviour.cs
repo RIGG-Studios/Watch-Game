@@ -13,6 +13,7 @@ public class RotateAroundPointDraggingBehaviour : MonoBehaviour, IDraggable
     public int angleToWin;
     public int winTolorence;
 
+    PlayerManager player;
     //Variables that are used in hand rotation
     bool isMovingCounterClockwise;
     bool isMovingLeftLastFrame;
@@ -20,6 +21,11 @@ public class RotateAroundPointDraggingBehaviour : MonoBehaviour, IDraggable
 
     //Returns the gameobject
     public GameObject GetGameObject() => transform.parent.gameObject;
+
+    private void Start()
+    {
+        player = GameObject.Find("Player").GetComponent<PlayerManager>();
+    }
 
     //Does nothing
     public void StartDraggingObject(Vector2 mousePosition)
@@ -33,7 +39,7 @@ public class RotateAroundPointDraggingBehaviour : MonoBehaviour, IDraggable
         //If the player places the hand at the right angle plus or minus some tolorence
         if((currentRotation < angleToWin + winTolorence && currentRotation > angleToWin - winTolorence) || (currentRotation < (-360 + angleToWin) + winTolorence && currentRotation > (-360 + angleToWin) - winTolorence))
         {
-            GameManager.instance.CallEvent(GameEvents.EndGame);
+            player.IncrementCorrectWatchHands();
         }
     }
 

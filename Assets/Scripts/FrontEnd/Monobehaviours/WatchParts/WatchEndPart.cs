@@ -6,13 +6,15 @@ using UnityEngine;
 //essentially this is the point where downwards delegation stops, every watch needs one of these at the end
 public class WatchEndPart : MonoBehaviour, IWatch
 {
-    public PlayerManager player;
+    PlayerManager player;
 
     //Inserting logic to tell the watch end what to do when insert is called on it
     IInsertable insertingLogic;
 
     private void Start()
     {
+        player = GameObject.Find("Player").GetComponent<PlayerManager>();
+
         //Gets inserting logic from its "layer"
         insertingLogic = GetComponent<IInsertable>();
         player.TransitionGamemode(false);

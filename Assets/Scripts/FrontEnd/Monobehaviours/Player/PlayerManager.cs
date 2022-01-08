@@ -21,6 +21,8 @@ public class PlayerManager : MonoBehaviour
     PlayerInventory inventory;
     MonkeyManager monkeyManager;
 
+    int correctWatchHands;
+
     //Input actions thingy for the new input system
     InputActions inputActions;
 
@@ -28,6 +30,8 @@ public class PlayerManager : MonoBehaviour
     public IGamemode currentGamemode;
 
     public IGamemode[] gameModes;
+
+    public GameObject prefabWatch;
 
     //Initializing and cleaning up the inputActions
     private void OnEnable() => inputActions.Enable();
@@ -58,6 +62,36 @@ public class PlayerManager : MonoBehaviour
         {
             currentGamemode = gameModes[0];
         }
+    }
+
+    public void IncrementCorrectWatchHands()
+    {
+        correctWatchHands++;
+        if(correctWatchHands >= 2)
+        {
+            GameManager.instance.CallEvent(GameEvents.EndGame);
+        }
+    }
+
+    public void ResetWatch()
+    {
+        TransitionGamemode(true);
+
+        if (GameObject.Find("Watch"))
+        {
+            Destroy(GameObject.Find("Watch"));
+        }
+
+        GameObject watch = Instantiate(prefabWatch, transform.parent);
+
+        watch.name = "Watch";
+
+        for(int i = 0; i < gameModes.Length; i++)
+        {
+            gameModes[i].SetCurrentWatch(watch.transform);
+        }
+
+        correctWatchHands = 0;
     }
 
     private void Awake()

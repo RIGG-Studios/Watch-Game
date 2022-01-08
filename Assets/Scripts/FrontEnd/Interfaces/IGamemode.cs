@@ -13,4 +13,6 @@ public interface IGamemode
 
     //Logic when the mouse is moved
     public void OnMoveMousePosition(Vector2 mousePosition);
+
+    public void SetCurrentWatch(Transform currentWatch);
 }

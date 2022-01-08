@@ -103,4 +103,6 @@ public class PlayerWatchBuildingMode : MonoBehaviour, IGamemode
             currentComponent.WhileDragging(mousePosition);
         }
     }
+
+    public void SetCurrentWatch(Transform newCurrentWatch) => currentWatch = newCurrentWatch;
 }

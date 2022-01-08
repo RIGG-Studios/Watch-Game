@@ -18,4 +18,6 @@ public class PlayerEventManager : EventBase
         player.playerWatches += 1;
         canvas.FindElementGroupByID("GameGroup").FindElement("watchescounttext").OverrideValue(string.Format("{0} WATCHES BUILT", player.playerWatches));
     }
+
+    public override void StartGameCallback() => player.ResetWatch();
 }
