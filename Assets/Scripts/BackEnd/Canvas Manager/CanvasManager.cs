@@ -15,7 +15,7 @@ public class CanvasManager : EventBase
 
         //to start, play the hide animation on all elements so they aren't visible.
         foreach (UIElementGroup gr in allElements)
-            gr.UpdateElements(0, 1, false);
+            gr.UpdateElements(0, 0.25f, false);
     }
 
     public override void SceneLoadCallback()
@@ -73,7 +73,7 @@ public class CanvasManager : EventBase
             //check which method we are using
             if (group == e)
             {
-                group.UpdateElements(1, 0.5f, true);
+                group.UpdateElements(1, 0.25f, true);
             }
             else
             {
@@ -86,5 +86,5 @@ public class CanvasManager : EventBase
     }
 
     //method for hiding specific elements
-    public void HideElementGroup(UIElementGroup group) => group.UpdateElements(0, 1, false);
+    public void HideElementGroup(UIElementGroup group) => group.UpdateElements(0, 0.25f, false);
 }

@@ -9,22 +9,20 @@ public class EventBase : MonoBehaviour, IEventBehaviour
     private void OnEnable()
     {
         //add our base virtual methods to the GameManager delegates.
-        GameManager.instance.SceneLoadEvent += SceneLoadCallback;
-        GameManager.instance.StartGameEvent += StartGameCallback;
-        GameManager.instance.EndGameEvent += EndGameCallback;
-        GameManager.instance.SceneLeaveEvent += SceneLeaveCallback;
+        GameManager.SceneLoadEvent += SceneLoadCallback;
+        GameManager.StartGameEvent += StartGameCallback;
+        GameManager.EndGameEvent += EndGameCallback;
+        GameManager.SceneLeaveEvent += SceneLeaveCallback;
     }
 
     private void OnDisable()
     {
-        if (GameManager.instance == null)
-            return;
 
         //remove our base virtual methods to the GameManager delegates.
-        GameManager.instance.SceneLoadEvent -= SceneLoadCallback;
-        GameManager.instance.StartGameEvent -= StartGameCallback;
-        GameManager.instance.EndGameEvent -= EndGameCallback;
-        GameManager.instance.SceneLeaveEvent -= SceneLeaveCallback;
+        GameManager.SceneLoadEvent -= SceneLoadCallback;
+        GameManager.StartGameEvent -= StartGameCallback;
+        GameManager.EndGameEvent -= EndGameCallback;
+        GameManager.SceneLeaveEvent -= SceneLeaveCallback;
     }
 
     //method for game, methods will override this function adding in unique functionality

@@ -54,7 +54,7 @@ public class UIElementGroup : MonoBehaviour
                 break;
 
             case UpdateTypes.Fade:
-                StartCoroutine(IELerpAlpha(targetAlpha, duration));
+                Fade(targetAlpha, duration);
                 break;
         }
     }
@@ -78,6 +78,17 @@ public class UIElementGroup : MonoBehaviour
         }
     }
 
+    private void Fade(float alpha, float dur)
+    {
+        if (alpha == 1)
+        {
+            for (int i = 0; i < elementsInGroup.Length; i++) //for every element in the group
+                elementsInGroup[i].gameObject.SetActive(true);
+        }
+
+        StartCoroutine(IELerpAlpha(alpha, dur));
+    }
+
     private IEnumerator IELerpAlpha(float targetAlpha, float duration)
     {
         //create a temp time variable
@@ -93,8 +104,19 @@ public class UIElementGroup : MonoBehaviour
                 //cross fade the graphics to the desired alpha, based on the duration
                 elementsInGroup[i].graphics.CrossFadeAlpha(targetAlpha, duration, false);
             }
-
             yield return null;
+        }
+       
+        if(targetAlpha == 0)
+        {
+            for (int i = 0; i < elementsInGroup.Length; i++) //for every element in the group
+                elementsInGroup[i].gameObject.SetActive(false);
+        }
+
+        if (targetAlpha == 1)
+        {
+            for (int i = 0; i < elementsInGroup.Length; i++) //for every element in the group
+                elementsInGroup[i].gameObject.SetActive(true);
         }
     }
 

@@ -7,24 +7,34 @@ public class PlayerManager : MonoBehaviour
 {
     //The players money
     public float playerWatches;
-    public float watchesPerMoney = 0.1f;
+    //the amount of watches monkeys make
+    public float watchesPerMoney = 0.001f;
 
     //All of the monkeys the player will own, strings do nothing, I'll probably make this a list of interfaces later on
     public List<string> monkeys;
 
-    //Amount of money the player will get per monkey
-
     //The player's camera
     Camera mainCamera;
+    //reference to the game manager
     GameManager gameManager;
+    //reference to the canvas manager
     CanvasManager canvas;
+    //reference to the player inventory
     PlayerInventory inventory;
+    //reference to the monkey manager
     MonkeyManager monkeyManager;
+
+
+    //refence to the ui element group watches
+    UIElementGroup watchesGroup;
 
     int correctWatchHands;
 
     //Input actions thingy for the new input system
     InputActions inputActions;
+
+    //current watch
+    GameObject currentWatch;
 
     //Current gamemode the player is in
     public IGamemode currentGamemode;
@@ -50,6 +60,9 @@ public class PlayerManager : MonoBehaviour
         //Setting some variables
         currentGamemode = gameModes[0];
         mainCamera = Camera.main;
+
+        if(canvas != null)
+            watchesGroup = canvas.FindElementGroupByID("GameGroup");
     }
 
     public void TransitionGamemode(bool backToDefault)
@@ -67,9 +80,10 @@ public class PlayerManager : MonoBehaviour
     public void IncrementCorrectWatchHands()
     {
         correctWatchHands++;
+
         if(correctWatchHands >= 2)
         {
-            GameManager.instance.CallEvent(GameEvents.EndGame);
+           gameManager.CallEvent(GameEvents.EndGame);
         }
     }
 
@@ -128,7 +142,7 @@ public class PlayerManager : MonoBehaviour
             for (int i = 0; i < monkeys.Count; i++)
                 playerWatches += watchesPerMoney;
 
-            canvas.FindElementGroupByID("GameGroup").FindElement("watchescounttext").OverrideValue(string.Format("{0} WATCHES BUILT", (int)playerWatches));
+            watchesGroup.FindElement("watchescounttext").OverrideValue(string.Format("{0} WATCHES BUILT", (int)playerWatches));
         }
 
     }
@@ -139,7 +153,7 @@ public class PlayerManager : MonoBehaviour
     {
         if (item.itemName == "Monkey")
         {
-            canvas.FindElementGroupByID("GameGroup").FindElement("monkeysboughttext").OverrideValue(string.Format("{0} MONKEYS BOUGHT", monkeys.Count + 1));
+            watchesGroup.FindElement("monkeysboughttext").OverrideValue(string.Format("{0} MONKEYS BOUGHT", monkeys.Count + 1));
             monkeys.Add(string.Empty);
 
             monkeyManager.SpawnMonkey();

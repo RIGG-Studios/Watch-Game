@@ -20,24 +20,24 @@ public enum GameEvents
 
 public class GameManager : MonoBehaviour
 {
-    public static GameManager instance { get { return FindObjectOfType<GameManager>(); } }
+    
     //first time in scene event, show staring hud, showcase scene, essentially have a cool transition
     //from the scene load
     public delegate void LoadedSceneDelegate();
-    public LoadedSceneDelegate SceneLoadEvent;
+    public static LoadedSceneDelegate SceneLoadEvent;
     
     //start game event // show and hide ui, enable interactions / watch manager starts with the first layer
     //camera set accordinly, etc...
     public delegate void StartGameDelegate();
-    public StartGameDelegate StartGameEvent;
+    public static StartGameDelegate StartGameEvent;
 
     //game end event // show or hide ui elements/disable player interactions/camera fov?, etc...
     public delegate void EndGameDelegate();
-    public EndGameDelegate EndGameEvent;
+    public static EndGameDelegate EndGameEvent;
 
     //leave scene to main menu/enable fadeaway hud
     public delegate void LeavingSceneDelegate();
-    public LeavingSceneDelegate SceneLeaveEvent;
+    public static LeavingSceneDelegate SceneLeaveEvent;
 
 
     //gameState for places to access, but can't modify

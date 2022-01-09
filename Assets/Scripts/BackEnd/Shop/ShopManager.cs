@@ -16,6 +16,7 @@ public class ShopManager : MonoBehaviour
 
     //get reference to the selected item in the shop
     private Item selectedItem;
+    private bool shopShown;
 
     private void Start()
     {
@@ -111,6 +112,18 @@ public class ShopManager : MonoBehaviour
 
     public void ShowShop()
     {
-       canvas.ShowElementGroup(canvas.FindElementGroupByID("ShopGroup"), false);
+
+        UIElementGroup group = canvas.FindElementGroupByID("ShopGroup");
+
+        if (!shopShown)
+        {
+            canvas.ShowElementGroup(group, false);
+            shopShown = !shopShown;
+        }
+        else
+        {
+            canvas.HideElementGroup(group);
+            shopShown = !shopShown;
+        }
     }
 }
