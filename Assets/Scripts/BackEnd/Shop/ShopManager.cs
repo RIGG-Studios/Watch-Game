@@ -100,12 +100,6 @@ public class ShopManager : MonoBehaviour
         //Remove the item from the shop
         RemoveItem(selectedItem); 
 
-        //if our next stock is less then 0, we are out of stock
-        if (stock - 1 < 0)
-        {
-            Debug.Log("Item out of stock!");
-        }
-
         //finally we will hide this menu in the canvas manager.
         canvas.HideElementGroup(canvas.FindElementGroupByID("BuyConfirmationGroup"));
     }

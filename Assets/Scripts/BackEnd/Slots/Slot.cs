@@ -11,6 +11,8 @@ public class Slot : MonoBehaviour
     public Text cost;
     public Text name;
 
+    public Text quantity;
+
     private Item item;
 
     //method for setting up the slots
@@ -20,11 +22,13 @@ public class Slot : MonoBehaviour
         imageSprite.sprite = item.itemSprite;
 
         if (cost != null)
-            cost.text = item.itemCost.ToString()+ " Watches";
+            cost.text = item.itemCost.ToString() + " Watches";
 
         if (name != null)
             name.text = item.itemName;
     }
+
+    public void SetQuantity(string text) => quantity.text = text;
 
     //method for deselecting our slots
     public void DeselectSlot()

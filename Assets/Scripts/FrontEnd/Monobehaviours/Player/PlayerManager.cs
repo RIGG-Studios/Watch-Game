@@ -27,6 +27,7 @@ public class PlayerManager : MonoBehaviour
 
     //refence to the ui element group watches
     UIElementGroup watchesGroup;
+    UIElement watchesCountText;
 
     int correctWatchHands;
 
@@ -63,6 +64,8 @@ public class PlayerManager : MonoBehaviour
 
         if(canvas != null)
             watchesGroup = canvas.FindElementGroupByID("GameGroup");
+
+        watchesCountText = watchesGroup.FindElement("watchesitemquantity");
     }
 
     public void TransitionGamemode(bool backToDefault)
@@ -142,7 +145,7 @@ public class PlayerManager : MonoBehaviour
             for (int i = 0; i < monkeys.Count; i++)
                 playerWatches += watchesPerMoney;
 
-            watchesGroup.FindElement("watchescounttext").OverrideValue(string.Format("{0} WATCHES BUILT", (int)playerWatches));
+            watchesCountText.OverrideValue(string.Format("{0} WATCHES BUILT", (int)playerWatches));
         }
 
     }
@@ -153,12 +156,12 @@ public class PlayerManager : MonoBehaviour
     {
         if (item.itemName == "Monkey")
         {
-            watchesGroup.FindElement("monkeysboughttext").OverrideValue(string.Format("{0} MONKEYS BOUGHT", monkeys.Count + 1));
+            watchesGroup.FindElement("monkeyitemquantity").OverrideValue(string.Format("{0} MONKEYS BOUGHT", monkeys.Count + 1));
             monkeys.Add(string.Empty);
 
             monkeyManager.SpawnMonkey();
         }
 
-        inventory.AddItem(item);
+        inventory.AddItem(item, 1);
     }
 }

@@ -5,7 +5,7 @@ using UnityEngine;
 public class PlayerInventory : MonoBehaviour
 {
     //our inventory needs a list of items to know what items we have
-    public List<Item> itemsInInventory = new List<Item>();
+    public Dictionary<Item, int> inventory = new Dictionary<Item, int>();
 
     //size of our inventory
     [Range(3, 10)] public int inventorySize;
@@ -20,35 +20,45 @@ public class PlayerInventory : MonoBehaviour
     }
 
     //method for adding items to our inventory
-    public void AddItem(Item item)
+    public void AddItem(Item item, int amount = 1)
     {
         //when we add an item, check for a bunch of conditions to make sure we can add the item without errors
-        if (item == null && database.HasItem(item.itemName) || itemsInInventory.Count - 1 > inventorySize)
+        if (item == null && database.HasItem(item.itemName) || inventory.Count - 1 > inventorySize)
             return;
 
+        if (inventory.ContainsKey(item))
+        {
+            inventory[item] += amount;
+            slots.FindSlotFromItem(item).SetQuantity("x" + inventory[item]);
+            return;
+        }
+
         //if everything is clear, add the items and also update the slots
-        itemsInInventory.Add(item);
+        inventory.Add(item, amount);
         slots.AddItemToSlot(item);
     }
 
+
     //method for removing items from our inventory
-    public void RemoveItem(Item item)
+    public void RemoveItem(Item item, int amount)
     {
         //check if the item is null, which will result in an error if the method went ahead.
         if (item == null)
             return;
 
+        if (inventory.ContainsKey(item))
+        {
+            inventory[item] -= amount;
+        }
+
         //remove the item from the list, and also call the slots remove item method
-        itemsInInventory.Remove(item);
-        slots.RemoveItemFromSlot(item);
+        if (inventory[item] <= 0)
+        {
+            inventory.Remove(item);
+            slots.RemoveItemFromSlot(item);
+        }
     }
+
 
     //quick method for finding a random item in the inventory list
-    private Item FindRandomItem()
-    {
-        if (itemsInInventory.Count <= 0)
-            return null;
-
-        return itemsInInventory[Random.Range(0, itemsInInventory.Count)];
-    }
 }

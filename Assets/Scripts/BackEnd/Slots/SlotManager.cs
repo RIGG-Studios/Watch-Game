@@ -74,7 +74,7 @@ public class SlotManager : MonoBehaviour
         }    
     }
 
-    private Slot FindSlotFromItem(Item item)
+    public Slot FindSlotFromItem(Item item)
     {
         //loop DOWN the slots list, so we can find the latest item in the inventory
         for (int i = slots.Count - 1; i >= 0; i--)

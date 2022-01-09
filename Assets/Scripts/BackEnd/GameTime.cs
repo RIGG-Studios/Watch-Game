@@ -4,33 +4,57 @@ using UnityEngine;
 
 public class GameTime : EventBase
 {
-    [Range(0, 10)] private float timeSpeed = 1f;
+    public Gradient timeTextGradient;
+    [Range(0, 10)] public float timeSpeed = 1f;
+    [Range(0, 500)] public float startMinute;
+    
 
     CanvasManager canvas;
     float currentTime;
     bool countTime = true;
+    bool playedPulseAnim;
 
     UIElementGroup gameTime;
+    UIElement gameTimerElement;
 
     private void Start()
     {
+        currentTime = startMinute * 60;
         canvas = FindObjectOfType<CanvasManager>();
+
+        gameTime = canvas.FindElementGroupByID("GameGroup");
+        gameTimerElement = gameTime.FindElement("gametimer");
     }
 
     private void Update()
     {
         if (countTime)
         {
-            currentTime += Time.deltaTime;
+            currentTime -= Time.deltaTime;
 
             int min = Mathf.FloorToInt(currentTime / 60);
             int sec = Mathf.FloorToInt(currentTime % 60);
 
-            if (gameTime == null)
-                gameTime = canvas.FindElementGroupByID("GameGroup");
+            gameTimerElement.OverrideValue(min.ToString("00") + ":" + sec.ToString("00"));
 
-            gameTime.FindElement("gametimer").OverrideValue(min.ToString("00") + ":" + sec.ToString("00"));
+            if (currentTime < 15)
+            {
+                gameTimerElement.OverrideColor(timeTextGradient.Evaluate(currentTime / 15f));
+            }
+
+            if (currentTime < 10)
+            {
+                if (!playedPulseAnim)
+                {
+                    gameTimerElement.PlayAnimation("pulse");
+                    playedPulseAnim = true;
+                }
+            }
+
+            if(currentTime <= 0)
+                gameTimerElement.OverrideValue("00:00");
         }
+
     }
 
     public void ResetTime(float currentTime) => this.currentTime = currentTime;

@@ -19,6 +19,15 @@ public class UIElement : MonoBehaviour
 
     //method for overriding data of ui elements, eg texts data will be a string, while an image data will be a sprite.
     public virtual void OverrideValue(object message) { }
+    public virtual void OverrideColor(Color color) => graphics.color = color;
+
+    public virtual void PlayAnimation(string name)
+    {
+        Animator animator = GetComponent<Animator>();
+
+        if (animator != null)
+            animator.SetTrigger(name);
+    }
 
     //method for assigning the id and graphics easily through custom editors
     public void Setup()

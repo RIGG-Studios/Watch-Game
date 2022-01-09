@@ -70,11 +70,8 @@ public class UIElementGroup : MonoBehaviour
         }
         else
         {
-            if (inShownPlace)
-            {
-                animator.SetTrigger("hide");
-                inShownPlace = false;
-            }
+            animator.SetTrigger("hide");
+
         }
     }
 
