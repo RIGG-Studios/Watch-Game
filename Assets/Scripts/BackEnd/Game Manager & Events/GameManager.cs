@@ -13,9 +13,16 @@ public enum GameStates
 public enum GameEvents
 {
     SceneLoad,
-    StartGame,
-    EndGame,
+    GameLoad,
+    WatchBuildStart,
+    WatchBuildEnd,
     SceneLeave,
+}
+
+public enum WatchTypes
+{
+    Normal,
+    Special
 }
 
 public class GameManager : MonoBehaviour
@@ -25,15 +32,15 @@ public class GameManager : MonoBehaviour
     //from the scene load
     public delegate void LoadedSceneDelegate();
     public static LoadedSceneDelegate SceneLoadEvent;
-    
-    //start game event // show and hide ui, enable interactions / watch manager starts with the first layer
-    //camera set accordinly, etc...
-    public delegate void StartGameDelegate();
-    public static StartGameDelegate StartGameEvent;
 
-    //game end event // show or hide ui elements/disable player interactions/camera fov?, etc...
-    public delegate void EndGameDelegate();
-    public static EndGameDelegate EndGameEvent;
+    public delegate void LoadedGameDelegate();
+    public static LoadedGameDelegate GameLoadEvent;
+
+    public delegate void WatchBuildStartDelegate(WatchTypes type);
+    public static WatchBuildStartDelegate WatchBuildStartEvent;
+
+    public delegate void WatchBuildEndDelegate();
+    public static WatchBuildEndDelegate WatchBuildEndEvent;
 
     //leave scene to main menu/enable fadeaway hud
     public delegate void LeavingSceneDelegate();
@@ -44,31 +51,6 @@ public class GameManager : MonoBehaviour
     public GameStates gameState { get; private set; }
 
     //this method should be called whenever the game wants to call a new event, more events should be implented but 4 will provide a good prototype for us.
-    public void CallEvent(GameEvents type)
-    {
-        //simply switch the type, getting the type and invoking the correct event
-        switch (type)
-        {
-            case GameEvents.SceneLoad:
-                SceneLoadEvent.Invoke();
-                SetGameState(GameStates.PreGame);
-                break;
-
-            case GameEvents.StartGame:
-                StartGameEvent.Invoke();
-                SetGameState(GameStates.InGame);
-                break;
-
-            case GameEvents.EndGame:
-                EndGameEvent.Invoke();
-                SetGameState(GameStates.EndGame);
-                break;
-
-            case GameEvents.SceneLeave:
-                SceneLeaveEvent.Invoke();
-                break;
-        }
-    }
 
     //method for setting our game state
     public void SetGameState(GameStates gameState)
@@ -81,5 +63,5 @@ public class GameManager : MonoBehaviour
         this.gameState = gameState;
     }
 
-    public void StartGame() => CallEvent(GameEvents.StartGame);
+    public void StartGame() => GameLoadEvent.Invoke();
 }

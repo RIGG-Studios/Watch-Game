@@ -13,11 +13,11 @@ public class PlayerEventManager : EventBase
         player = GetComponent<PlayerManager>();
     }
 
-    public override void EndGameCallback()
+    public override void WatchBuildEndCallback()
     {
         player.playerWatches += 1;
         canvas.FindElementGroupByID("GameGroup").FindElement("watchesitemquantity").OverrideValue("x" + player.playerWatches);
     }
 
-    public override void StartGameCallback() => player.ResetWatch();
+    public override void WatchBuildStartCallback(WatchTypes type) => player.ResetWatch();
 }

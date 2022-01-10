@@ -23,6 +23,8 @@ public class PlayerManager : MonoBehaviour
     PlayerInventory inventory;
     //reference to the monkey manager
     MonkeyManager monkeyManager;
+    //reference to the watch manager
+    PlayerWatchManager watchManager;
 
 
     //refence to the ui element group watches
@@ -56,6 +58,7 @@ public class PlayerManager : MonoBehaviour
         inventory = GetComponent<PlayerInventory>();
         canvas = FindObjectOfType<CanvasManager>();
         monkeyManager = FindObjectOfType<MonkeyManager>();
+        watchManager = GetComponent<PlayerWatchManager>();
         monkeys = new List<string>();
 
         //Setting some variables
@@ -86,7 +89,7 @@ public class PlayerManager : MonoBehaviour
 
         if(correctWatchHands >= 2)
         {
-           gameManager.CallEvent(GameEvents.EndGame);
+           GameManager.WatchBuildEndEvent.Invoke();
         }
     }
 
@@ -94,14 +97,7 @@ public class PlayerManager : MonoBehaviour
     {
         TransitionGamemode(true);
 
-        if (GameObject.Find("Watch"))
-        {
-            Destroy(GameObject.Find("Watch"));
-        }
-
-        GameObject watch = Instantiate(prefabWatch, transform.parent);
-
-        watch.name = "Watch";
+        GameObject watch = watchManager.CreateNewWatch();
 
         for(int i = 0; i < gameModes.Length; i++)
         {
@@ -133,7 +129,7 @@ public class PlayerManager : MonoBehaviour
         if (gameManager.gameState != GameStates.PreGame)
             return;
 
-        gameManager.CallEvent(GameEvents.StartGame);
+        GameManager.GameLoadEvent.Invoke();
     }
 
     private void Update()

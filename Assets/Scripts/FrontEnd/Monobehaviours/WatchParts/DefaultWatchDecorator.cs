@@ -3,7 +3,6 @@ using System.Collections.Generic;
 using System.Threading.Tasks;
 using UnityEngine;
 
-//This decorator handles insertion and returning a dictionary of all components in the watch
 public class DefaultWatchDecorator : EventBase, IWatch
 {
     //Child watch part to delegate down to and inserting logic to know what to do when the player inserts something
@@ -33,7 +32,8 @@ public class DefaultWatchDecorator : EventBase, IWatch
         for (int i = 0; i < destinations.Count; i++)
         {
             GameObject watchPartClone = Instantiate(missingPartPrefab, transform.parent);
-            watchPartClone.transform.position = new Vector2(Random.Range(-3, 3), Random.Range(-3, 3));
+            watchPartClone.transform.position = new Vector2(Random.Range(-3f, -5f), Random.Range(-3, 3));
+            watchPartClone.transform.localScale = destinations[i].transform.localScale;
             watchPartClone.name = missingPartPrefab.name;
             instantiatedParts.Add(watchPartClone);
 
@@ -76,16 +76,30 @@ public class DefaultWatchDecorator : EventBase, IWatch
     //Insert method, handles inserting behaviour
     public virtual void Insert(GameObject insertObject, Transform destination)
     {
+        float dist = (insertObject.transform.position - destination.position).magnitude;
+
+        if (dist > 1.006f)
+        {
+            Debug.Log("Part misplaced, restarting layer!");
+            return;
+        }
+
+        if (insertObject.transform.localScale != destination.localScale)
+        {
+            Debug.Log("part misplaced, restarting layer!");
+            return;
+        }
+
         //If the object trying to be inserted is the missingPart and the destination is valid
-        if(insertObject.name == missingPartPrefab.name && DestinationExists(destination))
+        if (insertObject.name == missingPartPrefab.name && DestinationExists(destination))
         {
             //Then delegate to insertLogic and increment filledDestinations
             insertLogic.Execute(insertObject, destination);
             filledDestinations++;
 
-            if(filledDestinations >= destinations.Count)
+            if (filledDestinations >= destinations.Count)
             {
-                for(int i = 0; i < destinations.Count; i++)
+                for (int i = 0; i < destinations.Count; i++)
                 {
                     destinations[i].SetActive(false);
                     instantiatedParts[i].SetActive(false);

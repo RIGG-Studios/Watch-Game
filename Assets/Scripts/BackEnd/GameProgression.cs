@@ -3,15 +3,16 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class GameProgression : MonoBehaviour
+public class GameProgression : EventBase
 {
-    GameManager gameManager;
-
     private void Start()
     {
-        gameManager = FindObjectOfType<GameManager>();
+        GameManager.SceneLoadEvent.Invoke();
+    }
 
-        if (gameManager != null)
-            gameManager.CallEvent(GameEvents.SceneLoad);
+    public override void GameLoadCallback()
+    {
+        Debug.Log("hi");
+        GameManager.WatchBuildStartEvent.Invoke(WatchTypes.Normal);
     }
 }

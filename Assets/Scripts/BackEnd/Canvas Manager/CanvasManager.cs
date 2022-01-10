@@ -25,15 +25,15 @@ public class CanvasManager : EventBase
         ShowElementGroup(group, true);
     }
 
-    public override void StartGameCallback()
+    public override void GameLoadCallback()
     {
         UIElementGroup gameGroup = FindElementGroupByID("GameGroup");
 
         ShowElementGroup(gameGroup, true);
     }
 
-   
-    public override void EndGameCallback()
+
+    public override void WatchBuildEndCallback()
     {
         UIElementGroup watchBuilt = FindElementGroupByID("WatchCompleteGroup");
 
