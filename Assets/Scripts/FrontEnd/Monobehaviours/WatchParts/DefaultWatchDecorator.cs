@@ -21,10 +21,9 @@ public class DefaultWatchDecorator : EventBase, IWatch
 
     List<GameObject> instantiatedParts;
 
-    public void Awake()
+    public void Start()
     {
-        transform.GetChild(0).gameObject.SetActive(false);
-        childWatchPart = transform.GetChild(0).GetComponent<IWatch>();
+        childWatchPart = transform.GetComponentsInChildren<IWatch>()[1];
         insertLogic = GetComponent<IInsertable>();
         instantiatedParts = new List<GameObject>();
 
@@ -39,7 +38,7 @@ public class DefaultWatchDecorator : EventBase, IWatch
             destinations[i].SetActive(true);
         }
 
-        transform.GetChild(0).gameObject.SetActive(false);
+        childWatchPart.GetGameObject().SetActive(false);
     }
 
 
@@ -79,10 +78,11 @@ public class DefaultWatchDecorator : EventBase, IWatch
         float dist = (insertObject.transform.position - destination.position).magnitude;
 
         //check if its higher than a very smaller than threshold, meaning its off place from where its supposed to be
-        if (dist > 1.006f)
+        if (dist > 5.106f)
         {
             //for now, simply log that its happening and return the function
             Debug.Log("Part misplaced, restarting layer!");
+            Debug.Log(dist);
             return;
         }
 
@@ -90,7 +90,7 @@ public class DefaultWatchDecorator : EventBase, IWatch
         if (insertObject.transform.GetChild(0).transform.localScale != destination.localScale)
         {
             //for now, simply log that its happening and return the function
-            Debug.Log("part misplaced, restarting layer!");
+            Debug.Log("part doesn't fit in destination, restarting layer!");
             return;
         }
 
@@ -107,7 +107,7 @@ public class DefaultWatchDecorator : EventBase, IWatch
                 //call the animator to set the trigger, very roughly, will need to be touched upon later
                 insertObject.GetComponentInChildren<Animator>().SetTrigger("rotate");
                 //disable the destination 
-                destination.GetComponent<SpriteRenderer>().enabled = false;
+                //destination.GetComponent<SpriteRenderer>().enabled = false;
             }
 
             if (filledDestinations >= destinations.Count)
@@ -118,27 +118,28 @@ public class DefaultWatchDecorator : EventBase, IWatch
 
                 //So yea, anything with animations/Gears and stuff may need to be touched upon when Bilal works on the randomized
                 //preset watches. I just wanted to see it working for now - Liam :)
-                if (componentName == "MedGears")
-                {
+                //if (componentName == "MedGears")
+                //{
                     //get the big gears watch on the parent since were on the medium gears layer
-                    DefaultWatchDecorator bigGearsWatch = transform.parent.GetComponent<DefaultWatchDecorator>();
+                    //DefaultWatchDecorator bigGearsWatch = transform.parent.GetComponent<DefaultWatchDecorator>();
 
                     //loop through its destinations
-                    for(int i =0; i < bigGearsWatch.destinations.Count; i++)
-                    {
+                    //for(int i =0; i < bigGearsWatch.destinations.Count; i++)
+                    //{
                         //set the instiatiated parts to false
-                        bigGearsWatch.instantiatedParts[i].SetActive(false);
-                    }
-                }
+                        //bigGearsWatch.instantiatedParts[i].SetActive(false);
+                    //}
+                //}
                 for (int i = 0; i < destinations.Count; i++)
                 {
                     destinations[i].SetActive(false);
 
                     //if this is a gear layer, allow the gears to stay active
-                    if (componentName != "BigGears")
-                        instantiatedParts[i].SetActive(false);   
+                    //if (componentName != "BigGears")
+                        //instantiatedParts[i].SetActive(false);   
                 }
-                transform.GetChild(0).gameObject.SetActive(true);
+
+                childWatchPart.GetGameObject().SetActive(true);
             }
         }
         else
@@ -168,4 +169,6 @@ public class DefaultWatchDecorator : EventBase, IWatch
         //Returns canInsert
         return canInsert;
     }
+
+    public GameObject GetGameObject() => gameObject;
 }

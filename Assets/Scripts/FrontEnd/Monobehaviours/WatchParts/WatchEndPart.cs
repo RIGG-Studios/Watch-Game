@@ -28,4 +28,6 @@ public class WatchEndPart : MonoBehaviour, IWatch
 
     //This one's insert method maps 1:1 with its inserting logic's Execute method
     public void Insert(GameObject insertObject, Transform destination) => insertingLogic.Execute(insertObject, destination);
+
+    public GameObject GetGameObject() => gameObject;
 }

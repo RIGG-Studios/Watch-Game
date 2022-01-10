@@ -10,4 +10,6 @@ public interface IWatch
 
     //Insert method, will likely map 1:1 with an IInsertable's Execute() method, but might do checks before
     public void Insert(GameObject part, Transform destination);
+
+    public GameObject GetGameObject();
 }

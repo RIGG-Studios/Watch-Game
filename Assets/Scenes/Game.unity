@@ -511,11 +511,11 @@ GameObject:
   m_Component:
   - component: {fileID: 1163207779}
   - component: {fileID: 1163207782}
+  - component: {fileID: 1163207785}
   - component: {fileID: 1163207780}
   - component: {fileID: 1163207781}
   - component: {fileID: 1163207783}
   - component: {fileID: 1163207784}
-  - component: {fileID: 1163207785}
   m_Layer: 0
   m_Name: Player
   m_TagString: Untagged
@@ -627,6 +627,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   watchPrefab: {fileID: 2785903086750189985, guid: 5b67790fabb92cc4fbd174755ce14a99, type: 3}
+  watchTemplate: {fileID: 6756786269519537042, guid: 1af975ed776f3814ab5f2db80f5150bd, type: 3}
+  watchEndPart: {fileID: 6681838029515661374, guid: 3d362533c54b074448c96d06c20cf3d9, type: 3}
 --- !u!114 &1514323321 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 5799674060475641819, guid: 109eb43ab4b5d7e41a826f59c1c299b0, type: 3}

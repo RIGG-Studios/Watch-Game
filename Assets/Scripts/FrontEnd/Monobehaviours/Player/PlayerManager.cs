@@ -41,8 +41,6 @@ public class PlayerManager : MonoBehaviour
 
     public IGamemode[] gameModes;
 
-    public GameObject prefabWatch;
-
     //Initializing and cleaning up the inputActions
     private void OnEnable() => inputActions.Enable();
 
