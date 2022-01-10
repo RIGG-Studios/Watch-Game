@@ -429,12 +429,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7cb20968aceeed44896e1ba3e026e8eb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  missingPartPrefab: {fileID: 8648137316525755810, guid: a01d57f8f8948a044bd903dfd1bab211, type: 3}
+  missingPartPrefab: {fileID: 5556070376452143294, guid: a01d57f8f8948a044bd903dfd1bab211, type: 3}
   destinations:
   - {fileID: 2785903086259579348}
   - {fileID: 2785903085930328105}
   - {fileID: 5683646975085293695}
-  componentName: Fiddlydiddly
+  componentName: BigGears
 --- !u!114 &2785903085858247690
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -970,13 +970,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7cb20968aceeed44896e1ba3e026e8eb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  missingPartPrefab: {fileID: 2830177793075947673, guid: 54bb8df418f611f4b82a90cca9763879, type: 3}
+  missingPartPrefab: {fileID: 5056342430502847650, guid: 2f22275b7d48cde4ebeab54fb3950683, type: 3}
   destinations:
   - {fileID: 2785903086324692286}
   - {fileID: 6290113350354179489}
   - {fileID: 5653670071228030978}
   - {fileID: 9149313600504963477}
-  componentName: Spiddlyspoogly
+  componentName: MedGears
 --- !u!114 &2785903086535354949
 MonoBehaviour:
   m_ObjectHideFlags: 0

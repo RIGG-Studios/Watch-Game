@@ -2,7 +2,6 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 using UnityEngine;
-
 public class DefaultWatchDecorator : EventBase, IWatch
 {
     //Child watch part to delegate down to and inserting logic to know what to do when the player inserts something
@@ -33,7 +32,7 @@ public class DefaultWatchDecorator : EventBase, IWatch
         {
             GameObject watchPartClone = Instantiate(missingPartPrefab, transform.parent);
             watchPartClone.transform.position = new Vector2(Random.Range(-3f, -5f), Random.Range(-3, 3));
-            watchPartClone.transform.localScale = destinations[i].transform.localScale;
+            watchPartClone.transform.GetChild(0).transform.localScale = destinations[i].transform.localScale;
             watchPartClone.name = missingPartPrefab.name;
             instantiatedParts.Add(watchPartClone);
 
@@ -76,16 +75,21 @@ public class DefaultWatchDecorator : EventBase, IWatch
     //Insert method, handles inserting behaviour
     public virtual void Insert(GameObject insertObject, Transform destination)
     {
+        //get the distance between the destination and the inserted object
         float dist = (insertObject.transform.position - destination.position).magnitude;
 
+        //check if its higher than a very smaller than threshold, meaning its off place from where its supposed to be
         if (dist > 1.006f)
         {
+            //for now, simply log that its happening and return the function
             Debug.Log("Part misplaced, restarting layer!");
             return;
         }
 
-        if (insertObject.transform.localScale != destination.localScale)
+        //check if the scale of the inserted object is not equal to the destination, or if the pieces dont fit in size
+        if (insertObject.transform.GetChild(0).transform.localScale != destination.localScale)
         {
+            //for now, simply log that its happening and return the function
             Debug.Log("part misplaced, restarting layer!");
             return;
         }
@@ -97,12 +101,42 @@ public class DefaultWatchDecorator : EventBase, IWatch
             insertLogic.Execute(insertObject, destination);
             filledDestinations++;
 
+            //check if the layer is a gear layer, so we can animate it when we insert it
+            if (componentName == "BigGears" || componentName == "MedGears")
+            {
+                //call the animator to set the trigger, very roughly, will need to be touched upon later
+                insertObject.GetComponentInChildren<Animator>().SetTrigger("rotate");
+                //disable the destination 
+                destination.GetComponent<SpriteRenderer>().enabled = false;
+            }
+
             if (filledDestinations >= destinations.Count)
             {
+                //check if the component is a medium gear
+                //this section will probably need to be removed, I just wanted the game to be bugfree as of now (2:22am)
+                //and am tired and want to see the animations work with smooth transitions
+
+                //So yea, anything with animations/Gears and stuff may need to be touched upon when Bilal works on the randomized
+                //preset watches. I just wanted to see it working for now - Liam :)
+                if (componentName == "MedGears")
+                {
+                    //get the big gears watch on the parent since were on the medium gears layer
+                    DefaultWatchDecorator bigGearsWatch = transform.parent.GetComponent<DefaultWatchDecorator>();
+
+                    //loop through its destinations
+                    for(int i =0; i < bigGearsWatch.destinations.Count; i++)
+                    {
+                        //set the instiatiated parts to false
+                        bigGearsWatch.instantiatedParts[i].SetActive(false);
+                    }
+                }
                 for (int i = 0; i < destinations.Count; i++)
                 {
                     destinations[i].SetActive(false);
-                    instantiatedParts[i].SetActive(false);
+
+                    //if this is a gear layer, allow the gears to stay active
+                    if (componentName != "BigGears")
+                        instantiatedParts[i].SetActive(false);   
                 }
                 transform.GetChild(0).gameObject.SetActive(true);
             }

@@ -11,7 +11,7 @@ public class PlayerManager : MonoBehaviour
     public float watchesPerMoney = 0.001f;
 
     //All of the monkeys the player will own, strings do nothing, I'll probably make this a list of interfaces later on
-    public List<string> monkeys;
+    [HideInInspector] public List<string> monkeys;
 
     //The player's camera
     Camera mainCamera;
@@ -35,9 +35,6 @@ public class PlayerManager : MonoBehaviour
 
     //Input actions thingy for the new input system
     InputActions inputActions;
-
-    //current watch
-    GameObject currentWatch;
 
     //Current gamemode the player is in
     public IGamemode currentGamemode;
@@ -97,6 +94,7 @@ public class PlayerManager : MonoBehaviour
     {
         TransitionGamemode(true);
 
+        //call the watch manager to create a new watch
         GameObject watch = watchManager.CreateNewWatch();
 
         for(int i = 0; i < gameModes.Length; i++)
