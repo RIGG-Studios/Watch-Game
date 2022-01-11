@@ -5,6 +5,7 @@ using UnityEngine;
 //Default dragging behaviour, the object follows the mouse when dragged
 public class DefaultDragging : MonoBehaviour, IDraggable
 {
+    public bool drag = true;
     //Supplying the method with the transform
     public GameObject GetGameObject() => gameObject;
 
@@ -23,6 +24,9 @@ public class DefaultDragging : MonoBehaviour, IDraggable
     //Making the object follow the mouse position
     public void WhileDragging(Vector2 position)
     {
+        if (!drag)
+            return;
+
         transform.position = position;
     }
 }

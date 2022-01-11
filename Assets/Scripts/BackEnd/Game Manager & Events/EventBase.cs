@@ -14,6 +14,7 @@ public class EventBase : MonoBehaviour
         GameManager.WatchBuildEndEvent += WatchBuildEndCallback;
         GameManager.GameLoadEvent += GameLoadCallback;
         GameManager.SceneLeaveEvent += SceneLeaveCallback;
+        GameManager.WatchBuildLayerCompleteEvent += LayerCompleteCallback;
     }
 
     private void OnDisable()
@@ -25,6 +26,7 @@ public class EventBase : MonoBehaviour
         GameManager.WatchBuildEndEvent -= WatchBuildEndCallback;
         GameManager.GameLoadEvent -= GameLoadCallback;
         GameManager.SceneLeaveEvent -= SceneLeaveCallback;
+        GameManager.WatchBuildLayerCompleteEvent -= LayerCompleteCallback;
     }
 
 
@@ -39,4 +41,6 @@ public class EventBase : MonoBehaviour
     public virtual void WatchBuildEndCallback() { }
 
     public virtual void GameLoadCallback() { }
+
+    public virtual void LayerCompleteCallback(string layerName) { }
 }

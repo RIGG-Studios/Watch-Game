@@ -18,6 +18,14 @@ public class WatchEndPart : MonoBehaviour, IWatch
         //Gets inserting logic from its "layer"
         insertingLogic = GetComponent<IInsertable>();
         player.TransitionGamemode(false);
+
+        DefaultWatchDecorator[] layers = transform.root.GetComponentsInChildren<DefaultWatchDecorator>();
+
+        if(layers.Length > 0)
+        {
+            foreach (DefaultWatchDecorator layer in layers)
+                layer.HideAllObjects();
+        }
     }
 
     //Returns the dictionary back when asked, creating a base condition for recursion

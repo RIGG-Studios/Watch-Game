@@ -5,11 +5,24 @@ using UnityEngine;
 //Default inserting behaviour, just positions the object if it is valid
 public class DefaultInsertion : MonoBehaviour, IInsertable
 {
+    private bool occupied;
+    public GameObject missingPiece;
+
+    public Vector3 restingPosition { get; private set; }
+    public Vector3 originalPos { get; private set; }
+
+    void Awake()
+    {
+        restingPosition = transform.GetChild(0).position;
+        originalPos = transform.position;
+    }
+
     //Transforming the insertObject to this object's position
     public void Execute(GameObject insertObject, Transform destination)
     {
         insertObject.transform.position = destination.position;
-
-        Debug.Log("Inserted successfully UwU");
+        occupied = true;
     }
+
+    public bool HasObject() => occupied;
 }

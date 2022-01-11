@@ -1,6 +1,8 @@
 using UnityEngine;
 using UnityEngine.UI;
+using System.Collections.Generic;
 using System;
+using System.Collections;
 
 //since every UI element must have some variables/methods
 //in common, this class will handle all that.
@@ -9,7 +11,7 @@ public class UIElement : MonoBehaviour
     //every ui element will have an id we can use to find it through script, and also graphics.
     public string id;
     public MaskableGraphic graphics;
-    
+
 
     //method for finding the transform
     public Transform GetTransform() => transform;
@@ -34,6 +36,24 @@ public class UIElement : MonoBehaviour
     {
         id = gameObject.name.ToLower();
         graphics = GetComponent<MaskableGraphic>();
+    }
+
+    public void FadeElement(float alpha, float duration) => StartCoroutine(IELerpAlpha(alpha, duration));
+
+    private IEnumerator IELerpAlpha(float targetAlpha, float duration)
+    {
+        //create a temp time variable
+        float t = 0;
+
+        //while our time is less than 1, lerp towards a value
+        while (t < 1)
+        {
+            t += Time.deltaTime;// increase time
+
+            graphics.CrossFadeAlpha(targetAlpha, duration, false);
+
+            yield return null;
+        }
     }
 }
 

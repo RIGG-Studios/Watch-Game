@@ -10,4 +10,6 @@ public class RejectInsertion : MonoBehaviour, IInsertable
     {
         Debug.Log("The object you're trying to insert doesn't fit in the destination UmU");
     }
+
+    public bool HasObject() => false;
 }

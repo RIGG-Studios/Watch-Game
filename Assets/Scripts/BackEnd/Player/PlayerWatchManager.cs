@@ -5,13 +5,14 @@ using UnityEngine;
 public class PlayerWatchManager : MonoBehaviour
 {
     public GameObject watchPrefab;
-    public GameObject watchTemplate;
+    public GameObject normalWatchTemplate;
+    public GameObject specialWatchTemplate;
     public GameObject watchEndPart;
 
     private GameObject currentWatch;
 
 
-    public GameObject CreateNewWatch()
+    public GameObject CreateNewWatch(WatchTypes type)
     {
         Transform parentTo = null;
         List<GameObject> alreadyUsedLayers = new List<GameObject>();
@@ -22,6 +23,8 @@ public class PlayerWatchManager : MonoBehaviour
         }
 
         currentWatch = Instantiate(watchPrefab, transform.parent);
+
+        GameObject watchTemplate = type == WatchTypes.Normal ? normalWatchTemplate : specialWatchTemplate;
 
         for(int i = 0; i < Random.Range(watchTemplate.transform.childCount, watchTemplate.transform.childCount); i++)
         {

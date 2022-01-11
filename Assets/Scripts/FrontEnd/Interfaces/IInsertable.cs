@@ -7,4 +7,6 @@ public interface IInsertable
 {
     //Insert method, called by the player script, passes the object they're currently dragging
     public void Execute(GameObject insertObject, Transform destination);
+
+    public bool HasObject();
 }

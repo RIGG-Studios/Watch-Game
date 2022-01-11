@@ -12,7 +12,6 @@ public class GameProgression : EventBase
 
     public override void GameLoadCallback()
     {
-        Debug.Log("hi");
         GameManager.WatchBuildStartEvent.Invoke(WatchTypes.Normal);
     }
 }

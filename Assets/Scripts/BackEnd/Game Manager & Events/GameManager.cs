@@ -16,6 +16,7 @@ public enum GameEvents
     GameLoad,
     WatchBuildStart,
     WatchBuildEnd,
+    WatchLayerComplete,
     SceneLeave,
 }
 
@@ -41,6 +42,9 @@ public class GameManager : MonoBehaviour
 
     public delegate void WatchBuildEndDelegate();
     public static WatchBuildEndDelegate WatchBuildEndEvent;
+
+    public delegate void WatchBuildLayerDelegate(string layerName);
+    public static WatchBuildLayerDelegate WatchBuildLayerCompleteEvent;
 
     //leave scene to main menu/enable fadeaway hud
     public delegate void LeavingSceneDelegate();

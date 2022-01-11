@@ -88,12 +88,21 @@ public class PlayerManager : MonoBehaviour
         }
     }
 
-    public void ResetWatch()
+    public void ResetWatch(WatchTypes type)
     {
+        WatchTypes t;
+        //temp code for now, just so we can have random watches to showcase off
+        int rd = Random.Range(0, 2);
+        if (rd == 0)
+            t = WatchTypes.Normal;
+        else
+            t = WatchTypes.Special;
+
+
         TransitionGamemode(true);
 
         //call the watch manager to create a new watch
-        GameObject watch = watchManager.CreateNewWatch();
+        GameObject watch = watchManager.CreateNewWatch(t);
 
         for(int i = 0; i < gameModes.Length; i++)
         {
@@ -107,17 +116,21 @@ public class PlayerManager : MonoBehaviour
     {
         //Creates a new inputActions
         inputActions = new InputActions();
-
         //Whenever the player moves their mouse
         inputActions.PCMap.MousePosition.performed += ctx => currentGamemode.OnMoveMousePosition(mainCamera.ScreenToWorldPoint(ctx.ReadValue<Vector2>()));
 
         //Whenever the player left clicks
-        inputActions.PCMap.LeftClick.performed += ctx => currentGamemode.OnLeftClick();
+        inputActions.PCMap.LeftClick.performed += ctx => OnLeftClick();
 
         //Whenever the player right clicks
         inputActions.PCMap.RightClick.performed += ctx => currentGamemode.OnRightClick();
 
         inputActions.PCMap.Space.performed += ctx => OnSpacePress();
+    }
+
+    private void OnLeftClick()
+    {
+        currentGamemode.OnLeftClick();
     }
 
     private void OnSpacePress()

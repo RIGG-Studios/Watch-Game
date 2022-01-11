@@ -11,7 +11,7 @@ public class DefaultWatchDecorator : EventBase, IWatch
     //Missing part is used to check if the part the player is trying to insert is the part relevant to this layer
     //Destinations denotes which destinations this missing part will be accepted into
     public GameObject missingPartPrefab;
-    public List<GameObject> destinations;
+    public List<DefaultInsertion> destinations = new List<DefaultInsertion>();
 
     //Component name is used solely in the GetAllComponentsLeft() as a unique key to identify this part by
     public string componentName;
@@ -19,29 +19,58 @@ public class DefaultWatchDecorator : EventBase, IWatch
     //Tracks how many destinations the player has inserted a missingPart into
     protected int filledDestinations;
 
-    List<GameObject> instantiatedParts;
+    List<GameObject> instantiatedParts = new List<GameObject>();
 
-    public void Start()
+    private void Start()
     {
         childWatchPart = transform.GetComponentsInChildren<IWatch>()[1];
+
         insertLogic = GetComponent<IInsertable>();
-        instantiatedParts = new List<GameObject>();
-
-        for (int i = 0; i < destinations.Count; i++)
-        {
-            GameObject watchPartClone = Instantiate(missingPartPrefab, transform.parent);
-            watchPartClone.transform.position = new Vector2(Random.Range(-3f, -5f), Random.Range(-3, 3));
-            watchPartClone.transform.GetChild(0).transform.localScale = destinations[i].transform.localScale;
-            watchPartClone.name = missingPartPrefab.name;
-            instantiatedParts.Add(watchPartClone);
-
-            destinations[i].SetActive(true);
-        }
 
         childWatchPart.GetGameObject().SetActive(false);
+
+        StartCoroutine(MoveToRestingPosition());
     }
 
+    private IEnumerator MoveToRestingPosition()
+    {
+        yield return new WaitForSeconds(5f);
 
+        float t = 0;
+
+        while (t < 1)
+        {
+            for (int i = 0; i < destinations.Count; i++)
+            {
+                destinations[i].transform.position = Vector3.Lerp(destinations[i].transform.position, destinations[i].restingPosition, t);
+            }
+
+            t += Time.deltaTime;
+            yield return null;
+        }
+
+        SpawnMissingParts();
+    }
+
+    private void SpawnMissingParts()
+    {
+        for (int i = 0; i < destinations.Count; i++)
+        {
+
+            destinations[i].transform.position = destinations[i].originalPos;
+            destinations[i].GetComponent<SpriteRenderer>().enabled = false;
+
+            GameObject watchPartClone = Instantiate(destinations[i].missingPiece, transform.parent);
+            watchPartClone.transform.position = destinations[i].restingPosition;
+            watchPartClone.transform.GetChild(0).transform.localScale = destinations[i].transform.localScale;
+            watchPartClone.name = destinations[i].missingPiece.name;
+            instantiatedParts.Add(watchPartClone);
+
+            destinations[i].gameObject.SetActive(true);
+        }
+    }
+
+    
     //Recursive function, returns a dictionary containing the names of all of the parts on the watch and how many unfilled destinations they all have
     public virtual Dictionary<string, int> GetAllComponentsLeft(Dictionary<string, int> suppliedDictionary)
     {
@@ -75,15 +104,15 @@ public class DefaultWatchDecorator : EventBase, IWatch
     public virtual void Insert(GameObject insertObject, Transform destination)
     {
         //get the distance between the destination and the inserted object
-        float dist = (insertObject.transform.position - destination.position).magnitude;
+        float dist = (destination.position - insertObject.transform.position).magnitude;
 
         //check if its higher than a very smaller than threshold, meaning its off place from where its supposed to be
         if (dist > 5.106f)
         {
             //for now, simply log that its happening and return the function
             Debug.Log("Part misplaced, restarting layer!");
-            Debug.Log(dist);
-            return;
+        //    Debug.Log(dist);
+         //  return;
         }
 
         //check if the scale of the inserted object is not equal to the destination, or if the pieces dont fit in size
@@ -95,50 +124,31 @@ public class DefaultWatchDecorator : EventBase, IWatch
         }
 
         //If the object trying to be inserted is the missingPart and the destination is valid
-        if (insertObject.name == missingPartPrefab.name && DestinationExists(destination))
+        if (insertObject.name == destination.GetComponent<DefaultInsertion>().missingPiece.name && DestinationExists(destination))
         {
             //Then delegate to insertLogic and increment filledDestinations
             insertLogic.Execute(insertObject, destination);
             filledDestinations++;
 
             //check if the layer is a gear layer, so we can animate it when we insert it
-            if (componentName == "BigGears" || componentName == "MedGears")
+            if (componentName.Contains("Gear"))
             {
                 //call the animator to set the trigger, very roughly, will need to be touched upon later
                 insertObject.GetComponentInChildren<Animator>().SetTrigger("rotate");
                 //disable the destination 
-                //destination.GetComponent<SpriteRenderer>().enabled = false;
+                destination.GetComponent<SpriteRenderer>().enabled = false;
             }
+
+            insertObject.GetComponent<DefaultDragging>().drag = false;
 
             if (filledDestinations >= destinations.Count)
             {
-                //check if the component is a medium gear
-                //this section will probably need to be removed, I just wanted the game to be bugfree as of now (2:22am)
-                //and am tired and want to see the animations work with smooth transitions
-
-                //So yea, anything with animations/Gears and stuff may need to be touched upon when Bilal works on the randomized
-                //preset watches. I just wanted to see it working for now - Liam :)
-                //if (componentName == "MedGears")
-                //{
-                    //get the big gears watch on the parent since were on the medium gears layer
-                    //DefaultWatchDecorator bigGearsWatch = transform.parent.GetComponent<DefaultWatchDecorator>();
-
-                    //loop through its destinations
-                    //for(int i =0; i < bigGearsWatch.destinations.Count; i++)
-                    //{
-                        //set the instiatiated parts to false
-                        //bigGearsWatch.instantiatedParts[i].SetActive(false);
-                    //}
-                //}
                 for (int i = 0; i < destinations.Count; i++)
                 {
-                    destinations[i].SetActive(false);
-
-                    //if this is a gear layer, allow the gears to stay active
-                    //if (componentName != "BigGears")
-                        //instantiatedParts[i].SetActive(false);   
+                    destinations[i].gameObject.SetActive(false);
                 }
 
+                GameManager.WatchBuildLayerCompleteEvent.Invoke(componentName);
                 childWatchPart.GetGameObject().SetActive(true);
             }
         }
@@ -158,7 +168,7 @@ public class DefaultWatchDecorator : EventBase, IWatch
         //If the destination the player provided is in the list of destinations
         for (int i = 0; i < destinations.Count; i++)
         {
-            if (destinations[i] == destination.gameObject)
+            if (destinations[i].transform == destination)
             {
                 //Then breaks and sets canInsert to true
                 canInsert = true;
@@ -170,5 +180,12 @@ public class DefaultWatchDecorator : EventBase, IWatch
         return canInsert;
     }
 
+    public void HideAllObjects()
+    {
+        for(int i = 0; i < instantiatedParts.Count; i++)
+        {
+            instantiatedParts[i].gameObject.SetActive(false);
+        }
+    }
     public GameObject GetGameObject() => gameObject;
 }
