@@ -8,6 +8,7 @@ public class PlayerWatchBuildingMode : MonoBehaviour, IGamemode
     //Public variables that must be set in the inspector
     public LayerMask componentsLayer;
     public LayerMask destinationsLayer;
+    public LayerMask allLayers;
 
     //The current camera
     Camera mainCamera;
@@ -21,14 +22,26 @@ public class PlayerWatchBuildingMode : MonoBehaviour, IGamemode
     bool isDragging;
     IDraggable currentComponent;
 
+    ITool currentTool;
+
     private void Start()
     {
         mainCamera = Camera.main;
         gameManager = FindObjectOfType<GameManager>();
+        currentTool = GetComponent<ITool>();
+    }
+
+    public void SetTool(ITool newTool)
+    {
+        currentTool = newTool;
     }
 
     //When the player moves their mouse, sets the mousePosition to the newMousePosition
-    public void OnMoveMousePosition(Vector2 newMousePosition) => mousePosition = newMousePosition;
+    public void OnMoveMousePosition(Vector2 newMousePosition)
+    {
+        mousePosition = newMousePosition;
+        currentTool.MouseMovePosition(newMousePosition);
+    }
 
     public void OnRightClick()
     {
@@ -38,8 +51,27 @@ public class PlayerWatchBuildingMode : MonoBehaviour, IGamemode
     //When the player left clicks
     public void OnLeftClick()
     {
+        RaycastHit2D hit = RaycastFromMousePosition(allLayers);
+
+        bool useTool = false;
+
+        if (hit)
+        {
+            Debug.Log(hit.collider.name);
+
+            //evil floating point bit hack (not really floating point)
+            if(currentTool.GetPartsLayer().value == (currentTool.GetPartsLayer().value | (1 << hit.collider.gameObject.layer)))
+            {
+                useTool = true;
+            }
+            else
+            {
+                useTool = false;
+            }
+        }
+
         //If the player clicked on a component and check if were currently in game
-        if (CheckIfClickedObject()) 
+        if (CheckIfClickedObject() && !useTool) 
         {
             //Inverts isDragging, tells us if the player released left click or pressed it
             isDragging = !isDragging;
@@ -66,6 +98,10 @@ public class PlayerWatchBuildingMode : MonoBehaviour, IGamemode
                 //Calls StartDraggingObject on the currentComponent
                 currentComponent.StartDraggingObject(mousePosition);
             }
+        }
+        else if(hit && useTool)
+        {
+            currentTool.LeftClickTool(hit);
         }
     }
 

@@ -41,6 +41,8 @@ public class PlayerManager : MonoBehaviour
 
     public IGamemode[] gameModes;
 
+    Vector2 currentMousePosition;
+
     //Initializing and cleaning up the inputActions
     private void OnEnable() => inputActions.Enable();
 
@@ -117,7 +119,11 @@ public class PlayerManager : MonoBehaviour
         //Creates a new inputActions
         inputActions = new InputActions();
         //Whenever the player moves their mouse
-        inputActions.PCMap.MousePosition.performed += ctx => currentGamemode.OnMoveMousePosition(mainCamera.ScreenToWorldPoint(ctx.ReadValue<Vector2>()));
+        inputActions.PCMap.MousePosition.performed += ctx =>
+        {
+            currentMousePosition = mainCamera.ScreenToWorldPoint(ctx.ReadValue<Vector2>());
+            currentGamemode.OnMoveMousePosition(currentMousePosition);
+        };
 
         //Whenever the player left clicks
         inputActions.PCMap.LeftClick.performed += ctx => OnLeftClick();
@@ -131,6 +137,11 @@ public class PlayerManager : MonoBehaviour
     private void OnLeftClick()
     {
         currentGamemode.OnLeftClick();
+    }
+
+    public void SetCurrentTool(ITool newTool)
+    {
+        GetComponent<PlayerWatchBuildingMode>().SetTool(newTool);
     }
 
     private void OnSpacePress()

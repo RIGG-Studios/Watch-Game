@@ -56,12 +56,11 @@ public class DefaultWatchDecorator : EventBase, IWatch
     {
         for (int i = 0; i < destinations.Count; i++)
         {
-
             destinations[i].transform.position = destinations[i].originalPos;
             destinations[i].GetComponent<SpriteRenderer>().enabled = false;
 
             GameObject watchPartClone = Instantiate(destinations[i].missingPiece, transform.parent);
-            watchPartClone.transform.position = destinations[i].restingPosition;
+            watchPartClone.transform.position = destinations[i].restingPosition + new Vector3(0, 0, -3);
             watchPartClone.transform.GetChild(0).transform.localScale = destinations[i].transform.localScale;
             watchPartClone.name = destinations[i].missingPiece.name;
             instantiatedParts.Add(watchPartClone);

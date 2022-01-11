@@ -27,6 +27,6 @@ public class DefaultDragging : MonoBehaviour, IDraggable
         if (!drag)
             return;
 
-        transform.position = position;
+        transform.position = new Vector3(position.x, position.y, transform.position.z);
     }
 }
