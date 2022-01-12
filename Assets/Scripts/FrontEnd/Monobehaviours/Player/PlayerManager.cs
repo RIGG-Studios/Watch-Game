@@ -164,11 +164,6 @@ public class PlayerManager : MonoBehaviour
         currentGamemode.OnLeftClick();
     }
 
-    public void SetCurrentTool(ITool newTool)
-    {
-        GetComponent<PlayerWatchBuildingMode>().SetTool(newTool);
-    }
-
     private void OnSpacePress()
     {
         if (gameManager.gameState != GameStates.PreGame)

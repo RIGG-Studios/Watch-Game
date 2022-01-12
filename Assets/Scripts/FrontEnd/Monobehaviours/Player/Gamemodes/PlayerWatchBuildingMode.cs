@@ -9,6 +9,7 @@ public class PlayerWatchBuildingMode : MonoBehaviour, IGamemode
     public LayerMask componentsLayer;
     public LayerMask destinationsLayer;
     public LayerMask allLayers;
+    public int insertedObjectsLayer;
 
     //The current camera
     Camera mainCamera;
@@ -22,18 +23,12 @@ public class PlayerWatchBuildingMode : MonoBehaviour, IGamemode
     bool isDragging;
     IDraggable currentComponent;
 
-    ITool currentTool;
+    public ATool currentTool;
 
     private void Start()
     {
         mainCamera = Camera.main;
         gameManager = FindObjectOfType<GameManager>();
-        currentTool = GetComponent<ITool>();
-    }
-
-    public void SetTool(ITool newTool)
-    {
-        currentTool = newTool;
     }
 
     //When the player moves their mouse, sets the mousePosition to the newMousePosition
@@ -85,6 +80,7 @@ public class PlayerWatchBuildingMode : MonoBehaviour, IGamemode
                 {
                     //Tells the current watch to insert this part and passes the thing behind it the raycast hit, the destination transform
                     currentWatch.GetComponentInChildren<IWatch>().Insert(currentComponent.GetGameObject(), raycastHit.transform);
+                    currentComponent.GetGameObject().layer = insertedObjectsLayer;
                 }
 
                 //Calls StopDraggingObject on the currentComponent and sets currentComponent to null

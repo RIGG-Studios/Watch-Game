@@ -144,7 +144,6 @@ public class DefaultWatchDecorator : EventBase, IWatch
                 destination.GetComponent<SpriteRenderer>().enabled = false;
             }
 
-            insertObject.GetComponent<DefaultDragging>().drag = false;
 
             if (filledDestinations >= destinations.Count)
             {

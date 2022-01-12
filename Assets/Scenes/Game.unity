@@ -516,6 +516,7 @@ GameObject:
   - component: {fileID: 1163207781}
   - component: {fileID: 1163207783}
   - component: {fileID: 1163207786}
+  - component: {fileID: 1163207787}
   - component: {fileID: 1163207784}
   m_Layer: 0
   m_Name: Player
@@ -559,7 +560,9 @@ MonoBehaviour:
   allLayers:
     serializedVersion: 2
     m_Bits: 4294967295
+  insertedObjectsLayer: 10
   currentWatch: {fileID: 0}
+  currentTool: {fileID: 1163207786}
 --- !u!114 &1163207781
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -653,12 +656,31 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b54eb4edcb6656243b89004abb9c8df3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  screwLayer:
+  partsLayer:
     serializedVersion: 2
     m_Bits: 256
-  holesLayer:
+  destinationsLayer:
     serializedVersion: 2
     m_Bits: 512
+  maxUses: 10
+--- !u!114 &1163207787
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1163207778}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b54eb4edcb6656243b89004abb9c8df3, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  partsLayer:
+    serializedVersion: 2
+    m_Bits: 1024
+  destinationsLayer:
+    serializedVersion: 2
+    m_Bits: 64
   maxUses: 10
 --- !u!114 &1734980897 stripped
 MonoBehaviour:

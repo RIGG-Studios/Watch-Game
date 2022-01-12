@@ -2,31 +2,11 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class NoTool : MonoBehaviour, ITool
+public class NoTool : ATool
 {
-    public LayerMask GetLocationsLayer()
-    {
-        return LayerMask.NameToLayer("Nothing");
-    }
+    public override int GetRemainingUses() => 0;
 
-    public LayerMask GetPartsLayer()
-    {
-        return LayerMask.NameToLayer("Nothing");
-    }
-
-    public int GetRemainingUses() => 0;
-
-    public void LeftClickTool(RaycastHit2D hit, IWatch currentWatch)
-    {
-        return;
-    }
-
-    public void MouseMovePosition(Vector2 currentMousePos)
-    {
-        return;
-    }
-
-    public void RightClickTool()
+    public override void MouseMovePosition(Vector2 currentMousePos)
     {
         return;
     }
