@@ -20,6 +20,10 @@ public class DefaultInsertion : MonoBehaviour, IInsertable
     //Transforming the insertObject to this object's position
     public void Execute(GameObject insertObject, Transform destination)
     {
+        if (insertObject.GetComponentInChildren<Animator>())
+        {
+            insertObject.GetComponentInChildren<Animator>().SetTrigger("onInsert");
+        }
         insertObject.transform.position = destination.position;
         occupied = true;
     }

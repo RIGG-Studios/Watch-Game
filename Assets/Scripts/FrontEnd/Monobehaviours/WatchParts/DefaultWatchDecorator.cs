@@ -45,7 +45,10 @@ public class DefaultWatchDecorator : EventBase, IWatch
 
             for (int i = 0; i < destinations.Count; i++)
             {
-                destinations[i].transform.position = Vector3.Lerp(destinations[i].transform.position, destinations[i].restingPosition, t / moveDuration);
+                if (destinations[i].GetComponent<DoNotHide>() == null)
+                {
+                    destinations[i].transform.position = Vector3.Lerp(destinations[i].transform.position, destinations[i].restingPosition, t / moveDuration);
+                }
             }
 
             yield return null;
@@ -59,7 +62,10 @@ public class DefaultWatchDecorator : EventBase, IWatch
         for (int i = 0; i < destinations.Count; i++)
         {
             destinations[i].transform.position = destinations[i].originalPos;
-            destinations[i].GetComponent<SpriteRenderer>().enabled = false;
+            if (destinations[i].GetComponent<DoNotHide>() == null) 
+            {
+                destinations[i].GetComponent<SpriteRenderer>().enabled = false;
+            }
 
             GameObject watchPartClone = Instantiate(destinations[i].missingPiece, transform.parent);
             watchPartClone.transform.position = destinations[i].restingPosition + new Vector3(0, 0, -3);
@@ -131,11 +137,9 @@ public class DefaultWatchDecorator : EventBase, IWatch
             insertLogic.Execute(insertObject, destination);
             filledDestinations++;
 
-            //check if the layer is a gear layer, so we can animate it when we insert it
-            if (componentName.Contains("Gear") && insertObject.GetComponentInChildren<Animator>() != null)
+            //check if the layer has do not hide, if not hide it
+            if (destination.GetComponent<DoNotHide>() == null)
             {
-                //call the animator to set the trigger, very roughly, will need to be touched upon later
-                insertObject.GetComponentInChildren<Animator>().SetTrigger("rotate");
                 //disable the destination 
                 destination.GetComponent<SpriteRenderer>().enabled = false;
             }
