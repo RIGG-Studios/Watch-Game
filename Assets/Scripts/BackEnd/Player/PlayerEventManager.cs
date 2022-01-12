@@ -8,7 +8,6 @@ public class PlayerEventManager : EventBase
     PlayerManager player;
 
     UIElement watchesItemText;
-    UIElement layerText;
 
     private void Start()
     {
@@ -17,21 +16,31 @@ public class PlayerEventManager : EventBase
 
         if (canvas != null)
         {
-            watchesItemText = canvas.FindElementGroupByID("GameGroup").FindElement("watchesitemquantity");
-            layerText = canvas.FindElementGroupByID("GameGroup").FindElement("watchbuilderstate");
+            watchesItemText = canvas.FindElementGroupByID("GameGroup").FindElement("watchcounttext");
         }
     }
 
     public override void WatchBuildEndCallback()
     {
+        for(int i = 0; i < player.monkeys.Count; i++)
+        {
+            player.playerWatches++;
+        }
+
         player.playerWatches += 1;
+
         watchesItemText.OverrideValue("x" + player.playerWatches);
     }
 
     public override void LayerCompleteCallback(string layerName)
     {
-        layerText.FadeElement(1, 0);
-        layerText.OverrideValue(string.Format("{0} COMPLETED", layerName));
+   //     layerText.FadeElement(1, 0);
+      //  layerText.OverrideValue(string.Format("{0} COMPLETED", layerName));
+    }
+
+    public override void GameLoadCallback()
+    {
+        player.ResetWatch(WatchTypes.Normal);
     }
 
     public override void WatchBuildStartCallback(WatchTypes type)

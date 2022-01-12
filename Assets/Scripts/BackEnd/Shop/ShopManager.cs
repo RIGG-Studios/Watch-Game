@@ -88,6 +88,7 @@ public class ShopManager : MonoBehaviour
     //method for when we click the buy item button
     public void BuyItem()
     {
+        Debug.Log("hi");
         //create a temp var for our stock
         int stock = 0;
 
@@ -99,25 +100,8 @@ public class ShopManager : MonoBehaviour
         player.AddItem(selectedItem);
         //Remove the item from the shop
         RemoveItem(selectedItem); 
-
+        
         //finally we will hide this menu in the canvas manager.
         canvas.HideElementGroup(canvas.FindElementGroupByID("BuyConfirmationGroup"));
-    }
-
-    public void ShowShop()
-    {
-
-        UIElementGroup group = canvas.FindElementGroupByID("ShopGroup");
-
-        if (!shopShown)
-        {
-            canvas.ShowElementGroup(group, false);
-            shopShown = !shopShown;
-        }
-        else
-        {
-            canvas.HideElementGroup(group);
-            shopShown = !shopShown;
-        }
     }
 }

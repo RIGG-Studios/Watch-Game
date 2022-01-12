@@ -5,12 +5,29 @@ using UnityEngine;
 public class PlayerWatchManager : MonoBehaviour
 {
     public GameObject watchPrefab;
-    public GameObject normalWatchTemplate;
-    public GameObject specialWatchTemplate;
+    public List<WatchProperties> watches = new List<WatchProperties>();
+
     public GameObject watchEndPart;
 
     private GameObject currentWatch;
 
+    public WatchProperties GetRandomWatch()
+    {
+        return watches[Random.Range(0, watches.Count)];
+    }
+
+    public WatchProperties GetRandomWatchFromType(WatchTypes type)
+    {
+        List<WatchProperties> w = new List<WatchProperties>();
+
+        foreach (WatchProperties wat in watches)
+        {
+            if (wat.watchType == type)
+                w.Add(wat);
+        }
+
+        return w[Random.Range(0, w.Count)];
+    }
 
     public GameObject CreateNewWatch(WatchTypes type)
     {
@@ -24,9 +41,9 @@ public class PlayerWatchManager : MonoBehaviour
 
         currentWatch = Instantiate(watchPrefab, transform.parent);
 
-        GameObject watchTemplate = type == WatchTypes.Normal ? normalWatchTemplate : specialWatchTemplate;
+        GameObject watchTemplate = GetRandomWatchFromType(type).template;
 
-        for(int i = 0; i < Random.Range(watchTemplate.transform.childCount, watchTemplate.transform.childCount); i++)
+        for (int i = 0; i < Random.Range(watchTemplate.transform.childCount, watchTemplate.transform.childCount); i++)
         {
             List<GameObject> objectList = new List<GameObject>();
 

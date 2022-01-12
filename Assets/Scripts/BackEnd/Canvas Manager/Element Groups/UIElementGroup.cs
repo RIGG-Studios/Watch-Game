@@ -20,8 +20,7 @@ public class UIElementGroup : MonoBehaviour
     public UIElement[] elementsInGroup;
 
     public UpdateTypes hideType;
-
-    bool inShownPlace;
+    public bool active { get; private set; }
 
     //create a property of our animator
     private Animator animator
@@ -63,15 +62,17 @@ public class UIElementGroup : MonoBehaviour
     //method for playing animations
     private void PlayAnimation(bool show)
     {
+        if (groupID == "NewSpecialOrderGroup")
+            Debug.Log(show);
         if (show)
         {
             animator.SetTrigger("show");
-            inShownPlace = true;
+            active = true;
         }
         else
         {
             animator.SetTrigger("hide");
-
+            active = false;
         }
     }
 
@@ -81,6 +82,8 @@ public class UIElementGroup : MonoBehaviour
         {
             for (int i = 0; i < elementsInGroup.Length; i++) //for every element in the group
                 elementsInGroup[i].gameObject.SetActive(true);
+
+            active = true;
         }
 
         StartCoroutine(IELerpAlpha(alpha, dur));
@@ -108,9 +111,10 @@ public class UIElementGroup : MonoBehaviour
         {
             for (int i = 0; i < elementsInGroup.Length; i++) //for every element in the group
                 elementsInGroup[i].gameObject.SetActive(false);
-        }
 
-        if (targetAlpha == 1)
+            active = false;
+        }
+        else if (targetAlpha == 1)
         {
             for (int i = 0; i < elementsInGroup.Length; i++) //for every element in the group
                 elementsInGroup[i].gameObject.SetActive(true);

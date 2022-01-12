@@ -148,6 +148,7 @@ public class DefaultWatchDecorator : EventBase, IWatch
                 }
 
                 GameManager.WatchBuildLayerCompleteEvent.Invoke(componentName);
+
                 childWatchPart.GetGameObject().SetActive(true);
             }
         }

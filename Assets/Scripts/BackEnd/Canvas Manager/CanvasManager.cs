@@ -29,6 +29,8 @@ public class CanvasManager : EventBase
     {
         UIElementGroup gameGroup = FindElementGroupByID("GameGroup");
 
+        gameGroup.FindElement("gametimer").FadeElement(0, 0.1f);
+
         ShowElementGroup(gameGroup, true);
     }
 
@@ -39,7 +41,7 @@ public class CanvasManager : EventBase
 
         ShowElementGroup(watchBuilt, false);
     }
-   
+
 
     private UIElementGroup[] FindElements()
     {
@@ -65,7 +67,7 @@ public class CanvasManager : EventBase
     }
 
     //method for showing element groups
-    public void ShowElementGroup(UIElementGroup group, bool clearOtherElements)
+    public void ShowElementGroup(UIElementGroup group, bool clearOtherElements = false)
     {
         //loop through all of our elements
         foreach (UIElementGroup e in allElements)
@@ -77,7 +79,6 @@ public class CanvasManager : EventBase
             }
             else
             {
-                //for every other element, do we want to hide it?
                 if (clearOtherElements)
                     HideElementGroup(e);
             }
@@ -85,6 +86,17 @@ public class CanvasManager : EventBase
         
     }
 
+    public void ShowElementGroup(UIElementGroup groupObj)
+    {
+        UIElementGroup group = FindElementGroupByID(groupObj.groupID);
+
+        if (group)
+            ShowElementGroup(group, false);
+    }
+
     //method for hiding specific elements
-    public void HideElementGroup(UIElementGroup group) => group.UpdateElements(0, 0.25f, false);
+    public void HideElementGroup(UIElementGroup group)
+    {
+        group.UpdateElements(0, 0.25f, false);
+    }
 }

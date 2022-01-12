@@ -40,10 +40,11 @@ public class PlayerWatchTuningMode : MonoBehaviour, IGamemode
 
         if (hit && hit.transform.parent.GetComponent<IDraggable>() != null)
         {
+            currentHand = hit.transform.parent.GetComponent<IDraggable>();
+
             if (isDragging)
             {
-                currentHand = hit.transform.parent.GetComponent<IDraggable>();
-                currentHand.StartDraggingObject(mousePosition);
+                    currentHand.StartDraggingObject(mousePosition);
             }
             else
             {

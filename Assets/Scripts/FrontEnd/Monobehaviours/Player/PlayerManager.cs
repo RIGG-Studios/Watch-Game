@@ -6,9 +6,8 @@ using UnityEngine;
 public class PlayerManager : MonoBehaviour
 {
     //The players money
-    public float playerWatches;
+    public int playerWatches;
     //the amount of watches monkeys make
-    public float watchesPerMoney = 0.001f;
 
     //All of the monkeys the player will own, strings do nothing, I'll probably make this a list of interfaces later on
     [HideInInspector] public List<string> monkeys;
@@ -28,8 +27,11 @@ public class PlayerManager : MonoBehaviour
 
 
     //refence to the ui element group watches
-    UIElementGroup watchesGroup;
-    UIElement watchesCountText;
+    UIElementGroup specialWatch;
+    UIElement difficultyText;
+    UIElement timeText;
+
+    WatchProperties queuedWatch;
 
     int correctWatchHands;
 
@@ -41,6 +43,7 @@ public class PlayerManager : MonoBehaviour
 
     public IGamemode[] gameModes;
 
+    bool firstWatch;
     Vector2 currentMousePosition;
 
     //Initializing and cleaning up the inputActions
@@ -62,10 +65,10 @@ public class PlayerManager : MonoBehaviour
         currentGamemode = gameModes[0];
         mainCamera = Camera.main;
 
-        if(canvas != null)
-            watchesGroup = canvas.FindElementGroupByID("GameGroup");
+        specialWatch = canvas.FindElementGroupByID("NewSpecialOrderGroup");
 
-        watchesCountText = watchesGroup.FindElement("watchesitemquantity");
+        difficultyText = specialWatch.FindElement("difficultytext");
+        timeText = specialWatch.FindElement("timetext");
     }
 
     public void TransitionGamemode(bool backToDefault)
@@ -92,26 +95,36 @@ public class PlayerManager : MonoBehaviour
 
     public void ResetWatch(WatchTypes type)
     {
-        WatchTypes t;
-        //temp code for now, just so we can have random watches to showcase off
-        int rd = Random.Range(0, 2);
-        if (rd == 0)
-            t = WatchTypes.Normal;
-        else
-            t = WatchTypes.Special;
-
-
-        TransitionGamemode(true);
-
-        //call the watch manager to create a new watch
-        GameObject watch = watchManager.CreateNewWatch(t);
-
-        for(int i = 0; i < gameModes.Length; i++)
+        if (type == WatchTypes.Special)
         {
-            gameModes[i].SetCurrentWatch(watch.transform);
-        }
+            if (queuedWatch != null)
+            {
+                queuedWatch = null;
+            }
 
-        correctWatchHands = 0;
+            queuedWatch = watchManager.GetRandomWatchFromType(WatchTypes.Special);
+
+            int min = Mathf.FloorToInt(queuedWatch.timeToComplete / 60);
+            int sec = Mathf.FloorToInt(queuedWatch.timeToComplete % 60);
+
+            timeText.OverrideValue(min.ToString("00") + ":" + sec.ToString("00"));
+            difficultyText.OverrideValue(System.Enum.GetName(typeof(WatchProperties.WatchDifficulty), queuedWatch.watchDifficulty));
+            canvas.ShowElementGroup(specialWatch, false);
+        }
+        else
+        {
+            TransitionGamemode(true);
+
+            //call the watch manager to create a new watch
+            GameObject g = watchManager.CreateNewWatch(WatchTypes.Normal);
+
+            for (int i = 0; i < gameModes.Length; i++)
+            {
+                gameModes[i].SetCurrentWatch(g.transform);
+            }
+
+            correctWatchHands = 0;
+        }
     }
 
     private void Awake()
@@ -152,19 +165,6 @@ public class PlayerManager : MonoBehaviour
         GameManager.GameLoadEvent.Invoke();
     }
 
-    private void Update()
-    {
-        //Loops through the list and gives the player money based on how many monkeys they have
-
-        if (monkeys.Count > 0)
-        {
-            for (int i = 0; i < monkeys.Count; i++)
-                playerWatches += watchesPerMoney;
-
-            watchesCountText.OverrideValue(string.Format("{0} WATCHES BUILT", (int)playerWatches));
-        }
-
-    }
 
     public bool CanBuyItem(int cost) => (playerWatches - cost) >= 0;
 
@@ -172,7 +172,6 @@ public class PlayerManager : MonoBehaviour
     {
         if (item.itemName == "Monkey")
         {
-            watchesGroup.FindElement("monkeyitemquantity").OverrideValue(string.Format("{0} MONKEYS BOUGHT", monkeys.Count + 1));
             monkeys.Add(string.Empty);
 
             monkeyManager.SpawnMonkey();
