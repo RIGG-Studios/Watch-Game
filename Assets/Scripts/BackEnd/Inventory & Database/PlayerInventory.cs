@@ -59,6 +59,4 @@ public class PlayerInventory : MonoBehaviour
         }
     }
 
-
-    //quick method for finding a random item in the inventory list
 }

@@ -57,8 +57,6 @@ public class PlayerWatchBuildingMode : MonoBehaviour, IGamemode
 
         if (hit)
         {
-            Debug.Log(hit.collider.name);
-
             //evil floating point bit hack (not really floating point)
             if(currentTool.GetPartsLayer().value == (currentTool.GetPartsLayer().value | (1 << hit.collider.gameObject.layer)))
             {

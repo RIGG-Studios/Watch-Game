@@ -8,6 +8,7 @@ public class PlayerEventManager : EventBase
     PlayerManager player;
 
     UIElement watchesItemText;
+    UIElement gameTimer;
 
     private void Start()
     {
@@ -17,6 +18,7 @@ public class PlayerEventManager : EventBase
         if (canvas != null)
         {
             watchesItemText = canvas.FindElementGroupByID("GameGroup").FindElement("watchcounttext");
+            gameTimer = canvas.FindElementGroupByID("GameGroup").FindElement("gametimer");
         }
     }
 
@@ -30,12 +32,7 @@ public class PlayerEventManager : EventBase
         player.playerWatches += 1;
 
         watchesItemText.OverrideValue("x" + player.playerWatches);
-    }
-
-    public override void LayerCompleteCallback(string layerName)
-    {
-   //     layerText.FadeElement(1, 0);
-      //  layerText.OverrideValue(string.Format("{0} COMPLETED", layerName));
+        canvas.FindElementGroupByID("GameGroup").FindElement("gametimer").FadeElement(0, 0.25f);
     }
 
     public override void GameLoadCallback()

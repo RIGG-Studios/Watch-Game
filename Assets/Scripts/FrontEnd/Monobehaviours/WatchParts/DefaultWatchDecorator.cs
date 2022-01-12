@@ -7,6 +7,7 @@ public class DefaultWatchDecorator : EventBase, IWatch
     //Child watch part to delegate down to and inserting logic to know what to do when the player inserts something
     protected IWatch childWatchPart;
     protected IInsertable insertLogic;
+    public float moveDuration = 4f;
 
     //Missing part is used to check if the part the player is trying to insert is the part relevant to this layer
     //Destinations denotes which destinations this missing part will be accepted into
@@ -34,18 +35,19 @@ public class DefaultWatchDecorator : EventBase, IWatch
 
     private IEnumerator MoveToRestingPosition()
     {
-        yield return new WaitForSeconds(5f);
+        yield return new WaitForSeconds(3.5f);
 
         float t = 0;
 
         while (t < 1)
         {
+            t += Time.deltaTime;
+
             for (int i = 0; i < destinations.Count; i++)
             {
-                destinations[i].transform.position = Vector3.Lerp(destinations[i].transform.position, destinations[i].restingPosition, t);
+                destinations[i].transform.position = Vector3.Lerp(destinations[i].transform.position, destinations[i].restingPosition, t / moveDuration);
             }
 
-            t += Time.deltaTime;
             yield return null;
         }
 

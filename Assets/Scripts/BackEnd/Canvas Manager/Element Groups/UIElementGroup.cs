@@ -62,8 +62,6 @@ public class UIElementGroup : MonoBehaviour
     //method for playing animations
     private void PlayAnimation(bool show)
     {
-        if (groupID == "NewSpecialOrderGroup")
-            Debug.Log(show);
         if (show)
         {
             animator.SetTrigger("show");

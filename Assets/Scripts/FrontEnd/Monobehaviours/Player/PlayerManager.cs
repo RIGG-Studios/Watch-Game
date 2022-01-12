@@ -24,12 +24,15 @@ public class PlayerManager : MonoBehaviour
     MonkeyManager monkeyManager;
     //reference to the watch manager
     PlayerWatchManager watchManager;
+    //reference to the game time
+    GameTime gameTime;
 
 
     //refence to the ui element group watches
     UIElementGroup specialWatch;
     UIElement difficultyText;
     UIElement timeText;
+    UIElement gameTimer;
 
     WatchProperties queuedWatch;
 
@@ -59,6 +62,7 @@ public class PlayerManager : MonoBehaviour
         canvas = FindObjectOfType<CanvasManager>();
         monkeyManager = FindObjectOfType<MonkeyManager>();
         watchManager = GetComponent<PlayerWatchManager>();
+        gameTime = FindObjectOfType<GameTime>();
         monkeys = new List<string>();
 
         //Setting some variables
@@ -66,6 +70,7 @@ public class PlayerManager : MonoBehaviour
         mainCamera = Camera.main;
 
         specialWatch = canvas.FindElementGroupByID("NewSpecialOrderGroup");
+        gameTimer = canvas.FindElementGroupByID("GameGroup").FindElement("gametimer");
 
         difficultyText = specialWatch.FindElement("difficultytext");
         timeText = specialWatch.FindElement("timetext");
@@ -103,29 +108,36 @@ public class PlayerManager : MonoBehaviour
             }
 
             queuedWatch = watchManager.GetRandomWatchFromType(WatchTypes.Special);
-
+            gameTime.SetupTimer(queuedWatch.timeToComplete);
+            gameTimer.FadeElement(1, 0);
             int min = Mathf.FloorToInt(queuedWatch.timeToComplete / 60);
             int sec = Mathf.FloorToInt(queuedWatch.timeToComplete % 60);
 
-            timeText.OverrideValue(min.ToString("00") + ":" + sec.ToString("00"));
-            difficultyText.OverrideValue(System.Enum.GetName(typeof(WatchProperties.WatchDifficulty), queuedWatch.watchDifficulty));
+            timeText.OverrideValue("TIME: " + min.ToString("00") + ":" + sec.ToString("00"));
+            difficultyText.OverrideValue("DIFFICULTY: " + System.Enum.GetName(typeof(WatchProperties.WatchDifficulty), queuedWatch.watchDifficulty));
             canvas.ShowElementGroup(specialWatch, false);
         }
         else
         {
-            TransitionGamemode(true);
-
-            //call the watch manager to create a new watch
-            GameObject g = watchManager.CreateNewWatch(WatchTypes.Normal);
-
-            for (int i = 0; i < gameModes.Length; i++)
-            {
-                gameModes[i].SetCurrentWatch(g.transform);
-            }
-
-            correctWatchHands = 0;
+            SpawnWatch(0);
         }
     }
+
+    public void SpawnWatch(int type)
+    {
+        TransitionGamemode(true);
+
+        //call the watch manager to create a new watch
+        GameObject g = watchManager.CreateNewWatch((WatchTypes)type);
+
+        for (int i = 0; i < gameModes.Length; i++)
+        {
+            gameModes[i].SetCurrentWatch(g.transform);
+        }
+
+        correctWatchHands = 0;
+    }
+
 
     private void Awake()
     {

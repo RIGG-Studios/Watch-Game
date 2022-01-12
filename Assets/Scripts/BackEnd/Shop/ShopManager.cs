@@ -88,7 +88,6 @@ public class ShopManager : MonoBehaviour
     //method for when we click the buy item button
     public void BuyItem()
     {
-        Debug.Log("hi");
         //create a temp var for our stock
         int stock = 0;
 

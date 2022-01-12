@@ -68,4 +68,11 @@ public class GameManager : MonoBehaviour
     }
 
     public void StartGame() => GameLoadEvent.Invoke();
+
+    public void StartWatchBuild()
+    {
+        WatchTypes type = WatchTypes.Special;
+
+        WatchBuildStartEvent.Invoke(type);
+    }
 }

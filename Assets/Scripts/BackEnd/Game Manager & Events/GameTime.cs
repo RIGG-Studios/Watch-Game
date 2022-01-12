@@ -11,7 +11,7 @@ public class GameTime : EventBase
 
     CanvasManager canvas;
     float currentTime;
-    bool countTime = true;
+    bool countTime = false;
     bool playedPulseAnim;
 
     UIElementGroup gameTime;
@@ -57,5 +57,9 @@ public class GameTime : EventBase
 
     }
 
-    public void ResetTime(float currentTime) => this.currentTime = currentTime;
+    public void SetupTimer(float time)
+    {
+        currentTime = time;
+        countTime = true;
+    }
 }
