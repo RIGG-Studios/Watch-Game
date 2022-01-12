@@ -69,7 +69,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1452753816208276670}
-  m_Layer: 6
+  m_Layer: 9
   m_Name: 'Resting  '
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -453,7 +453,7 @@ GameObject:
   - component: {fileID: 7381457290995802804}
   - component: {fileID: 6740687964551981711}
   - component: {fileID: 4405958794476031103}
-  m_Layer: 6
+  m_Layer: 9
   m_Name: Layer0Hole
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -586,7 +586,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 7033309948958364255}
-  m_Layer: 6
+  m_Layer: 9
   m_Name: 'Resting  '
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1150,7 +1150,7 @@ GameObject:
   - component: {fileID: 95115330408219624}
   - component: {fileID: 4220337969981631759}
   - component: {fileID: 1584923437503767994}
-  m_Layer: 6
+  m_Layer: 9
   m_Name: Layer0Hole
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1349,7 +1349,7 @@ GameObject:
   - component: {fileID: 4238433536040111262}
   - component: {fileID: 3121867431870721696}
   - component: {fileID: 1662012534550718900}
-  m_Layer: 6
+  m_Layer: 9
   m_Name: Layer0Hole
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1730,7 +1730,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 3786418482846432583}
-  m_Layer: 6
+  m_Layer: 9
   m_Name: 'Resting  '
   m_TagString: Untagged
   m_Icon: {fileID: 0}

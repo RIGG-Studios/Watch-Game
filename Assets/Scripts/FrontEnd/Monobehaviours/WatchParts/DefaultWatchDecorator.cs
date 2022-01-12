@@ -130,7 +130,7 @@ public class DefaultWatchDecorator : EventBase, IWatch
             filledDestinations++;
 
             //check if the layer is a gear layer, so we can animate it when we insert it
-            if (componentName.Contains("Gear"))
+            if (componentName.Contains("Gear") && insertObject.GetComponentInChildren<Animator>() != null)
             {
                 //call the animator to set the trigger, very roughly, will need to be touched upon later
                 insertObject.GetComponentInChildren<Animator>().SetTrigger("rotate");

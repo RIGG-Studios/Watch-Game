@@ -16,7 +16,7 @@ public class NoTool : MonoBehaviour, ITool
 
     public int GetRemainingUses() => 0;
 
-    public void LeftClickTool(RaycastHit2D hit)
+    public void LeftClickTool(RaycastHit2D hit, IWatch currentWatch)
     {
         return;
     }

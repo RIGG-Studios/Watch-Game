@@ -27,24 +27,29 @@ public class ScrewdriverTool : MonoBehaviour, ITool
         }
     }
 
-    public void LeftClickTool(RaycastHit2D hit)
+    public void LeftClickTool(RaycastHit2D hit, IWatch currentWatch)
     {
         if(currentUses > 0)
         {
             if (!hasScrew)
             {
-                hasScrew = true;
                 currentScrew = hit.collider.gameObject;
                 currentScrew.GetComponent<IDraggable>().StartDraggingObject(mousePosition);
             }
             else
             {
-                hasScrew = false;
+                RaycastHit2D holeHit = RaycastFromMousePosition(holesLayer);
+                if (holeHit && currentScrew != null)
+                {
+                    currentWatch.Insert(currentScrew, holeHit.collider.transform);
+                }
                 currentScrew.GetComponent<IDraggable>().StopDraggingObject();
                 currentScrew = null;
 
                 currentUses--;
             }
+
+            hasScrew = !hasScrew;
         }
         else
         {
@@ -65,4 +70,12 @@ public class ScrewdriverTool : MonoBehaviour, ITool
     public LayerMask GetPartsLayer() => screwLayer;
 
     public LayerMask GetLocationsLayer() => holesLayer;
+
+    RaycastHit2D RaycastFromMousePosition(LayerMask layer)
+    {
+        //Raycasts from the mouse's position, along the forwards vector with a magnitude of infinity to the layer and returns it
+        RaycastHit2D raycastHit = Physics2D.Raycast(mousePosition, Camera.main.transform.forward, Mathf.Infinity, layer);
+
+        return raycastHit;
+    }
 }

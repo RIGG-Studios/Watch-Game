@@ -4,7 +4,7 @@ using UnityEngine;
 
 public interface ITool
 {
-    public void LeftClickTool(RaycastHit2D hit);
+    public void LeftClickTool(RaycastHit2D hit, IWatch currentWatch);
 
     public void RightClickTool();
 

@@ -101,7 +101,7 @@ public class PlayerWatchBuildingMode : MonoBehaviour, IGamemode
         }
         else if(hit && useTool)
         {
-            currentTool.LeftClickTool(hit);
+            currentTool.LeftClickTool(hit, currentWatch.GetComponentInChildren<IWatch>());
         }
     }
 
