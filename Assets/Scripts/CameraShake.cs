@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class CameraShake : MonoBehaviour
+public class CameraShake : EventBase
 {
     private float timeRemaining;
     private float shakePower;

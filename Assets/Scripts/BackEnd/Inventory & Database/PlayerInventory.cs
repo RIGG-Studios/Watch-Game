@@ -59,4 +59,17 @@ public class PlayerInventory : MonoBehaviour
         }
     }
 
+    public bool HasItem(Item item, int amount)
+    {
+        foreach(KeyValuePair<Item, int> items in inventory)
+        {
+            //has item
+            if (item == items.Key && (items.Value - amount) >= 0)
+            {
+                return true;
+            }
+        }
+
+        return false;
+    }
 }

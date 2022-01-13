@@ -38,7 +38,7 @@ public class EventBase : MonoBehaviour
 
     public virtual void WatchBuildStartCallback(WatchTypes type) { }
 
-    public virtual void WatchBuildEndCallback() { }
+    public virtual void WatchBuildEndCallback(WatchProperties properties, bool won) { }
 
     public virtual void GameLoadCallback() { }
 

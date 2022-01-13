@@ -118,8 +118,7 @@ public class DefaultWatchDecorator : EventBase, IWatch
         {
             //for now, simply log that its happening and return the function
             Debug.Log("Part misplaced, restarting layer!");
-        //    Debug.Log(dist);
-         //  return;
+     //       return;
         }
 
         //check if the scale of the inserted object is not equal to the destination, or if the pieces dont fit in size

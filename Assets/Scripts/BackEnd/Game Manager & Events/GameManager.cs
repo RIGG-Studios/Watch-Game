@@ -40,7 +40,7 @@ public class GameManager : MonoBehaviour
     public delegate void WatchBuildStartDelegate(WatchTypes type);
     public static WatchBuildStartDelegate WatchBuildStartEvent;
 
-    public delegate void WatchBuildEndDelegate();
+    public delegate void WatchBuildEndDelegate(WatchProperties watchProperties, bool won);
     public static WatchBuildEndDelegate WatchBuildEndEvent;
 
     public delegate void WatchBuildLayerDelegate(string layerName);

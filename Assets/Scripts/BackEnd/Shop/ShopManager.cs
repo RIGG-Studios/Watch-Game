@@ -98,9 +98,8 @@ public class ShopManager : MonoBehaviour
         player.playerWatches -= selectedItem.itemCost;
         player.AddItem(selectedItem);
         //Remove the item from the shop
-        RemoveItem(selectedItem); 
-        
-        //finally we will hide this menu in the canvas manager.
-        canvas.HideElementGroup(canvas.FindElementGroupByID("BuyConfirmationGroup"));
+        RemoveItem(selectedItem);
+
+        canvas.FindElementGroupByID("GameGroup").FindElement("watchcounttext").OverrideValue(player.playerWatches.ToString());
     }
 }

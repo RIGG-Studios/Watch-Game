@@ -6,30 +6,26 @@ public class PlayerEventManager : EventBase
 {
     CanvasManager canvas;
     PlayerManager player;
+    PlayerWatchManager playerWatchManager;
 
     UIElement watchesItemText;
-    UIElement gameTimer;
 
     private void Start()
     {
         canvas = FindObjectOfType<CanvasManager>();
-        player = GetComponent<PlayerManager>();
+        player = FindObjectOfType<PlayerManager>();
+        playerWatchManager = GetComponent<PlayerWatchManager>();
 
         if (canvas != null)
         {
             watchesItemText = canvas.FindElementGroupByID("GameGroup").FindElement("watchcounttext");
-            gameTimer = canvas.FindElementGroupByID("GameGroup").FindElement("gametimer");
         }
     }
 
-    public override void WatchBuildEndCallback()
+    public override void WatchBuildEndCallback(WatchProperties watchProperties, bool won)
     {
-        for(int i = 0; i < player.monkeys.Count; i++)
-        {
-            player.playerWatches++;
-        }
-
-        player.playerWatches += 1;
+        if(won)
+            player.playerWatches += watchProperties.watchReward;
 
         watchesItemText.OverrideValue("x" + player.playerWatches);
         canvas.FindElementGroupByID("GameGroup").FindElement("gametimer").FadeElement(0, 0.25f);
@@ -37,11 +33,11 @@ public class PlayerEventManager : EventBase
 
     public override void GameLoadCallback()
     {
-        player.ResetWatch(WatchTypes.Normal);
+        playerWatchManager.ResetWatch(WatchTypes.Normal);
     }
 
     public override void WatchBuildStartCallback(WatchTypes type)
     {
-        player.ResetWatch(type);
+        playerWatchManager.ResetWatch(type);
     }
 }

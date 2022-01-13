@@ -5,31 +5,72 @@ using UnityEngine;
 public class PlayerWatchManager : MonoBehaviour
 {
     public GameObject watchPrefab;
+    public GameObject watchEndPart;
     public List<WatchProperties> watches = new List<WatchProperties>();
 
-    public GameObject watchEndPart;
-
+    public WatchProperties queuedWatchProperties { get; private set; }
+    public WatchProperties currentWatchProperties { get; private set; }
     private GameObject currentWatch;
 
-    public WatchProperties GetRandomWatch()
+    PlayerManager player;
+    CanvasManager canvas;
+    GameTime gameTime;
+    SpecialOrdersManager specialOrderManager;
+
+    UIElementGroup specialWatch;
+    UIElement difficultyText;
+    UIElement timeText;
+
+    private void Start()
     {
-        return watches[Random.Range(0, watches.Count)];
+        player = FindObjectOfType<PlayerManager>();
+        canvas = FindObjectOfType<CanvasManager>();
+        gameTime = FindObjectOfType<GameTime>();
+        specialOrderManager = FindObjectOfType<SpecialOrdersManager>();
+
+        specialWatch = canvas.FindElementGroupByID("NewSpecialOrderGroup");
+
+        difficultyText = specialWatch.FindElement("difficultytext");
+        timeText = specialWatch.FindElement("timetext");
     }
 
-    public WatchProperties GetRandomWatchFromType(WatchTypes type)
+    public void ResetWatch(WatchTypes type)
     {
-        List<WatchProperties> w = new List<WatchProperties>();
-
-        foreach (WatchProperties wat in watches)
+        if (type == WatchTypes.Special)
         {
-            if (wat.watchType == type)
-                w.Add(wat);
-        }
+            queuedWatchProperties = GetRandomWatchFromType(WatchTypes.Special);
+            gameTime.SetupTimer(queuedWatchProperties.timeToComplete);
 
-        return w[Random.Range(0, w.Count)];
+            int min = Mathf.FloorToInt(queuedWatchProperties.timeToComplete / 60);
+            int sec = Mathf.FloorToInt(queuedWatchProperties.timeToComplete % 60);
+
+            timeText.OverrideValue("TIME: " + min.ToString("00") + ":" + sec.ToString("00"));
+            difficultyText.OverrideValue("DIFFICULTY: " + System.Enum.GetName(typeof(WatchProperties.WatchDifficulty), queuedWatchProperties.watchDifficulty));
+
+            specialOrderManager.AddComponentsToGrid(1);
+            canvas.ShowElementGroup(specialWatch, false);
+        }
+        else
+        {
+            SpawnWatch(GetRandomWatchFromType(WatchTypes.Normal));
+        }
     }
 
-    public GameObject CreateNewWatch(WatchTypes type)
+    public void SpawnWatch(WatchProperties properties)
+    {
+        if (properties.watchType == WatchTypes.Special && player.CanBuildWatch(queuedWatchProperties.requiredComponents.ToArray()))
+            return;
+
+        currentWatchProperties = properties;
+        canvas.HideElementGroup(specialWatch);
+        player.TransitionGamemode(true);
+
+        //call the watch manager to create a new watch
+        GameObject watchGameObject = CreateWatchGameObject(properties.watchType);
+
+        player.UpdateGamemode(watchGameObject);
+    }
+    public GameObject CreateWatchGameObject(WatchTypes type, WatchProperties properties = null)
     {
         Transform parentTo = null;
         List<GameObject> alreadyUsedLayers = new List<GameObject>();
@@ -41,7 +82,7 @@ public class PlayerWatchManager : MonoBehaviour
 
         currentWatch = Instantiate(watchPrefab, transform.parent);
 
-        GameObject watchTemplate = GetRandomWatchFromType(type).template;
+        GameObject watchTemplate = GetRandomWatchFromType(properties != null ? properties.watchType : type).template;
 
         for (int i = 0; i < Random.Range(watchTemplate.transform.childCount, watchTemplate.transform.childCount); i++)
         {
@@ -89,4 +130,23 @@ public class PlayerWatchManager : MonoBehaviour
 
         return currentWatch != null ? currentWatch : null;
     }
+
+    public WatchProperties GetRandomWatch()
+    {
+        return watches[Random.Range(0, watches.Count)];
+    }
+
+    public WatchProperties GetRandomWatchFromType(WatchTypes type)
+    {
+        List<WatchProperties> w = new List<WatchProperties>();
+
+        foreach (WatchProperties wat in watches)
+        {
+            if (wat.watchType == type)
+                w.Add(wat);
+        }
+
+        return w[Random.Range(0, w.Count)];
+    }
+
 }

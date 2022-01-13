@@ -35,10 +35,15 @@ public class CanvasManager : EventBase
     }
 
 
-    public override void WatchBuildEndCallback()
+    public override void WatchBuildEndCallback(WatchProperties properties, bool won)
     {
         UIElementGroup watchBuilt = FindElementGroupByID("WatchCompleteGroup");
 
+        if (!won)
+        {
+            Debug.Log("g");
+            watchBuilt.FindElement("header").OverrideValue("WATCH BUILD FAILED");
+        }
         ShowElementGroup(watchBuilt, false);
     }
 

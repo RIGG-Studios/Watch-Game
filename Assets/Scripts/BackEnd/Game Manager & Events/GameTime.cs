@@ -2,25 +2,28 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class GameTime : EventBase
+public class GameTime : MonoBehaviour
 {
     public Gradient timeTextGradient;
     [Range(0, 10)] public float timeSpeed = 1f;
     [Range(0, 500)] public float startMinute;
     
-
-    CanvasManager canvas;
     float currentTime;
+
     bool countTime = false;
     bool playedPulseAnim;
 
     UIElementGroup gameTime;
     UIElement gameTimerElement;
 
+    CanvasManager canvas;
+    PlayerWatchManager watchManager;
+
     private void Start()
     {
         currentTime = startMinute * 60;
         canvas = FindObjectOfType<CanvasManager>();
+        watchManager = FindObjectOfType<PlayerWatchManager>();
 
         gameTime = canvas.FindElementGroupByID("GameGroup");
         gameTimerElement = gameTime.FindElement("gametimer");
@@ -28,7 +31,7 @@ public class GameTime : EventBase
 
     private void Update()
     {
-        if (countTime)
+        if (countTime && watchManager.currentWatchProperties.watchType == WatchTypes.Special)
         {
             currentTime -= Time.deltaTime;
 
@@ -51,14 +54,20 @@ public class GameTime : EventBase
                 }
             }
 
-            if(currentTime <= 0)
+            if (currentTime <= 0)
+            {
                 gameTimerElement.OverrideValue("00:00");
+                gameTimerElement.FadeElement(0, 0.25f);
+                GameManager.WatchBuildEndEvent.Invoke(watchManager.currentWatchProperties, false);
+                countTime = false;
+            }
         }
 
     }
 
     public void SetupTimer(float time)
     {
+        gameTimerElement.FadeElement(1, 0.25f);
         currentTime = time;
         countTime = true;
     }
