@@ -13,7 +13,7 @@ public class DefaultInsertion : MonoBehaviour, IInsertable
 
     void Awake()
     {
-        restingPosition = transform.GetChild(0).position;
+        restingPosition = transform.GetChild(0).position + new Vector3(Random.Range(-2, 2), Random.Range(-2, 2), 0);
         originalPos = transform.position;
     }
 
