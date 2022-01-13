@@ -24,12 +24,12 @@ public class DefaultWatchDecorator : EventBase, IWatch
 
     private void Start()
     {
+        //When a new layer is activated, we will send an event to the game manager
+        GameManager.WatchBuildNewLayerEvent.Invoke();
+
         childWatchPart = transform.GetComponentsInChildren<IWatch>()[1];
-
         insertLogic = GetComponent<IInsertable>();
-
         childWatchPart.GetGameObject().SetActive(false);
-
         StartCoroutine(MoveToRestingPosition());
     }
 
@@ -77,7 +77,7 @@ public class DefaultWatchDecorator : EventBase, IWatch
         }
     }
 
-    
+
     //Recursive function, returns a dictionary containing the names of all of the parts on the watch and how many unfilled destinations they all have
     public virtual Dictionary<string, int> GetAllComponentsLeft(Dictionary<string, int> suppliedDictionary)
     {
@@ -134,6 +134,8 @@ public class DefaultWatchDecorator : EventBase, IWatch
         {
             //Then delegate to insertLogic and increment filledDestinations
             insertLogic.Execute(insertObject, destination);
+            //when a object is succesfully inserted, we will send an event to the game manager
+            GameManager.WatchObjectInsertEvent.Invoke();
             filledDestinations++;
 
             //check if the layer has do not hide, if not hide it

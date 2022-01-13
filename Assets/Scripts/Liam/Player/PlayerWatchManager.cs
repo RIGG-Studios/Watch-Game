@@ -58,7 +58,7 @@ public class PlayerWatchManager : MonoBehaviour
 
     public void SpawnWatch(WatchProperties properties)
     {
-        if (properties.watchType == WatchTypes.Special && player.CanBuildWatch(queuedWatchProperties.requiredComponents.ToArray()))
+        if (properties.watchType == WatchTypes.Special && !player.CanBuildWatch(queuedWatchProperties.requiredComponents.ToArray()))
             return;
 
         currentWatchProperties = properties;

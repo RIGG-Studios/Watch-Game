@@ -113,9 +113,6 @@ public class PlayerManager : MonoBehaviour
 
     private void OnSpacePress()
     {
-        if (gameManager.gameState != GameStates.PreGame)
-            return;
-
         GameManager.GameLoadEvent.Invoke();
     }
 

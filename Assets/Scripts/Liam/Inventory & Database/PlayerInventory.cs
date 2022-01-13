@@ -63,13 +63,15 @@ public class PlayerInventory : MonoBehaviour
     {
         foreach(KeyValuePair<Item, int> items in inventory)
         {
+            Debug.Log(items.Value - amount);
             //has item
-            if (item == items.Key && (items.Value - amount) >= 0)
+            if (item == items.Key)
             {
-                return true;
+                if((items.Value - amount) >= 0)
+                    return true;
             }
         }
-
+        Debug.Log("doesnt have item!");
         return false;
     }
 }

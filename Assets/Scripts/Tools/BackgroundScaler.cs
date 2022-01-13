@@ -2,6 +2,8 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+//script a found online, scales the background of the image according to the 
+//resolution/scale of the monitor. - Liam
 public class BackgroundScaler : MonoBehaviour
 {
     private void Start()

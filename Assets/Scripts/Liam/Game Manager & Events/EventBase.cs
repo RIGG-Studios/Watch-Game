@@ -15,6 +15,8 @@ public class EventBase : MonoBehaviour
         GameManager.GameLoadEvent += GameLoadCallback;
         GameManager.SceneLeaveEvent += SceneLeaveCallback;
         GameManager.WatchBuildLayerCompleteEvent += LayerCompleteCallback;
+        GameManager.WatchObjectInsertEvent += ObjectInsertedCallback;
+        GameManager.WatchBuildNewLayerEvent += NewLayerCallback;
     }
 
     private void OnDisable()
@@ -27,20 +29,19 @@ public class EventBase : MonoBehaviour
         GameManager.GameLoadEvent -= GameLoadCallback;
         GameManager.SceneLeaveEvent -= SceneLeaveCallback;
         GameManager.WatchBuildLayerCompleteEvent -= LayerCompleteCallback;
+        GameManager.WatchObjectInsertEvent -= ObjectInsertedCallback;
+        GameManager.WatchBuildNewLayerEvent -= NewLayerCallback;
     }
 
 
     //method for scene leave, methods will override this function adding in unique functionality
     public virtual void SceneLeaveCallback() { }
-
     //method for scene load, methods will override this function adding in unique functionality
     public virtual void SceneLoadCallback() { }
-
     public virtual void WatchBuildStartCallback(WatchTypes type) { }
-
     public virtual void WatchBuildEndCallback(WatchProperties properties, bool won) { }
-
     public virtual void GameLoadCallback() { }
-
     public virtual void LayerCompleteCallback(string layerName) { }
+    public virtual void NewLayerCallback() { }
+    public virtual void ObjectInsertedCallback() { }
 }
