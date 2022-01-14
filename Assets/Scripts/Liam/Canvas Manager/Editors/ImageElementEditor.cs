@@ -1,6 +1,8 @@
 using UnityEngine;
 using UnityEditor;
 
+#if UNITY_EDITOR
+
 [CustomEditor(typeof(ImageElement))]
 public class ImageElementEditor : Editor
 {
@@ -16,3 +18,5 @@ public class ImageElementEditor : Editor
         }
     }
 }
+
+#endif

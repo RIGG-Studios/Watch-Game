@@ -1,6 +1,7 @@
 using UnityEngine;
 using UnityEditor;
 
+#if UNITY_EDITOR
 [CustomEditor(typeof(UIElementGroup))]
 public class UIElementGroupEditor : Editor
 {
@@ -14,3 +15,4 @@ public class UIElementGroupEditor : Editor
             element.FindUIElements();
     }
 }
+#endif
