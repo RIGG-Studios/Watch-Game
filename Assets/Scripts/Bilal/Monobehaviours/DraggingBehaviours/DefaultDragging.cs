@@ -5,8 +5,13 @@ using UnityEngine;
 //Default dragging behaviour, the object follows the mouse when dragged
 public class DefaultDragging : MonoBehaviour, IDraggable
 {
+    //item that this draggable gameobject belongs too
+    public Item correspondingItem;
+
     //Supplying the method with the transform
     public GameObject GetGameObject() => gameObject;
+
+    public Item GetItem() => correspondingItem;
 
     //Doing nothing
     public void StartDraggingObject(Vector2 mousePosition)

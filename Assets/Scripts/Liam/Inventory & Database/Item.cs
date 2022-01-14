@@ -13,36 +13,20 @@ public class Item : ScriptableObject
     public int itemCost;
     //sprite of the item, will show up in the UI store, etc...
     public Sprite itemSprite;
+    //let us know if we can equip the item, for example a tool such as a screwdriver or tweezers
+    public bool equippable;
+    //item this item is required to have
+    public Item dependentItem;
 
-    [Header("Item Properties")]
-    //build speed for the watch, more of an example variable
-    public float watchBuildSpeed;
-    //how many watches are we gonna build per interval?
-    public int watchBuildStations;
 
     //constructor for the item with only arguement for the base item properties
     //useful for initializing basic items with minimal item properties.
-    public Item(string itemName, string itemDescription, Sprite itemSprite)
+    public Item(string itemName, string itemDescription, Sprite itemSprite, bool equippable)
     {
         //assign the item name, description, sprite to the arguements
         this.itemName = itemName;
         this.itemDescription = itemDescription;
         this.itemSprite = itemSprite;
-
-        //assign the speed and stations to their default value
-        watchBuildSpeed = 1;
-        watchBuildStations = 1;
-    }
-
-    //constructor for the item with arguements for every variable
-    public Item(string itemName, string itemDescription, Sprite itemSprite, float watchBuildSpeed, int watchBuildStations)
-    {
-        //assign the variables with all the arguemengts
-        this.itemName = itemName;
-        this.itemDescription = itemDescription;
-        this.itemSprite = itemSprite;
-
-        this.watchBuildSpeed = watchBuildSpeed;
-        this.watchBuildStations = watchBuildStations;
+        this.equippable = equippable;
     }
 }

@@ -1,4 +1,4 @@
-// GENERATED AUTOMATICALLY FROM 'Assets/Scripts/FrontEnd/Input/InputActions.inputactions'
+// GENERATED AUTOMATICALLY FROM 'Assets/Scripts/Bilal/Input/InputActions.inputactions'
 
 using System;
 using System.Collections;
@@ -54,6 +54,54 @@ public class @InputActions : IInputActionCollection, IDisposable
                     ""name"": ""Space"",
                     ""type"": ""Button"",
                     ""id"": ""5b72d62b-fca3-4ba0-90ee-7bbb039fb5a2"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """"
+                },
+                {
+                    ""name"": ""1"",
+                    ""type"": ""Button"",
+                    ""id"": ""bf2c7c5d-3877-4af1-94c5-43676b619336"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """"
+                },
+                {
+                    ""name"": ""2"",
+                    ""type"": ""Button"",
+                    ""id"": ""5adde528-3b77-4be9-b2de-2edbd4b6a70a"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """"
+                },
+                {
+                    ""name"": ""3"",
+                    ""type"": ""Button"",
+                    ""id"": ""e0471d56-0b36-43b7-ba9d-3de61e6eddd6"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """"
+                },
+                {
+                    ""name"": ""4"",
+                    ""type"": ""Button"",
+                    ""id"": ""797e4eea-ee82-4584-be7f-e04ea0b068eb"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """"
+                },
+                {
+                    ""name"": ""5"",
+                    ""type"": ""Button"",
+                    ""id"": ""89cc15cd-cce0-4922-a5cc-d89454afd004"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """"
+                },
+                {
+                    ""name"": ""6"",
+                    ""type"": ""Button"",
+                    ""id"": ""3b3ad1c7-ac7c-4c8c-bf0e-1f8f340d188c"",
                     ""expectedControlType"": ""Button"",
                     ""processors"": """",
                     ""interactions"": """"
@@ -114,6 +162,72 @@ public class @InputActions : IInputActionCollection, IDisposable
                     ""action"": ""Space"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""bb1f6c68-4c48-453f-aa70-74f728b4854c"",
+                    ""path"": ""<Keyboard>/1"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": ""KeyboardAndMouse"",
+                    ""action"": ""1"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""892f3294-2e9e-4e1f-93ac-e0d6a640393b"",
+                    ""path"": ""<Keyboard>/2"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": ""KeyboardAndMouse"",
+                    ""action"": ""2"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""905bd8d7-c830-4302-aa01-95c15a2076e9"",
+                    ""path"": ""<Keyboard>/3"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": ""KeyboardAndMouse"",
+                    ""action"": ""3"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""a1d5fe48-6c99-4924-a84f-1e2ce8977557"",
+                    ""path"": ""<Keyboard>/4"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": ""KeyboardAndMouse"",
+                    ""action"": ""4"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""158d0cd2-7928-4a5d-811e-cae550f2e0b8"",
+                    ""path"": ""<Keyboard>/5"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": ""KeyboardAndMouse"",
+                    ""action"": ""5"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""ce0c6edc-8fd1-4529-a8ee-802a4622bd49"",
+                    ""path"": ""<Keyboard>/6"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": ""KeyboardAndMouse"",
+                    ""action"": ""6"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
                 }
             ]
         }
@@ -144,6 +258,12 @@ public class @InputActions : IInputActionCollection, IDisposable
         m_PCMap_RightClick = m_PCMap.FindAction("RightClick", throwIfNotFound: true);
         m_PCMap_Escape = m_PCMap.FindAction("Escape", throwIfNotFound: true);
         m_PCMap_Space = m_PCMap.FindAction("Space", throwIfNotFound: true);
+        m_PCMap__1 = m_PCMap.FindAction("1", throwIfNotFound: true);
+        m_PCMap__2 = m_PCMap.FindAction("2", throwIfNotFound: true);
+        m_PCMap__3 = m_PCMap.FindAction("3", throwIfNotFound: true);
+        m_PCMap__4 = m_PCMap.FindAction("4", throwIfNotFound: true);
+        m_PCMap__5 = m_PCMap.FindAction("5", throwIfNotFound: true);
+        m_PCMap__6 = m_PCMap.FindAction("6", throwIfNotFound: true);
     }
 
     public void Dispose()
@@ -198,6 +318,12 @@ public class @InputActions : IInputActionCollection, IDisposable
     private readonly InputAction m_PCMap_RightClick;
     private readonly InputAction m_PCMap_Escape;
     private readonly InputAction m_PCMap_Space;
+    private readonly InputAction m_PCMap__1;
+    private readonly InputAction m_PCMap__2;
+    private readonly InputAction m_PCMap__3;
+    private readonly InputAction m_PCMap__4;
+    private readonly InputAction m_PCMap__5;
+    private readonly InputAction m_PCMap__6;
     public struct PCMapActions
     {
         private @InputActions m_Wrapper;
@@ -207,6 +333,12 @@ public class @InputActions : IInputActionCollection, IDisposable
         public InputAction @RightClick => m_Wrapper.m_PCMap_RightClick;
         public InputAction @Escape => m_Wrapper.m_PCMap_Escape;
         public InputAction @Space => m_Wrapper.m_PCMap_Space;
+        public InputAction @_1 => m_Wrapper.m_PCMap__1;
+        public InputAction @_2 => m_Wrapper.m_PCMap__2;
+        public InputAction @_3 => m_Wrapper.m_PCMap__3;
+        public InputAction @_4 => m_Wrapper.m_PCMap__4;
+        public InputAction @_5 => m_Wrapper.m_PCMap__5;
+        public InputAction @_6 => m_Wrapper.m_PCMap__6;
         public InputActionMap Get() { return m_Wrapper.m_PCMap; }
         public void Enable() { Get().Enable(); }
         public void Disable() { Get().Disable(); }
@@ -231,6 +363,24 @@ public class @InputActions : IInputActionCollection, IDisposable
                 @Space.started -= m_Wrapper.m_PCMapActionsCallbackInterface.OnSpace;
                 @Space.performed -= m_Wrapper.m_PCMapActionsCallbackInterface.OnSpace;
                 @Space.canceled -= m_Wrapper.m_PCMapActionsCallbackInterface.OnSpace;
+                @_1.started -= m_Wrapper.m_PCMapActionsCallbackInterface.On_1;
+                @_1.performed -= m_Wrapper.m_PCMapActionsCallbackInterface.On_1;
+                @_1.canceled -= m_Wrapper.m_PCMapActionsCallbackInterface.On_1;
+                @_2.started -= m_Wrapper.m_PCMapActionsCallbackInterface.On_2;
+                @_2.performed -= m_Wrapper.m_PCMapActionsCallbackInterface.On_2;
+                @_2.canceled -= m_Wrapper.m_PCMapActionsCallbackInterface.On_2;
+                @_3.started -= m_Wrapper.m_PCMapActionsCallbackInterface.On_3;
+                @_3.performed -= m_Wrapper.m_PCMapActionsCallbackInterface.On_3;
+                @_3.canceled -= m_Wrapper.m_PCMapActionsCallbackInterface.On_3;
+                @_4.started -= m_Wrapper.m_PCMapActionsCallbackInterface.On_4;
+                @_4.performed -= m_Wrapper.m_PCMapActionsCallbackInterface.On_4;
+                @_4.canceled -= m_Wrapper.m_PCMapActionsCallbackInterface.On_4;
+                @_5.started -= m_Wrapper.m_PCMapActionsCallbackInterface.On_5;
+                @_5.performed -= m_Wrapper.m_PCMapActionsCallbackInterface.On_5;
+                @_5.canceled -= m_Wrapper.m_PCMapActionsCallbackInterface.On_5;
+                @_6.started -= m_Wrapper.m_PCMapActionsCallbackInterface.On_6;
+                @_6.performed -= m_Wrapper.m_PCMapActionsCallbackInterface.On_6;
+                @_6.canceled -= m_Wrapper.m_PCMapActionsCallbackInterface.On_6;
             }
             m_Wrapper.m_PCMapActionsCallbackInterface = instance;
             if (instance != null)
@@ -250,6 +400,24 @@ public class @InputActions : IInputActionCollection, IDisposable
                 @Space.started += instance.OnSpace;
                 @Space.performed += instance.OnSpace;
                 @Space.canceled += instance.OnSpace;
+                @_1.started += instance.On_1;
+                @_1.performed += instance.On_1;
+                @_1.canceled += instance.On_1;
+                @_2.started += instance.On_2;
+                @_2.performed += instance.On_2;
+                @_2.canceled += instance.On_2;
+                @_3.started += instance.On_3;
+                @_3.performed += instance.On_3;
+                @_3.canceled += instance.On_3;
+                @_4.started += instance.On_4;
+                @_4.performed += instance.On_4;
+                @_4.canceled += instance.On_4;
+                @_5.started += instance.On_5;
+                @_5.performed += instance.On_5;
+                @_5.canceled += instance.On_5;
+                @_6.started += instance.On_6;
+                @_6.performed += instance.On_6;
+                @_6.canceled += instance.On_6;
             }
         }
     }
@@ -270,5 +438,11 @@ public class @InputActions : IInputActionCollection, IDisposable
         void OnRightClick(InputAction.CallbackContext context);
         void OnEscape(InputAction.CallbackContext context);
         void OnSpace(InputAction.CallbackContext context);
+        void On_1(InputAction.CallbackContext context);
+        void On_2(InputAction.CallbackContext context);
+        void On_3(InputAction.CallbackContext context);
+        void On_4(InputAction.CallbackContext context);
+        void On_5(InputAction.CallbackContext context);
+        void On_6(InputAction.CallbackContext context);
     }
 }

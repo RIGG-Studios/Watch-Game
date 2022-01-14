@@ -53,7 +53,7 @@ public class SpecialOrdersManager : EventBase
 
         //if the grid type is 1, meaning we are using the SpecialOrdersGroup UI Group, we will change the grid the required items
         //get populated too so we can see the required items BEFORE saving it for later, and AFTER.
-        if(gridType == 1)
+        if(gridType == 1 && firstGrid.childCount <= 0)
         {
             //loop through all the required components of the watch
             for (int i = 0; i < newWatch.requiredComponents.Count; i++)

@@ -18,6 +18,8 @@ public class Slot : MonoBehaviour
     //method for setting up the slots
     public void SetupSlot(Item item)
     {
+       if(imageSprite) imageSprite.enabled = true;
+       if(quantity) quantity.enabled = true;
         this.item = item;
         imageSprite.sprite = item.itemSprite;
 

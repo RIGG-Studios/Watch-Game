@@ -19,6 +19,8 @@ public class PlayerEventManager : EventBase
         if (canvas != null)
         {
             watchesItemText = canvas.FindElementGroupByID("GameGroup").FindElement("watchcounttext");
+
+            watchesItemText.OverrideValue(player.playerWatches.ToString());
         }
     }
 
@@ -27,7 +29,7 @@ public class PlayerEventManager : EventBase
         if(won)
             player.playerWatches += watchProperties.watchReward;
 
-        watchesItemText.OverrideValue("x" + player.playerWatches);
+        watchesItemText.OverrideValue(player.playerWatches.ToString());
         canvas.FindElementGroupByID("GameGroup").FindElement("gametimer").FadeElement(0, 0.25f);
     }
 

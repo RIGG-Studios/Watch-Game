@@ -4,6 +4,16 @@ using UnityEngine;
 
 public class DefaultTool : ATool
 {
+    public string toolID;
+    public Database database;
+
+    private CanvasManager canvas
+    {
+        get
+        {
+            return FindObjectOfType<CanvasManager>();
+        }
+    }
 
     void Update()
     {
@@ -33,13 +43,20 @@ public class DefaultTool : ATool
                 currentPart = null;
 
                 currentUses--;
+                canvas.FindElementGroupByID("GameGroup").FindElement("tooluses").OverrideValue(currentUses.ToString() + "/" + maxUses.ToString());   
             }
 
             hasPart = !hasPart;
         }
         else
         {
-            GetComponent<PlayerWatchBuildingMode>().currentTool = new NoTool();
+            canvas.FindElementGroupByID("GameGroup").FindElement("tooluses").FadeElement(0, 0.25f);
+            canvas.FindElementGroupByID("GameGroup").FindElement("toolicon").FadeElement(0, 0.25f);
+
+            transform.root.GetComponent<PlayerInventory>().RemoveItem(database.GetItem(toolID), 1);
+            transform.root.GetComponent<PlayerWatchBuildingMode>().currentTool = new NoTool();
         }
     }
+
+    public void UpdateUses(int amount) => currentUses = amount;
 }

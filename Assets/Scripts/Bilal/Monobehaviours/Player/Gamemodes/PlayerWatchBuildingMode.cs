@@ -11,24 +11,41 @@ public class PlayerWatchBuildingMode : MonoBehaviour, IGamemode
     public LayerMask allLayers;
     public int insertedObjectsLayer;
 
-    //The current camera
-    Camera mainCamera;
-    GameManager gameManager;
-
     //Current watch the player is working on
     public Transform currentWatch;
+    //Current tool the player is using
+    public ATool currentTool;
+
+    public DefaultTool screwDriver;
+    public DefaultTool tweezers;
 
     //Dragging related private variables
     Vector3 mousePosition;
     bool isDragging;
     IDraggable currentComponent;
+    //The current camera
+    Camera mainCamera;
+    CanvasManager canvas;
+    PlayerInventory inventory;
 
-    public ATool currentTool;
+    UIElementGroup selectionGroupUi;
+    UIElement selectionGroupName;
+    UIElement selectionGroupRequirements;
+    bool playedIntro, playedExit;
 
     private void Start()
     {
+        canvas = FindObjectOfType<CanvasManager>();
+        inventory = FindObjectOfType<PlayerInventory>();
         mainCamera = Camera.main;
-        gameManager = FindObjectOfType<GameManager>();
+
+        if(canvas != null)
+        {
+            selectionGroupUi = canvas.FindElementGroupByID("DraggableSelectionGroup");
+
+            selectionGroupName = selectionGroupUi.FindElement("name");
+            selectionGroupRequirements = selectionGroupUi.FindElement("requirements");
+        }
     }
 
     //When the player moves their mouse, sets the mousePosition to the newMousePosition
@@ -128,9 +145,34 @@ public class PlayerWatchBuildingMode : MonoBehaviour, IGamemode
     void Update()
     {
         //If there is a currentComponent then it calls WhileDragging on it with mousePosition
-        if(currentComponent != null)
+        if (currentComponent != null)
         {
             currentComponent.WhileDragging(mousePosition);
+        }
+
+        RaycastHit2D hit = RaycastFromMousePosition(allLayers);
+        if (hit && hit.collider.GetComponent<DefaultDragging>() != null)
+        {
+            if (!playedIntro)
+            {
+                Item item = hit.collider.GetComponent<DefaultDragging>().correspondingItem;
+                selectionGroupName.OverrideValue(item.itemName);
+                selectionGroupRequirements.OverrideValue(item.dependentItem != null && !inventory.HasItem(item.dependentItem, 1) ? "<color=red>REQUIRED ITEM:</color> " + item.dependentItem.itemName : string.Empty);
+                playedIntro = true;
+                playedExit = false;
+                canvas.ShowElementGroup(selectionGroupUi);
+
+            }
+        }
+        else
+        {
+            if (!playedExit)
+            {
+                selectionGroupName.OverrideValue(string.Empty);
+                selectionGroupRequirements.OverrideValue(string.Empty);
+                playedExit = true;
+                playedIntro = false;
+            }
         }
     }
 

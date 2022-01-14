@@ -15,14 +15,20 @@ public class PlayerManager : MonoBehaviour
     GameManager gameManager;
     //reference to the canvas manager
     CanvasManager canvas;
-    //reference to the player inventory
-    PlayerInventory inventory;
     //reference to the watch manager
     PlayerWatchManager watchManager;
     //reference to the game time
     GameTime gameTime;
     //refernece to special order
     SpecialOrdersManager specialOrderManager;
+
+    PlayerInventory inventory
+    {
+        get
+        {
+            return FindObjectOfType<PlayerInventory>();
+        }
+    }
 
     //refence to the ui element group watches
     UIElementGroup specialWatch;
@@ -52,7 +58,6 @@ public class PlayerManager : MonoBehaviour
     {
         gameModes = GetComponents<IGamemode>();
         gameManager = FindObjectOfType<GameManager>();
-        inventory = GetComponent<PlayerInventory>();
         canvas = FindObjectOfType<CanvasManager>();
         watchManager = GetComponent<PlayerWatchManager>();
         gameTime = FindObjectOfType<GameTime>();
@@ -87,6 +92,15 @@ public class PlayerManager : MonoBehaviour
         inputActions.PCMap.RightClick.performed += ctx => currentGamemode.OnRightClick();
 
         inputActions.PCMap.Space.performed += ctx => OnSpacePress();
+
+        //loop throhgh the size of the inventory so we can add input corresponding to the slot #
+        inputActions.PCMap._1.performed += ctx => inventory.SelectSlot(0);
+        inputActions.PCMap._2.performed += ctx => inventory.SelectSlot(1);
+        inputActions.PCMap._3.performed += ctx => inventory.SelectSlot(2);
+        inputActions.PCMap._4.performed += ctx => inventory.SelectSlot(3);
+        inputActions.PCMap._5.performed += ctx => inventory.SelectSlot(4);
+        inputActions.PCMap._6.performed += ctx => inventory.SelectSlot(5);
+
     }
 
     public void TransitionGamemode(bool backToDefault)

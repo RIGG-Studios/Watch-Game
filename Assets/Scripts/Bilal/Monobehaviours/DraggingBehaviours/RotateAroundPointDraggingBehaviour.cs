@@ -128,4 +128,6 @@ public class RotateAroundPointDraggingBehaviour : MonoBehaviour, IDraggable
         //Setting what they did this frame to use next frame
         isMovingLeftLastFrame = isMovingCounterClockwise;
     }
+
+    public Item GetItem() => null;
 }

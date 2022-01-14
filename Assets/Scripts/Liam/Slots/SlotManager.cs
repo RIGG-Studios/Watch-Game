@@ -87,4 +87,6 @@ public class SlotManager : MonoBehaviour
         //if we didnt find any slot, return null.
         return null;
     }
+
+    public Slot FindSlotFromIndex(int index) => slots[index];
 }

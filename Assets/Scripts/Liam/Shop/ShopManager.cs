@@ -7,8 +7,6 @@ public class ShopManager : MonoBehaviour
 {
     public Database database;
     public SlotManager slots;
-    public CanvasManager canvas;
-    public PlayerManager player;
 
     //our shop is essentially a list of items, but we also need to keep track of the stock of the items,
     //so we store it in a dictionary.
@@ -17,6 +15,24 @@ public class ShopManager : MonoBehaviour
     //get reference to the selected item in the shop
     private Item selectedItem;
     private bool shopShown;
+
+    public int buyAmount = 1;
+
+    private CanvasManager canvas
+    {
+        get
+        {
+            return FindObjectOfType<CanvasManager>();
+        }
+    }
+
+    private PlayerManager player
+    {
+        get
+        {
+            return FindObjectOfType<PlayerManager>();
+        }
+    }
 
     private void Start()
     {
@@ -70,7 +86,7 @@ public class ShopManager : MonoBehaviour
         //when we select an item, set the selected item to the item
         selectedItem = item;
 
-        if (player.CanBuyItem(item.itemCost))
+        if (player.CanBuyItem(buyAmount * selectedItem.itemCost))
         {
             //find the Buy confirmation UI group in the canvas manager
             UIElementGroup group = canvas.FindElementGroupByID("BuyConfirmationGroup");
@@ -80,7 +96,6 @@ public class ShopManager : MonoBehaviour
 
             //finally, we must update the canvas.
             canvas.ShowElementGroup(group, false);
-            canvas.ShowElementGroup(group, false);
         }
     }
 
@@ -88,18 +103,15 @@ public class ShopManager : MonoBehaviour
     //method for when we click the buy item button
     public void BuyItem()
     {
-        //create a temp var for our stock
         int stock = 0;
-
-        //try and find our stock
         itemsInShop.TryGetValue(selectedItem, out stock);
 
-        //deduct money from our playerMoney.
         player.playerWatches -= selectedItem.itemCost;
         player.AddItem(selectedItem);
-        //Remove the item from the shop
         RemoveItem(selectedItem);
 
         canvas.FindElementGroupByID("GameGroup").FindElement("watchcounttext").OverrideValue(player.playerWatches.ToString());
     }
+
+    public void UpdateBuyAmount(int amount) => buyAmount = amount;
 }

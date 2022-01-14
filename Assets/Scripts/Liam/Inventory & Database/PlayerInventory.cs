@@ -14,6 +14,22 @@ public class PlayerInventory : MonoBehaviour
     public Database database;
     public SlotManager slots;
 
+    private PlayerWatchBuildingMode playerWatchBuildingMode
+    {
+        get
+        {
+            return FindObjectOfType<PlayerWatchBuildingMode>();
+        }
+    }
+
+    private CanvasManager canvas
+    {
+        get
+        {
+            return FindObjectOfType<CanvasManager>();   
+        }
+    }
+
     private void Start()
     {
         slots.InitializeSlots(inventorySize);
@@ -32,6 +48,11 @@ public class PlayerInventory : MonoBehaviour
             slots.FindSlotFromItem(item).SetQuantity("x" + inventory[item]);
             return;
         }
+
+        if (item.itemName == "Screwdriver")
+            playerWatchBuildingMode.screwDriver.UpdateUses(10);
+        else if (item.itemName == "Tweezers")
+            playerWatchBuildingMode.tweezers.UpdateUses(10);
 
         //if everything is clear, add the items and also update the slots
         inventory.Add(item, amount);
@@ -63,7 +84,6 @@ public class PlayerInventory : MonoBehaviour
     {
         foreach(KeyValuePair<Item, int> items in inventory)
         {
-            Debug.Log(items.Value - amount);
             //has item
             if (item == items.Key)
             {
@@ -71,7 +91,29 @@ public class PlayerInventory : MonoBehaviour
                     return true;
             }
         }
-        Debug.Log("doesnt have item!");
         return false;
+    }
+
+    public void SelectSlot(int index)
+    {
+        Slot slot = slots.FindSlotFromIndex(index);
+        Item item = slot.GetItem();
+
+        if (item != null && item.equippable) 
+        {
+            switch (item.itemName)
+            {
+                case "Screwdriver":
+                    playerWatchBuildingMode.currentTool = playerWatchBuildingMode.screwDriver;
+                    break;
+
+                case "Tweezers":
+                    playerWatchBuildingMode.currentTool = playerWatchBuildingMode.tweezers;
+                    break;
+            }
+
+            canvas.FindElementGroupByID("GameGroup").FindElement("toolicon").OverrideValue(item.itemSprite);
+            canvas.FindElementGroupByID("GameGroup").FindElement("tooluses").OverrideValue(playerWatchBuildingMode.currentTool.GetRemainingUses().ToString() + "/" + playerWatchBuildingMode.currentTool.maxUses);
+        }
     }
 }

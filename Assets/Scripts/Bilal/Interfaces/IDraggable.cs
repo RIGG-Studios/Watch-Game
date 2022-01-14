@@ -16,4 +16,6 @@ public interface IDraggable
 
     //method to return the object's transform to be used in IInsertable
     public GameObject GetGameObject();
+
+    public Item GetItem();
 }
