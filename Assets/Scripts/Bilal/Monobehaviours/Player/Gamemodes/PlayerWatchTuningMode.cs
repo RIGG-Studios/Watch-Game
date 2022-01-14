@@ -33,7 +33,7 @@ public class PlayerWatchTuningMode : MonoBehaviour, IGamemode
         }
     }
 
-    public void OnLeftClick()
+    public void OnLeftClick(bool pressed)
     {
         RaycastHit2D hit = RaycastFromMousePosition(watchHandsLayer);
         isDragging = !isDragging;

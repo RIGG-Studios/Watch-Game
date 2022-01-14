@@ -6,7 +6,7 @@ using UnityEngine;
 public interface IGamemode
 {
     //Logic when left clicked
-    public void OnLeftClick();
+    public void OnLeftClick(bool released);
 
     //Logic when right clicked
     public void OnRightClick();

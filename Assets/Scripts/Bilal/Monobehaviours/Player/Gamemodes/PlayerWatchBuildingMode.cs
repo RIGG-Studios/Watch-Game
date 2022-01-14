@@ -21,7 +21,6 @@ public class PlayerWatchBuildingMode : MonoBehaviour, IGamemode
 
     //Dragging related private variables
     Vector3 mousePosition;
-    bool isDragging;
     IDraggable currentComponent;
     //The current camera
     Camera mainCamera;
@@ -61,7 +60,7 @@ public class PlayerWatchBuildingMode : MonoBehaviour, IGamemode
     }
 
     //When the player left clicks
-    public void OnLeftClick()
+    public void OnLeftClick(bool pressed)
     {
         RaycastHit2D hit = RaycastFromMousePosition(allLayers);
 
@@ -81,13 +80,10 @@ public class PlayerWatchBuildingMode : MonoBehaviour, IGamemode
         }
 
         //If the player clicked on a component and check if were currently in game
-        if (CheckIfClickedObject() && !useTool) 
+        if (CheckIfClickedObject(pressed) && !useTool) 
         {
-            //Inverts isDragging, tells us if the player released left click or pressed it
-            isDragging = !isDragging;
-
             //If the player released left click
-            if (!isDragging)
+            if (!pressed)
             {
                 //Raycasts to the destinationsLayer with all the destinations
                 RaycastHit2D raycastHit = RaycastFromMousePosition(destinationsLayer);
@@ -112,12 +108,12 @@ public class PlayerWatchBuildingMode : MonoBehaviour, IGamemode
         }
         else if(hit && useTool)
         {
-            currentTool.LeftClickTool(hit, currentWatch.GetComponentInChildren<IWatch>());
+            currentTool.LeftClickTool(hit, currentWatch.GetComponentInChildren<IWatch>(), pressed);
         }
     }
 
     //Checks if the player clicked on a component
-    bool CheckIfClickedObject()
+    bool CheckIfClickedObject(bool pressed)
     {
         //Raycasts to the components layer
         RaycastHit2D raycastHit = RaycastFromMousePosition(componentsLayer);
@@ -126,7 +122,10 @@ public class PlayerWatchBuildingMode : MonoBehaviour, IGamemode
         if (raycastHit && raycastHit.collider.GetComponent<IDraggable>() != null)
         {
             //Sets currentComponent to the IDraggable implementation and return true
-            currentComponent = raycastHit.collider.GetComponent<IDraggable>();
+            if (pressed)
+            {
+                currentComponent = raycastHit.collider.GetComponent<IDraggable>();
+            }
             return true;
         }
         //Return false

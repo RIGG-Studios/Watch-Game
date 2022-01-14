@@ -23,16 +23,16 @@ public class DefaultTool : ATool
         }
     }
 
-    public override void LeftClickTool(RaycastHit2D hit, IWatch currentWatch)
+    public override void LeftClickTool(RaycastHit2D hit, IWatch currentWatch, bool pressed)
     {
         if(currentUses > 0)
         {
-            if (!hasPart)
+            if (pressed)
             {
                 currentPart = hit.collider.gameObject;
                 currentPart.GetComponent<IDraggable>().StartDraggingObject(mousePosition);
             }
-            else
+            else if(!pressed && currentPart)
             {
                 RaycastHit2D holeHit = RaycastFromMousePosition(destinationsLayer);
                 if (holeHit && currentPart != null)
@@ -45,8 +45,6 @@ public class DefaultTool : ATool
                 currentUses--;
                 canvas.FindElementGroupByID("GameGroup").FindElement("tooluses").OverrideValue(currentUses.ToString() + "/" + maxUses.ToString());   
             }
-
-            hasPart = !hasPart;
         }
         else
         {

@@ -22,12 +22,14 @@ public class DefaultDragging : MonoBehaviour, IDraggable
     //Doing nothing
     public void StopDraggingObject()
     {
-        return;
+        transform.position = new Vector3(transform.position.x, transform.position.y, -4);
+        transform.GetChild(0).gameObject.GetComponent<SpriteRenderer>().sortingOrder = 0;
     }
 
     //Making the object follow the mouse position
     public void WhileDragging(Vector2 position)
     {
-        transform.position = new Vector3(position.x, position.y, transform.position.z);
+        transform.position = new Vector3(position.x, position.y, -20);
+        transform.GetChild(0).gameObject.GetComponent<SpriteRenderer>().sortingOrder = 2;
     }
 }

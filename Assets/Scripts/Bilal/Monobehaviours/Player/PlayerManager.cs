@@ -86,7 +86,7 @@ public class PlayerManager : MonoBehaviour
         };
 
         //Whenever the player left clicks
-        inputActions.PCMap.LeftClick.performed += ctx => currentGamemode.OnLeftClick();
+        inputActions.PCMap.LeftClick.performed += ctx => currentGamemode.OnLeftClick(inputActions.PCMap.LeftClick.triggered && ctx.ReadValue<float>() > 0);
 
         //Whenever the player right clicks
         inputActions.PCMap.RightClick.performed += ctx => currentGamemode.OnRightClick();

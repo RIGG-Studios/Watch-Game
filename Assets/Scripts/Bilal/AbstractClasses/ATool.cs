@@ -11,7 +11,6 @@ public abstract class ATool: MonoBehaviour
     protected int currentUses;
 
     protected GameObject currentPart;
-    protected bool hasPart;
 
     protected Vector2 mousePosition;
 
@@ -20,7 +19,7 @@ public abstract class ATool: MonoBehaviour
         currentUses = maxUses;
     }
 
-    public virtual void LeftClickTool(RaycastHit2D hit, IWatch currentWatch) 
+    public virtual void LeftClickTool(RaycastHit2D hit, IWatch currentWatch, bool pressed) 
     {
         return;
     }
