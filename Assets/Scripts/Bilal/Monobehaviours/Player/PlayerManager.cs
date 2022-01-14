@@ -134,11 +134,11 @@ public class PlayerManager : MonoBehaviour
     {
         for(int i = 0; i < components.Length; i++)
         {
-            if (inventory.HasItem(components[i].itemRequirement, components[i].itemAmount))
-                return true;
+            if (!inventory.HasItem(components[i].itemRequirement, components[i].itemAmount))
+                return false;
         }
 
-        return false;
+        return true;
     }
 
     public void AddItem(Item item, int amount)

@@ -744,8 +744,7 @@ MonoBehaviour:
     serializedVersion: 2
     m_Bits: 512
   maxUses: 10
-  toolID: ScrewDriver
-  database: {fileID: 11400000, guid: ae5b05a48ef4a5548855ef94e57556bb, type: 2}
+  toolItem: {fileID: 11400000, guid: 4c7aac1147b7259498d5369e93124706, type: 2}
 --- !u!4 &568394505
 Transform:
   m_ObjectHideFlags: 0
@@ -1037,7 +1036,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   playerWatches: 4
-  playerMonkeys: 0
+  playerMonkeys: 1
 --- !u!114 &1163207783
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1183,8 +1182,7 @@ MonoBehaviour:
     serializedVersion: 2
     m_Bits: 64
   maxUses: 10
-  toolID: Tweezers
-  database: {fileID: 11400000, guid: ae5b05a48ef4a5548855ef94e57556bb, type: 2}
+  toolItem: {fileID: 11400000, guid: cb7ef3fcf74e10e4aa8797d9008a4f29, type: 2}
 --- !u!4 &1197152542
 Transform:
   m_ObjectHideFlags: 0
@@ -2340,6 +2338,10 @@ PrefabInstance:
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[2].m_Arguments.m_ObjectArgumentAssemblyTypeName
       value: UnityEngine.Object, UnityEngine
       objectReference: {fileID: 0}
+    - target: {fileID: 6540946593255645442, guid: 23583d2ca49b32d49bb6274c3404a085, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 6540946593303280408, guid: 23583d2ca49b32d49bb6274c3404a085, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.size
       value: 2
@@ -2412,6 +2414,14 @@ PrefabInstance:
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[1].m_Arguments.m_ObjectArgumentAssemblyTypeName
       value: UnityEngine.Object, UnityEngine
       objectReference: {fileID: 0}
+    - target: {fileID: 6540946593457058549, guid: 23583d2ca49b32d49bb6274c3404a085, type: 3}
+      propertyPath: m_Text
+      value: BUILD ANOTHER
+      objectReference: {fileID: 0}
+    - target: {fileID: 6540946593457058549, guid: 23583d2ca49b32d49bb6274c3404a085, type: 3}
+      propertyPath: m_FontData.m_FontSize
+      value: 6
+      objectReference: {fileID: 0}
     - target: {fileID: 6540946593588611757, guid: 23583d2ca49b32d49bb6274c3404a085, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.size
       value: 3
@@ -2463,6 +2473,14 @@ PrefabInstance:
     - target: {fileID: 6540946593588611757, guid: 23583d2ca49b32d49bb6274c3404a085, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[2].m_Arguments.m_ObjectArgumentAssemblyTypeName
       value: UnityEngine.Object, UnityEngine
+      objectReference: {fileID: 0}
+    - target: {fileID: 6540946593588611759, guid: 23583d2ca49b32d49bb6274c3404a085, type: 3}
+      propertyPath: m_AnchoredPosition.x
+      value: 74.61281
+      objectReference: {fileID: 0}
+    - target: {fileID: 6540946593588611759, guid: 23583d2ca49b32d49bb6274c3404a085, type: 3}
+      propertyPath: m_AnchoredPosition.y
+      value: -49.800003
       objectReference: {fileID: 0}
     - target: {fileID: 6540946593627242707, guid: 23583d2ca49b32d49bb6274c3404a085, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.size

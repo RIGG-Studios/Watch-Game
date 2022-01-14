@@ -26,8 +26,10 @@ public class PlayerEventManager : EventBase
 
     public override void WatchBuildEndCallback(WatchProperties watchProperties, bool won)
     {
+        Debug.Log(won);
         if (won)
         {
+            Debug.Log("won");
             for(int i = 0; i < player.playerMonkeys; i++)
                 player.playerWatches += watchProperties.watchReward;
         }

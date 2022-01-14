@@ -50,9 +50,13 @@ public class PlayerInventory : MonoBehaviour
         }
 
         if (item.itemName == "Screwdriver")
+        {
             playerWatchBuildingMode.screwDriver.UpdateUses(10);
+        }
         else if (item.itemName == "Tweezers")
+        {
             playerWatchBuildingMode.tweezers.UpdateUses(10);
+        }
 
         inventory.Add(item, amount);
         slots.AddItemToSlot(item);
@@ -71,6 +75,7 @@ public class PlayerInventory : MonoBehaviour
         if (inventory.ContainsKey(item))
         {
             inventory[item] -= amount;
+            slots.FindSlotFromItem(item).SetQuantity("x" + amount);
         }
 
         //remove the item from the list, and also call the slots remove item method
@@ -115,6 +120,8 @@ public class PlayerInventory : MonoBehaviour
 
             canvas.FindElementGroupByID("GameGroup").FindElement("toolicon").OverrideValue(item.itemSprite);
             canvas.FindElementGroupByID("GameGroup").FindElement("tooluses").OverrideValue(playerWatchBuildingMode.currentTool.GetRemainingUses().ToString() + "/" + playerWatchBuildingMode.currentTool.maxUses);
+            canvas.FindElementGroupByID("GameGroup").FindElement("toolicon").FadeElement(1, 0.25f);
+            canvas.FindElementGroupByID("GameGroup").FindElement("tooluses").FadeElement(1, 0.25f);
         }
     }
 }

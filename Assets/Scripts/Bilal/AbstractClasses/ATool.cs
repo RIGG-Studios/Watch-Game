@@ -36,6 +36,7 @@ public abstract class ATool: MonoBehaviour
         return raycastHit;
     }
 
+
     public virtual void MouseMovePosition(Vector2 currentMousePos) => mousePosition = currentMousePos;
 
     public virtual int GetRemainingUses() => currentUses;

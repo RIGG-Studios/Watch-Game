@@ -4,8 +4,7 @@ using UnityEngine;
 
 public class DefaultTool : ATool
 {
-    public string toolID;
-    public Database database;
+    public Item toolItem;
 
     private CanvasManager canvas
     {
@@ -51,7 +50,7 @@ public class DefaultTool : ATool
             canvas.FindElementGroupByID("GameGroup").FindElement("tooluses").FadeElement(0, 0.25f);
             canvas.FindElementGroupByID("GameGroup").FindElement("toolicon").FadeElement(0, 0.25f);
 
-            transform.root.GetComponent<PlayerInventory>().RemoveItem(database.GetItem(toolID), 1);
+            transform.root.GetComponent<PlayerInventory>().RemoveItem(toolItem, 1);
             transform.root.GetComponent<PlayerWatchBuildingMode>().currentTool = new NoTool();
         }
     }

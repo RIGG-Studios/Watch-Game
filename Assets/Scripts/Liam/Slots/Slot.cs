@@ -10,7 +10,6 @@ public class Slot : MonoBehaviour
 
     public Text cost;
     public Text name;
-
     public Text quantity;
 
     private Item item;
@@ -20,7 +19,6 @@ public class Slot : MonoBehaviour
     {
        if(imageSprite) imageSprite.enabled = true;
        if(quantity) quantity.enabled = true;
-        this.item = item;
         imageSprite.sprite = item.itemSprite;
 
         if (cost != null)
@@ -28,15 +26,18 @@ public class Slot : MonoBehaviour
 
         if (name != null)
             name.text = item.itemName;
-    }
 
+
+        this.item = item;
+    }
     public void SetQuantity(string text) => quantity.text = text;
 
     //method for deselecting our slots
     public void DeselectSlot()
     {
         item = null;
-        imageSprite.sprite = null;
+        if (imageSprite) imageSprite.enabled = false;
+        if (quantity) quantity.enabled = false;
     }
 
     public void ShowcaseItem()

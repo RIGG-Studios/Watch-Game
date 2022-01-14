@@ -65,12 +65,13 @@ public class SlotManager : MonoBehaviour
     public void RemoveSlot(Item item)
     {
         Slot slotToRemove = FindSlotFromItem(item);
+        Debug.Log(slotToRemove);
 
         //deselect the slot
         if (slotToRemove != null)
         {
             slots.Remove(slotToRemove);
-            Destroy(slotToRemove);
+            slotToRemove.DeselectSlot();
         }    
     }
 
