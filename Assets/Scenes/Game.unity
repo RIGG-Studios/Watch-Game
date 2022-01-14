@@ -1636,6 +1636,22 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 773080442501790733, guid: 23583d2ca49b32d49bb6274c3404a085, type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 3458913391613442769, guid: 23583d2ca49b32d49bb6274c3404a085, type: 3}
+      propertyPath: m_SizeDelta.y
+      value: 134.6947
+      objectReference: {fileID: 0}
+    - target: {fileID: 3458913391613442769, guid: 23583d2ca49b32d49bb6274c3404a085, type: 3}
+      propertyPath: m_AnchoredPosition.x
+      value: 257.9
+      objectReference: {fileID: 0}
+    - target: {fileID: 3458913391613442769, guid: 23583d2ca49b32d49bb6274c3404a085, type: 3}
+      propertyPath: m_AnchoredPosition.y
+      value: -78
+      objectReference: {fileID: 0}
     - target: {fileID: 4356686228210716509, guid: 23583d2ca49b32d49bb6274c3404a085, type: 3}
       propertyPath: m_IsActive
       value: 1
@@ -1883,6 +1899,18 @@ PrefabInstance:
     - target: {fileID: 4852093539660370600, guid: 23583d2ca49b32d49bb6274c3404a085, type: 3}
       propertyPath: m_IsActive
       value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4962027113897989233, guid: 23583d2ca49b32d49bb6274c3404a085, type: 3}
+      propertyPath: m_Name
+      value: SceneIntroShopInstructions
+      objectReference: {fileID: 0}
+    - target: {fileID: 5047121720758686642, guid: 23583d2ca49b32d49bb6274c3404a085, type: 3}
+      propertyPath: m_SizeDelta.y
+      value: 48.9656
+      objectReference: {fileID: 0}
+    - target: {fileID: 5047121720758686642, guid: 23583d2ca49b32d49bb6274c3404a085, type: 3}
+      propertyPath: m_AnchoredPosition.y
+      value: 67.629684
       objectReference: {fileID: 0}
     - target: {fileID: 6540946591525966862, guid: 23583d2ca49b32d49bb6274c3404a085, type: 3}
       propertyPath: m_AnchoredPosition.x
@@ -2480,6 +2508,30 @@ PrefabInstance:
       propertyPath: m_IsActive
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 7446931849645225358, guid: 23583d2ca49b32d49bb6274c3404a085, type: 3}
+      propertyPath: m_SizeDelta.y
+      value: 115.9367
+      objectReference: {fileID: 0}
+    - target: {fileID: 7446931849645225358, guid: 23583d2ca49b32d49bb6274c3404a085, type: 3}
+      propertyPath: m_AnchoredPosition.x
+      value: 257.9
+      objectReference: {fileID: 0}
+    - target: {fileID: 7446931849645225358, guid: 23583d2ca49b32d49bb6274c3404a085, type: 3}
+      propertyPath: m_AnchoredPosition.y
+      value: 57.72
+      objectReference: {fileID: 0}
+    - target: {fileID: 7782087324684316043, guid: 23583d2ca49b32d49bb6274c3404a085, type: 3}
+      propertyPath: m_SizeDelta.y
+      value: 167.7555
+      objectReference: {fileID: 0}
+    - target: {fileID: 7782087324684316043, guid: 23583d2ca49b32d49bb6274c3404a085, type: 3}
+      propertyPath: m_AnchoredPosition.x
+      value: -257.9
+      objectReference: {fileID: 0}
+    - target: {fileID: 7782087324684316043, guid: 23583d2ca49b32d49bb6274c3404a085, type: 3}
+      propertyPath: m_AnchoredPosition.y
+      value: 31.811
+      objectReference: {fileID: 0}
     - target: {fileID: 7848748269937276833, guid: 23583d2ca49b32d49bb6274c3404a085, type: 3}
       propertyPath: m_Pivot.x
       value: 0
@@ -2580,6 +2632,10 @@ PrefabInstance:
       propertyPath: m_IsActive
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 7848748271431182961, guid: 23583d2ca49b32d49bb6274c3404a085, type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 7848748271431182975, guid: 23583d2ca49b32d49bb6274c3404a085, type: 3}
       propertyPath: elementsInGroup.Array.size
       value: 5
@@ -2592,6 +2648,20 @@ PrefabInstance:
       propertyPath: elementsInGroup.Array.data[4]
       value: 
       objectReference: {fileID: 1232932930}
+    - target: {fileID: 7904205886130712669, guid: 23583d2ca49b32d49bb6274c3404a085, type: 3}
+      propertyPath: m_Text
+      value: Some components require tools to manipulate, buy tools from the shop
+        and equip them by pressing a number key. Tools will break after a certain
+        number of uses
+      objectReference: {fileID: 0}
+    - target: {fileID: 7908119104826896234, guid: 23583d2ca49b32d49bb6274c3404a085, type: 3}
+      propertyPath: m_Name
+      value: SceneIntroGameInstructions
+      objectReference: {fileID: 0}
+    - target: {fileID: 8440803690425408824, guid: 23583d2ca49b32d49bb6274c3404a085, type: 3}
+      propertyPath: m_Name
+      value: SceneIntroSpecialOrdersInstructions
+      objectReference: {fileID: 0}
     - target: {fileID: 8510717140395848322, guid: 23583d2ca49b32d49bb6274c3404a085, type: 3}
       propertyPath: m_MovementType
       value: 0
