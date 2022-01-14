@@ -106,8 +106,8 @@ public class ShopManager : MonoBehaviour
         int stock = 0;
         itemsInShop.TryGetValue(selectedItem, out stock);
 
-        player.playerWatches -= selectedItem.itemCost;
-        player.AddItem(selectedItem);
+        player.playerWatches -=  buyAmount * selectedItem.itemCost;
+        player.AddItem(selectedItem, buyAmount);
         RemoveItem(selectedItem);
 
         canvas.FindElementGroupByID("GameGroup").FindElement("watchcounttext").OverrideValue(player.playerWatches.ToString());

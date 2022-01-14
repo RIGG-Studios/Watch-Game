@@ -26,8 +26,11 @@ public class PlayerEventManager : EventBase
 
     public override void WatchBuildEndCallback(WatchProperties watchProperties, bool won)
     {
-        if(won)
-            player.playerWatches += watchProperties.watchReward;
+        if (won)
+        {
+            for(int i = 0; i < player.playerMonkeys; i++)
+                player.playerWatches += watchProperties.watchReward;
+        }
 
         watchesItemText.OverrideValue(player.playerWatches.ToString());
         canvas.FindElementGroupByID("GameGroup").FindElement("gametimer").FadeElement(0, 0.25f);

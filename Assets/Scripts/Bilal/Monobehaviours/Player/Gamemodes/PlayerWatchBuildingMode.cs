@@ -156,6 +156,7 @@ public class PlayerWatchBuildingMode : MonoBehaviour, IGamemode
             if (!playedIntro)
             {
                 Item item = hit.collider.GetComponent<DefaultDragging>().correspondingItem;
+
                 selectionGroupName.OverrideValue(item.itemName);
                 selectionGroupRequirements.OverrideValue(item.dependentItem != null && !inventory.HasItem(item.dependentItem, 1) ? "<color=red>REQUIRED ITEM:</color> " + item.dependentItem.itemName : string.Empty);
                 playedIntro = true;

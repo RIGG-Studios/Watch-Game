@@ -8,7 +8,7 @@ public class PlayerManager : MonoBehaviour
     //The players money
     public int playerWatches;
     //the amount of watches monkeys make
-
+    public int playerMonkeys;
     //The player's camera
     Camera mainCamera;
     //reference to the game manager
@@ -141,9 +141,12 @@ public class PlayerManager : MonoBehaviour
         return false;
     }
 
-    public void AddItem(Item item)
+    public void AddItem(Item item, int amount)
     {
-        inventory.AddItem(item, 1);
+        if (item.itemName.Contains("Monkey"))
+            playerMonkeys++;
+
+        inventory.AddItem(item, amount);
     }
 
     public void UpdateGamemode(GameObject watchObj)

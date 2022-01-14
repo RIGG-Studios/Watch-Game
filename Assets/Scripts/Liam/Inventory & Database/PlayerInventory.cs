@@ -36,7 +36,7 @@ public class PlayerInventory : MonoBehaviour
     }
 
     //method for adding items to our inventory
-    public void AddItem(Item item, int amount = 1)
+    public void AddItem(Item item, int amount)
     {
         //when we add an item, check for a bunch of conditions to make sure we can add the item without errors
         if (item == null && database.HasItem(item.itemName) || inventory.Count - 1 > inventorySize)
@@ -54,9 +54,10 @@ public class PlayerInventory : MonoBehaviour
         else if (item.itemName == "Tweezers")
             playerWatchBuildingMode.tweezers.UpdateUses(10);
 
-        //if everything is clear, add the items and also update the slots
         inventory.Add(item, amount);
         slots.AddItemToSlot(item);
+
+        slots.FindSlotFromItem(item).SetQuantity("x" + amount);
     }
 
 
