@@ -41,8 +41,10 @@ public class ShopManager : MonoBehaviour
         //loop through all the items in the shop
         for(int i = 0; i < items.Length; i++)
         {
-            if(items[i].itemCost > 0)
+            if (items[i].itemCost >= 1)
+            {
                 AddItem(items[i], 100);
+            }
         }
 
         //after the shop list has been initialized, initialize the slots for the shop

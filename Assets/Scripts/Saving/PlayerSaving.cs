@@ -27,18 +27,31 @@ public class PlayerSaving : MonoBehaviour
         }
         else
         {
+            //this code is hard me for to test, as I dont wanna wait around for like 20 minutes not opening the game
+            //so it may be not right, however i think the logic is right
+
+            //get the difference in time between when we started, and now
+            //we only care about the minutes/hours as minutes only go up to 59 so when we get into the hours we have to consider it in the calculation
+            //and seconds would be wasted calculations as minutes are the min we care about
             DateTime timePassed = DateTime.Now - new TimeSpan(PlayerPrefs.GetInt(hoursTag), PlayerPrefs.GetInt(minutesTag), 0);
 
+            //get a ref to the current min
             int time = timePassed.Minute;
 
+            //if we have indeed waited over atleast an hour
             if(timePassed.Hour > 0)
             {
+                //get the amount of minutes passed in the hours elapsed, and add that to our current minutes as it could be an hour and 15 minutes or an hour and 35 minutes since we last played
                 time += timePassed.Hour * 60;
             }
 
+
+            //dfinally multiple the total time elapsed by the amount of monkeys we have, multiplied by the monkeys per minute
+            //which is gonna be a low value because we want the game to be fun
             int nextWatches = time * (int)(PlayerPrefs.GetInt(monkeysTag) * playerManager.monkeysPerMinute);
 
-            playerManager.playerWatches = PlayerPrefs.GetInt(minutesTag) + nextWatches;
+            //finally set the current watches to whatever our saved watches are, plus the additional watches
+            playerManager.playerWatches = PlayerPrefs.GetInt(watchesTag) + nextWatches;
         }
 
         PlayerInventory inventory = FindObjectOfType<PlayerInventory>();
@@ -47,7 +60,6 @@ public class PlayerSaving : MonoBehaviour
 
         string[] items = message.Split('|');
 
- 
 
         for (int i = 0; i < items.Length; i++)
         {
