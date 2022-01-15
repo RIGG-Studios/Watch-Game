@@ -106,7 +106,7 @@ public class ShopManager : MonoBehaviour
         player.AddItem(selectedItem, buyAmount);
         RemoveItem(selectedItem);
 
-        canvas.FindElementGroupByID("GameGroup").FindElement("watchcounttext").OverrideValue(player.playerWatches.ToString());
+        canvas.FindElementGroupByID("GameGroup").FindElement("watchcounttext").OverrideValue(((int)player.playerWatches).ToString());
     }
 
     public void UpdateBuyAmount(int amount) => buyAmount = amount;

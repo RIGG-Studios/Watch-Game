@@ -13,7 +13,7 @@ public class DefaultInsertion : MonoBehaviour, IInsertable
 
     void Awake()
     {
-        restingPosition = transform.GetChild(0).position + new Vector3(Random.Range(-2, 2), Random.Range(-2, 2), 0);
+        restingPosition = transform.GetChild(0).position + new Vector3(Random.Range(-2, 2), Random.Range(-2, 2), -2);
         originalPos = transform.position;
     }
 
@@ -25,10 +25,12 @@ public class DefaultInsertion : MonoBehaviour, IInsertable
             insertObject.GetComponentInChildren<Animator>().SetTrigger("onInsert");
         }
 
-        insertObject.gameObject.layer = 11;
+        insertObject.gameObject.layer = 10;
         insertObject.transform.position = destination.position;
         occupied = true;
     }
 
     public bool HasObject() => occupied;
+
+    public void SetOccupied(bool occupied) => this.occupied = occupied;
 }

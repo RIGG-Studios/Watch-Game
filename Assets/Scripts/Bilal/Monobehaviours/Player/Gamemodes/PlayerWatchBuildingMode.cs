@@ -91,11 +91,10 @@ public class PlayerWatchBuildingMode : MonoBehaviour, IGamemode
                 RaycastHit2D raycastHit = RaycastFromMousePosition(destinationsLayer);
 
                 //If the raycast hit something and we have something to insert then
-                if (raycastHit && currentComponent != null)
+                if (raycastHit && currentComponent != null && !raycastHit.collider.gameObject.GetComponent<IInsertable>().HasObject())
                 {
                     //Tells the current watch to insert this part and passes the thing behind it the raycast hit, the destination transform
                     currentWatch.GetComponentInChildren<IWatch>().Insert(currentComponent.GetGameObject(), raycastHit.transform);
-                    currentComponent.GetGameObject().layer = insertedObjectsLayer;
                 }
 
                 //Calls StopDraggingObject on the currentComponent and sets currentComponent to null

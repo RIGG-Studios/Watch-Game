@@ -20,7 +20,7 @@ public class PlayerEventManager : EventBase
         {
             watchesItemText = canvas.FindElementGroupByID("GameGroup").FindElement("watchcounttext");
 
-            watchesItemText.OverrideValue(player.playerWatches.ToString());
+            watchesItemText.OverrideValue(((int)player.playerWatches).ToString());
         }
     }
 

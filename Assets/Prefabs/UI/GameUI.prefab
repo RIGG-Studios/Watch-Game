@@ -5079,9 +5079,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: Some components require tools to manipulate, buy tools from the shop and
-    equip them by pressing a number key. Tools will break after a certain number
-    of uses
+  m_Text: Screwdriver - 1.                               Tweezers - 2
 --- !u!114 &1233995129923445011
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -5909,7 +5907,7 @@ RectTransform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 4356686228537127581}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalPosition: {x: 0, y: 0, z: -1}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 4356686229342910444}
@@ -6705,6 +6703,7 @@ RectTransform:
   - {fileID: 3458913391613442769}
   - {fileID: 1932595108}
   - {fileID: 1594834687}
+  - {fileID: 6235205135172733610}
   m_Father: {fileID: 7848748269937276833}
   m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -6749,12 +6748,13 @@ MonoBehaviour:
   - {fileID: 4789139163767806302}
   - {fileID: 4789139163676025296}
   - {fileID: 3797554220578112161}
-  - {fileID: 1233995129923445011}
+  - {fileID: 7182008886844037646}
   - {fileID: 4694755765972849884}
   - {fileID: 7437561442978135129}
   - {fileID: 1932595109}
   - {fileID: 1898476496}
   - {fileID: 1594834688}
+  - {fileID: 1233995129923445011}
   hideType: 1
 --- !u!1 &4852093538041911447
 GameObject:
@@ -7462,7 +7462,8 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: Several helpful items can be bought in the shop
+  m_Text: There is a shop full of helpful items, such as monkeys that make passive
+    income!
 --- !u!114 &4694755765972849884
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -13635,6 +13636,101 @@ MonoBehaviour:
   m_FillOrigin: 0
   m_UseSpriteMesh: 0
   m_PixelsPerUnitMultiplier: 1
+--- !u!1 &7615534205366039131
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 6235205135172733610}
+  - component: {fileID: 8687857773390361342}
+  - component: {fileID: 3734161465692473371}
+  - component: {fileID: 7182008886844037646}
+  m_Layer: 5
+  m_Name: SceneIntroToolsInstructions (1)
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!224 &6235205135172733610
+RectTransform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7615534205366039131}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 4789139165216313661}
+  m_RootOrder: 9
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_AnchorMin: {x: 0.5, y: 0.5}
+  m_AnchorMax: {x: 0.5, y: 0.5}
+  m_AnchoredPosition: {x: 6, y: 81.967415}
+  m_SizeDelta: {x: 204.796, y: 67.4422}
+  m_Pivot: {x: 0.5, y: 0.5}
+--- !u!222 &8687857773390361342
+CanvasRenderer:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7615534205366039131}
+  m_CullTransparentMesh: 1
+--- !u!114 &3734161465692473371
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7615534205366039131}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5f7201a12d95ffc409449d95f23cf332, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Material: {fileID: 0}
+  m_Color: {r: 1, g: 1, b: 1, a: 1}
+  m_RaycastTarget: 1
+  m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
+  m_Maskable: 1
+  m_OnCullStateChanged:
+    m_PersistentCalls:
+      m_Calls: []
+  m_FontData:
+    m_Font: {fileID: 12800000, guid: b6349d08a5335cd4aa534282435d11cc, type: 3}
+    m_FontSize: 10
+    m_FontStyle: 1
+    m_BestFit: 0
+    m_MinSize: 0
+    m_MaxSize: 40
+    m_Alignment: 4
+    m_AlignByGeometry: 0
+    m_RichText: 1
+    m_HorizontalOverflow: 0
+    m_VerticalOverflow: 0
+    m_LineSpacing: 1
+  m_Text: Some parts require tools to manipulate, buy them from the shop! Equip them
+    using the number keys
+--- !u!114 &7182008886844037646
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7615534205366039131}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7ac030cf0f2d1d5408ee7a041ca00b8f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  id: sceneintrofooter
+  graphics: {fileID: 3734161465692473371}
 --- !u!1 &7848748269937276837
 GameObject:
   m_ObjectHideFlags: 0
@@ -14149,9 +14245,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: Drag and Drop watch parts into certain destinations to assemble watches,
-    memorize the locations of the destinations at the start of each layer. Once every
-    layer has been filled in, you must set the watch to 3:30 by dragging the hands
+  m_Text: Drag and Drop watch parts into destinations to assemble watches
 --- !u!114 &3797554220578112161
 MonoBehaviour:
   m_ObjectHideFlags: 0

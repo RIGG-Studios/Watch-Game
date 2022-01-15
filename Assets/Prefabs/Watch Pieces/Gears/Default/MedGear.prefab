@@ -112,7 +112,7 @@ GameObject:
   m_Component:
   - component: {fileID: 5457774757952819382}
   - component: {fileID: 4220477664797725031}
-  - component: {fileID: 8283718528041029700}
+  - component: {fileID: 5645534555550721795}
   m_Layer: 3
   m_Name: MedGear
   m_TagString: Untagged
@@ -148,8 +148,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   correspondingItem: {fileID: 11400000, guid: 4e0f6d727c1e0414f98e8b77126d4a9f, type: 2}
---- !u!61 &8283718528041029700
-BoxCollider2D:
+--- !u!58 &5645534555550721795
+CircleCollider2D:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
@@ -161,16 +161,6 @@ BoxCollider2D:
   m_IsTrigger: 0
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: -0.0027023554, y: 0}
-  m_SpriteTilingProperty:
-    border: {x: 0, y: 0, z: 0, w: 0}
-    pivot: {x: 0.5, y: 0.5}
-    oldSize: {x: 1.44, y: 1.43}
-    newSize: {x: 1, y: 1}
-    adaptiveTilingThreshold: 0.5
-    drawMode: 0
-    adaptiveTiling: 0
-  m_AutoTiling: 0
+  m_Offset: {x: 0, y: 0}
   serializedVersion: 2
-  m_Size: {x: 1.3888059, y: 1.3785465}
-  m_EdgeRadius: 0
+  m_Radius: 0.7

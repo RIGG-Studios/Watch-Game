@@ -48,10 +48,10 @@ public class PlayerSaving : MonoBehaviour
 
             //dfinally multiple the total time elapsed by the amount of monkeys we have, multiplied by the monkeys per minute
             //which is gonna be a low value because we want the game to be fun
-            int nextWatches = time * (int)(PlayerPrefs.GetInt(monkeysTag) * playerManager.monkeysPerMinute);
+            float nextWatches = time * (PlayerPrefs.GetInt(monkeysTag) * playerManager.monkeysPerMinute);
 
             //finally set the current watches to whatever our saved watches are, plus the additional watches
-            playerManager.playerWatches = PlayerPrefs.GetInt(watchesTag) + nextWatches;
+            playerManager.playerWatches = PlayerPrefs.GetFloat(watchesTag) + nextWatches;
         }
 
         PlayerInventory inventory = FindObjectOfType<PlayerInventory>();
@@ -75,7 +75,7 @@ public class PlayerSaving : MonoBehaviour
     private void OnApplicationQuit()
     {
         PlayerPrefs.SetInt(monkeysTag, playerManager.playerMonkeys);
-        PlayerPrefs.SetInt(watchesTag, playerManager.playerWatches);
+        PlayerPrefs.SetFloat(watchesTag, playerManager.playerWatches);
         PlayerPrefs.SetInt(minutesTag, DateTime.Now.Minute);
         PlayerPrefs.SetInt(hoursTag, DateTime.Now.Hour);
 

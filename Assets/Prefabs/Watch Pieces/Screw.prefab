@@ -112,7 +112,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1161567777251169136}
   - component: {fileID: 6772356269192709697}
-  - component: {fileID: 7211476037506647320}
+  - component: {fileID: 357099116218833812}
   m_Layer: 8
   m_Name: Screw
   m_TagString: Untagged
@@ -148,8 +148,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   correspondingItem: {fileID: 11400000, guid: ecff2ed2effcc7f458440c6f7f141aaa, type: 2}
---- !u!61 &7211476037506647320
-BoxCollider2D:
+--- !u!58 &357099116218833812
+CircleCollider2D:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
@@ -162,15 +162,5 @@ BoxCollider2D:
   m_UsedByEffector: 0
   m_UsedByComposite: 0
   m_Offset: {x: 0, y: 0}
-  m_SpriteTilingProperty:
-    border: {x: 0, y: 0, z: 0, w: 0}
-    pivot: {x: 0.5, y: 0.5}
-    oldSize: {x: 0.27, y: 0.26}
-    newSize: {x: 8.8, y: 7}
-    adaptiveTilingThreshold: 0.5
-    drawMode: 0
-    adaptiveTiling: 0
-  m_AutoTiling: 0
   serializedVersion: 2
-  m_Size: {x: 0.27, y: 0.26}
-  m_EdgeRadius: 0
+  m_Radius: 0.14

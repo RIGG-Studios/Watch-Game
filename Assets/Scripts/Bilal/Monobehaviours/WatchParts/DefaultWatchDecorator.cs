@@ -122,8 +122,12 @@ public class DefaultWatchDecorator : EventBase, IWatch
         if (insertObject.transform.GetChild(0).transform.localScale != destination.localScale)
         {
             dragging.misPlaced = true;
-            //for now, simply log that its happening and return the function
-            Debug.Log("part doesn't fit in destination, restarting layer!");
+            dragging.stuckInDestination = destination.gameObject;
+
+            if (!destination.GetComponent<DefaultInsertion>().HasObject())
+            {
+                destination.GetComponent<DefaultInsertion>().SetOccupied(true);
+            }
             return;
         }
         else

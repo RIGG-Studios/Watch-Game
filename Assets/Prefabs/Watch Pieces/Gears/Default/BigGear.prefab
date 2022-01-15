@@ -112,7 +112,7 @@ GameObject:
   m_Component:
   - component: {fileID: 4521560696446272274}
   - component: {fileID: 5946999915928120268}
-  - component: {fileID: 8982604284920616789}
+  - component: {fileID: 5703815609119243762}
   m_Layer: 3
   m_Name: BigGear
   m_TagString: Untagged
@@ -148,8 +148,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   correspondingItem: {fileID: 11400000, guid: a3c7c31d8fa32124fbd0a28499ecad55, type: 2}
---- !u!61 &8982604284920616789
-BoxCollider2D:
+--- !u!58 &5703815609119243762
+CircleCollider2D:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
@@ -162,15 +162,5 @@ BoxCollider2D:
   m_UsedByEffector: 0
   m_UsedByComposite: 0
   m_Offset: {x: 0, y: 0}
-  m_SpriteTilingProperty:
-    border: {x: 0, y: 0, z: 0, w: 0}
-    pivot: {x: 0.5, y: 0.5}
-    oldSize: {x: 1.5, y: 1.49}
-    newSize: {x: 1, y: 1}
-    adaptiveTilingThreshold: 0.5
-    drawMode: 0
-    adaptiveTiling: 0
-  m_AutoTiling: 0
   serializedVersion: 2
-  m_Size: {x: 0.55469346, y: 0.55475056}
-  m_EdgeRadius: 0
+  m_Radius: 0.28

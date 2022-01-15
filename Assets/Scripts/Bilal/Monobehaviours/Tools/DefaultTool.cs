@@ -30,13 +30,22 @@ public class DefaultTool : ATool
             {
                 currentPart = hit.collider.gameObject;
                 currentPart.GetComponent<IDraggable>().StartDraggingObject(mousePosition);
+                if (currentPart.GetComponent<DefaultDragging>().misPlaced && currentPart.GetComponent<DefaultDragging>().stuckInDestination != null) 
+                {
+                    currentPart.GetComponent<DefaultDragging>().stuckInDestination.GetComponent<DefaultInsertion>().SetOccupied(false);
+                }
             }
             else if(!pressed && currentPart)
             {
                 RaycastHit2D holeHit = RaycastFromMousePosition(destinationsLayer);
-                if (holeHit && currentPart != null)
+                if (holeHit && currentPart != null && !holeHit.collider.gameObject.GetComponent<IInsertable>().HasObject())
                 {
                     currentWatch.Insert(currentPart, holeHit.collider.transform);
+                }
+
+                if (currentPart.GetComponent<DefaultDragging>().misPlaced)
+                {
+                    currentPart.GetComponent<DefaultDragging>().misPlaced = false;
                 }
                 currentPart.GetComponent<IDraggable>().StopDraggingObject();
                 currentPart = null;

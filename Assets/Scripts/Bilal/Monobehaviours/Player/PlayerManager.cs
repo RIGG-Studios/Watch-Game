@@ -6,7 +6,7 @@ using UnityEngine;
 public class PlayerManager : MonoBehaviour
 {
     //The players money
-    public int playerWatches;
+    public float playerWatches;
     //the amount of watches monkeys make
     public int playerMonkeys;
 
@@ -69,7 +69,7 @@ public class PlayerManager : MonoBehaviour
         mainCamera = Camera.main;
 
         monkeyBonusText = canvas.FindElementGroupByID("GameGroup").FindElement("monkeyconversioncounter");
-        monkeyBonusText.OverrideValue(string.Format("{0} MONKEYS = {1} WATCHES/MINUTE", playerMonkeys, (int)(playerMonkeys * monkeysPerMinute)));
+        monkeyBonusText.OverrideValue(string.Format("{0} MONKEYS = {1} WATCHES/MINUTE", playerMonkeys, (playerMonkeys * monkeysPerMinute)));
 
         StartCoroutine(MonkeyBonusCycle());
     }
@@ -149,7 +149,7 @@ public class PlayerManager : MonoBehaviour
         {
             playerMonkeys++;
 
-            monkeyBonusText.OverrideValue(string.Format("{0} MONKEYS = {1} WATCHES/MINUTE", playerMonkeys, (int)(playerMonkeys * monkeysPerMinute)));
+            monkeyBonusText.OverrideValue(string.Format("{0} MONKEYS = {1} WATCHES/MINUTE", playerMonkeys, (playerMonkeys * monkeysPerMinute)));
         }
 
         inventory.AddItem(item, amount);
@@ -169,9 +169,9 @@ public class PlayerManager : MonoBehaviour
 
         if (playerMonkeys >= 0)
         {
-            playerWatches += (int)(playerMonkeys * monkeysPerMinute);
-            canvas.FindElementGroupByID("GameGroup").FindElement("watchcounttext").OverrideValue(playerWatches.ToString());
-            monkeyBonusText.OverrideValue(string.Format("{0} MONKEYS = {1} WATCHES/MINUTE", playerMonkeys, (int)(playerMonkeys * monkeysPerMinute)));
+            playerWatches += (playerMonkeys * monkeysPerMinute);
+            canvas.FindElementGroupByID("GameGroup").FindElement("watchcounttext").OverrideValue(((int)playerWatches).ToString());
+            monkeyBonusText.OverrideValue(string.Format("{0} MONKEYS = {1} WATCHES/MINUTE", playerMonkeys, (playerMonkeys * monkeysPerMinute)));
         }
 
         StartCoroutine(MonkeyBonusCycle());
