@@ -107,6 +107,8 @@ public class PlayerManager : MonoBehaviour
 
         if (playerWatches < 0)
             playerWatches = 0;
+
+        Debug.Log(currentGamemode);
     }
 
     public void TransitionGamemode(bool backToDefault)
@@ -128,6 +130,7 @@ public class PlayerManager : MonoBehaviour
         if(correctWatchHands >= 2)
         {
             GameManager.WatchBuildEndEvent.Invoke(watchManager.currentWatchProperties, true);
+            TransitionGamemode(true);
         }
     }
 

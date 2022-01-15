@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: Screwdriver
   m_EditorClassIdentifier: 
   itemName: Screwdriver
-  itemDescription: 'A screwdriver
+  itemDescription: 'A screwdriver, used to manipulate screws
 
 '
   itemCost: 1

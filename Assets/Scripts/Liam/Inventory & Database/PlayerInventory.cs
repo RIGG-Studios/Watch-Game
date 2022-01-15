@@ -37,6 +37,7 @@ public class PlayerInventory : MonoBehaviour
         {
             AddItem(Database.GetItem("Screwdriver"), 1);
             AddItem(Database.GetItem("Tweezers"), 1);
+            AddItem(Database.GetItem("Reg Monkey"), 1);
         }
     }
 

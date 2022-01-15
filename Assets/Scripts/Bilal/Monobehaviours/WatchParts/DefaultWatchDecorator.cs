@@ -124,7 +124,7 @@ public class DefaultWatchDecorator : EventBase, IWatch
             dragging.misPlaced = true;
             dragging.stuckInDestination = destination.gameObject;
 
-            if (!destination.GetComponent<DefaultInsertion>().HasObject())
+            if (!destination.GetComponent<DefaultInsertion>().HasObject() && insertObject.layer != 8)
             {
                 destination.GetComponent<DefaultInsertion>().SetOccupied(true);
             }
@@ -154,6 +154,8 @@ public class DefaultWatchDecorator : EventBase, IWatch
                 {
                     destinations[i].gameObject.SetActive(false);
                 }
+
+                HideAllObjects();
 
                 GameManager.WatchBuildLayerCompleteEvent.Invoke(componentName);
                 childWatchPart.GetGameObject().SetActive(true);

@@ -6,6 +6,7 @@ public class PlayerWatchManager : MonoBehaviour
 {
     public GameObject watchPrefab;
     public GameObject watchEndPart;
+    public GameObject watchTemplate;
     public List<WatchProperties> watches = new List<WatchProperties>();
 
     public WatchProperties queuedWatchProperties { get; private set; }
@@ -99,9 +100,7 @@ public class PlayerWatchManager : MonoBehaviour
 
         currentWatch = Instantiate(watchPrefab, transform.parent);
 
-        GameObject watchTemplate = GetRandomWatchFromType(properties != null ? properties.watchType : type).template;
-
-        for (int i = 0; i < Random.Range(watchTemplate.transform.childCount, watchTemplate.transform.childCount); i++)
+        for (int i = 0; i < Random.Range(2, watchTemplate.transform.childCount); i++)
         {
             List<GameObject> objectList = new List<GameObject>();
 

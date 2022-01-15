@@ -16,7 +16,7 @@ MonoBehaviour:
   itemDescription: 'a medium bronze gear
 
 '
-  itemCost: 1
+  itemCost: 2
   itemSprite: {fileID: 3229274296667685026, guid: a867c8be2be948e44bc2db0ca4326c3a, type: 3}
   equippable: 0
   itemStack: 100

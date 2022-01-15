@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   itemName: Screw
   itemDescription: A screw used by a screwdriver.
-  itemCost: 0
+  itemCost: 1
   itemSprite: {fileID: -7904977244744513839, guid: a867c8be2be948e44bc2db0ca4326c3a, type: 3}
   equippable: 0
   itemStack: 100

@@ -128,6 +128,7 @@ public class PlayerWatchBuildingMode : MonoBehaviour, IGamemode
             //Sets currentComponent to the IDraggable implementation and return true
             if (pressed)
             {
+                Debug.Log("Found object");
                 currentComponent = raycastHit.collider.GetComponent<IDraggable>();
             }
             return true;

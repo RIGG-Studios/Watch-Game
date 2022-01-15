@@ -744,6 +744,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   watchPrefab: {fileID: 2785903086750189985, guid: 5b67790fabb92cc4fbd174755ce14a99, type: 3}
   watchEndPart: {fileID: 6681838029515661374, guid: 3d362533c54b074448c96d06c20cf3d9, type: 3}
+  watchTemplate: {fileID: 6756786269519537042, guid: 1af975ed776f3814ab5f2db80f5150bd, type: 3}
   watches:
   - watchName: 'Normal Watch '
     watchType: 0
@@ -1264,7 +1265,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5047121720758686642, guid: 23583d2ca49b32d49bb6274c3404a085, type: 3}
       propertyPath: m_AnchoredPosition.y
-      value: 3.3684
+      value: -10.514
       objectReference: {fileID: 0}
     - target: {fileID: 6235205135172733610, guid: 23583d2ca49b32d49bb6274c3404a085, type: 3}
       propertyPath: m_AnchoredPosition.x
@@ -1408,11 +1409,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7782087324684316043, guid: 23583d2ca49b32d49bb6274c3404a085, type: 3}
       propertyPath: m_SizeDelta.y
-      value: 58.6555
+      value: 77.376
       objectReference: {fileID: 0}
     - target: {fileID: 7782087324684316043, guid: 23583d2ca49b32d49bb6274c3404a085, type: 3}
       propertyPath: m_AnchoredPosition.y
-      value: 86.360985
+      value: 77.001
       objectReference: {fileID: 0}
     - target: {fileID: 7848748269937276833, guid: 23583d2ca49b32d49bb6274c3404a085, type: 3}
       propertyPath: m_Pivot.x

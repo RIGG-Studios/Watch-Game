@@ -13,7 +13,8 @@ MonoBehaviour:
   m_Name: Super Monkey
   m_EditorClassIdentifier: 
   itemName: Super Monkey
-  itemDescription: 'A monkey that passively gains money for you
+  itemDescription: 'A monkey that passively gains money for you, more effective than
+    the Regular Monkey
 
 '
   itemCost: 20

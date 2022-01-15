@@ -14245,7 +14245,8 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: Drag and Drop watch parts into destinations to assemble watches
+  m_Text: Drag and Drop watch parts into destinations to assemble watches. At the
+    end, drag watch hands so the time is 3:30
 --- !u!114 &3797554220578112161
 MonoBehaviour:
   m_ObjectHideFlags: 0
