@@ -895,6 +895,7 @@ MonoBehaviour:
   - {fileID: 8300000, guid: b9703806690cb49a58ab182032cad276, type: 3}
   clickSoundEffects:
   - {fileID: 8300000, guid: 130a177e727814a2ea78a886ab72213d, type: 3}
+  misplaceSoundEffect: {fileID: 8300000, guid: b43d102aac6b145468dcaa94a5cccae1, type: 3}
 --- !u!82 &1398393559
 AudioSource:
   m_ObjectHideFlags: 0

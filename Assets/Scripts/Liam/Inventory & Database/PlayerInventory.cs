@@ -119,12 +119,10 @@ public class PlayerInventory : MonoBehaviour
             {
                 case "Screwdriver":
                     playerWatchBuildingMode.currentTool = playerWatchBuildingMode.screwDriver;
-                    playerWatchBuildingMode.screwDriver.UpdateUses(10);
                     break;
 
                 case "Tweezers":
                     playerWatchBuildingMode.currentTool = playerWatchBuildingMode.tweezers;
-                    playerWatchBuildingMode.tweezers.UpdateUses(10);
                     break;
             }
 

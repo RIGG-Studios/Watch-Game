@@ -88,8 +88,6 @@ public class PlayerSaving : MonoBehaviour
         {
             message += "|" + items.Key.itemName;
         }
-
-        Debug.Log(message);
         PlayerPrefs.SetString(inventoryTag, message);
     }
 

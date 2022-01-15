@@ -128,7 +128,6 @@ public class PlayerWatchBuildingMode : MonoBehaviour, IGamemode
             //Sets currentComponent to the IDraggable implementation and return true
             if (pressed)
             {
-                Debug.Log("Found object");
                 currentComponent = raycastHit.collider.GetComponent<IDraggable>();
             }
             return true;
@@ -167,10 +166,10 @@ public class PlayerWatchBuildingMode : MonoBehaviour, IGamemode
 
                 if (item.itemName == "Screw")
                 {
-                    selectionGroupRequirements.OverrideValue(!inventory.HasItem("Screwdriver", 1) ? "<color=red>REQUIRED ITEM:</color> SCREWDRIVER" : string.Empty);
+                    selectionGroupRequirements.OverrideValue(currentTool != screwDriver ? "<color=red>REQUIRED ITEM:</color> SCREWDRIVER" : string.Empty);
                 }
 
-                if (hit.collider.gameObject.layer == 10 && draggable.inserted)
+                if (hit.collider.gameObject.layer == 11 && draggable.inserted)
                 {
                     if (draggable.misPlaced)
                     {

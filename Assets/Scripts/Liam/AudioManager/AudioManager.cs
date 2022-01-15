@@ -9,6 +9,8 @@ public class AudioManager : EventBase
     public AudioClip[] insertSoundEffects;
     public AudioClip[] buySoundEffects;
     public AudioClip[] clickSoundEffects;
+    public AudioClip misplaceSoundEffect;
+
     private AudioClip FindRandomInsertSound() => insertSoundEffects[Random.Range(0, insertSoundEffects.Length)];
     private AudioClip FindRandomBuySound() => buySoundEffects[Random.Range(0, buySoundEffects.Length)];
     private AudioClip FindRandomClickSound() => clickSoundEffects[Random.Range(0, clickSoundEffects.Length)];
@@ -17,6 +19,8 @@ public class AudioManager : EventBase
     {
         audioSource.PlayOneShot(FindRandomInsertSound());
     }
+
+    public void PlayMisplaceSound() => audioSource.PlayOneShot(misplaceSoundEffect);
 
     public void PlayBuySound()
     {

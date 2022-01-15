@@ -123,6 +123,7 @@ public class DefaultWatchDecorator : EventBase, IWatch
         {
             dragging.misPlaced = true;
             dragging.stuckInDestination = destination.gameObject;
+            GameObject.Find("Audio Manager").GetComponent<AudioManager>().PlayMisplaceSound();
 
             if (!destination.GetComponent<DefaultInsertion>().HasObject() && insertObject.layer != 8)
             {

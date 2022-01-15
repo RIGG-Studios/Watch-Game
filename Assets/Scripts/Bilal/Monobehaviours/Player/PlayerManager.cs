@@ -107,8 +107,6 @@ public class PlayerManager : MonoBehaviour
 
         if (playerWatches < 0)
             playerWatches = 0;
-
-        Debug.Log(currentGamemode);
     }
 
     public void TransitionGamemode(bool backToDefault)
