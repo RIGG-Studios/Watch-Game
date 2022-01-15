@@ -102,7 +102,7 @@ public class PlayerWatchManager : MonoBehaviour
 
         currentWatch = Instantiate(watchPrefab, transform.parent);
 
-        for (int i = 0; i < Random.Range(2, watchTemplate.transform.childCount); i++)
+        for (int i = 0; i < Random.Range(2, 3); i++)
         {
             List<GameObject> objectList = new List<GameObject>();
 
