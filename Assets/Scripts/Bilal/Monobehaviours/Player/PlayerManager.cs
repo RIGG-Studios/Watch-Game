@@ -140,7 +140,6 @@ public class PlayerManager : MonoBehaviour
                 return false;
         }
 
-        Debug.Log("can build watch");
         return true;
     }
 

@@ -56,6 +56,8 @@ public class PlayerWatchManager : MonoBehaviour
 
             specialOrderManager.AddComponentsToGrid(1);
             canvas.ShowElementGroup(specialWatch, false);
+
+            SpawnWatch(queuedWatchProperties);
         }
         else
         {

@@ -67,6 +67,15 @@ public class PlayerInventory : MonoBehaviour
         if (item == null)
             return;
 
+        if(item.itemName == "Screwdriver")
+        {
+            playerWatchBuildingMode.screwDriver.UpdateUses(playerWatchBuildingMode.screwDriver.maxUses);
+        }
+        if (item.itemName == "Tweezers")
+        {
+            playerWatchBuildingMode.tweezers.UpdateUses(playerWatchBuildingMode.tweezers.maxUses);
+        }
+
         if (inventory.ContainsKey(item))
         {
             inventory[item] -= amount;
