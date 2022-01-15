@@ -20,7 +20,13 @@ public class PlayerWatchManager : MonoBehaviour
     UIElementGroup specialWatch;
     UIElement difficultyText;
     UIElement timeText;
-
+    private PlayerInventory playerInventory
+    {
+        get
+        {
+            return FindObjectOfType<PlayerInventory>();
+        }
+    }
     private void Start()
     {
         player = FindObjectOfType<PlayerManager>();
@@ -58,8 +64,19 @@ public class PlayerWatchManager : MonoBehaviour
 
     public void SpawnWatch(WatchProperties properties)
     {
-        if (properties.watchType == WatchTypes.Special && !player.CanBuildWatch(queuedWatchProperties.requiredComponents.ToArray()))
-            return;
+        if (properties.watchType == WatchTypes.Special)
+        {
+            if (!player.CanBuildWatch(queuedWatchProperties.requiredComponents.ToArray()))
+                return;
+
+            for (int i = 0; i < queuedWatchProperties.requiredComponents.Count; i++)
+            {
+                if (!queuedWatchProperties.requiredComponents[i].itemRequirement.equippable)
+                {
+                    playerInventory.RemoveItem(queuedWatchProperties.requiredComponents[i].itemRequirement, queuedWatchProperties.requiredComponents[i].itemAmount);
+                }
+            }
+        }
 
         currentWatchProperties = properties;
         canvas.HideElementGroup(specialWatch);

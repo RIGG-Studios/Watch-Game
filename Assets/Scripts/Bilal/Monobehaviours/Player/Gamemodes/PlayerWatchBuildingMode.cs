@@ -32,6 +32,8 @@ public class PlayerWatchBuildingMode : MonoBehaviour, IGamemode
     UIElement selectionGroupRequirements;
     bool playedIntro, playedExit;
 
+    public bool canDrag { get; set; }
+
     private void Start()
     {
         canvas = FindObjectOfType<CanvasManager>();
@@ -115,6 +117,9 @@ public class PlayerWatchBuildingMode : MonoBehaviour, IGamemode
     //Checks if the player clicked on a component
     bool CheckIfClickedObject(bool pressed)
     {
+        if (!canDrag)
+            return false;
+
         //Raycasts to the components layer
         RaycastHit2D raycastHit = RaycastFromMousePosition(componentsLayer);
         
@@ -152,16 +157,33 @@ public class PlayerWatchBuildingMode : MonoBehaviour, IGamemode
         RaycastHit2D hit = RaycastFromMousePosition(allLayers);
         if (hit && hit.collider.GetComponent<DefaultDragging>() != null)
         {
+            DefaultDragging draggable = hit.collider.GetComponent<DefaultDragging>();
+
             if (!playedIntro)
             {
-                Item item = hit.collider.GetComponent<DefaultDragging>().correspondingItem;
+                Item item = draggable.correspondingItem;
 
                 selectionGroupName.OverrideValue(item.itemName);
-                selectionGroupRequirements.OverrideValue(item.dependentItem != null && !inventory.HasItem(item.dependentItem, 1) ? "<color=red>REQUIRED ITEM:</color> " + item.dependentItem.itemName : string.Empty);
+
+                if (item.itemName == "Screw")
+                {
+                    selectionGroupRequirements.OverrideValue(!inventory.HasItem("Screwdriver", 1) ? "<color=red>REQUIRED ITEM:</color> SCREWDRIVER" : string.Empty);
+                }
+
+                if (hit.collider.gameObject.layer == 10 && draggable.inserted)
+                {
+                    if (draggable.misPlaced)
+                    {
+                        if (currentTool != tweezers)
+                            selectionGroupRequirements.OverrideValue("<color=red>REQUIRED ITEM:</color> TWEEZERS");
+                    }
+                    else
+                        selectionGroupRequirements.OverrideValue("<color=green>SUCCESFULLY PLACED</color>");
+                }
+
+                canvas.ShowElementGroup(selectionGroupUi);
                 playedIntro = true;
                 playedExit = false;
-                canvas.ShowElementGroup(selectionGroupUi);
-
             }
         }
         else

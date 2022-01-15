@@ -5,6 +5,8 @@ using UnityEngine;
 //this class handles our slot managing, slots are the UI you see and must be interacted with uniquely
 public class SlotManager : MonoBehaviour
 {  
+    public bool initialized { get; private set; }
+
     public GameObject slot;
     public Transform slotGrid;
 
@@ -26,16 +28,18 @@ public class SlotManager : MonoBehaviour
             slot.transform.localRotation = Quaternion.identity;
 
             if (item != null)
-                slot.GetComponent<Slot>().SetupSlot(item[i]);
+                slot.GetComponent<Slot>().SetupSlot(item[i], 0);
 
             //finally add it to our slot list.
             slots.Add(slot.GetComponent<Slot>());
         }
+
+        initialized = true;
     }
 
     //when we add an item, we need to add it to our slot, but also update the other slots
     //we also need a reference to our inventory list, which is sent through an array
-    public void AddItemToSlot(Item item)
+    public void AddItemToSlot(Item item, int amount)
     {
         //loop through all the slots
         for(int i = 0; i < slots.Count; i++)
@@ -44,12 +48,11 @@ public class SlotManager : MonoBehaviour
             if (!slots[i].occupied)
             {
                 //found our slot
-                slots[i].SetupSlot(item);
+                slots[i].SetupSlot(item, amount);
                 break; //break away because we dont need to continue searching
             }
         }
     }
-
 
     //when we remove items, we need to do it differently
     public void RemoveItemFromSlot(Item item)
@@ -89,5 +92,6 @@ public class SlotManager : MonoBehaviour
         return null;
     }
 
+    public Slot[] GetSlots() => slots.ToArray();
     public Slot FindSlotFromIndex(int index) => slots[index];
 }

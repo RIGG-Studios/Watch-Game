@@ -57,5 +57,14 @@ public class GameManager : MonoBehaviour
 
         WatchBuildStartEvent.Invoke(type);
     }
+
+    public void RestartGame()
+    {
+        PlayerSaving.ResetPlayerPrefs();
+        SceneManager.ReloadScene();
+    }
+
+    public void ExitGame() => Application.Quit();
+
     public void StartGame() => GameLoadEvent.Invoke();
 }

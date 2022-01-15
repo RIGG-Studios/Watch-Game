@@ -2,18 +2,24 @@ using System.Collections.Generic;
 using UnityEngine;
 
 //scriptable object for this for quick and easy reference.
-[CreateAssetMenu(fileName = "New Database", menuName = "Item Database", order = 1)]
-public class Database : ScriptableObject
+public class Database : MonoBehaviour
 {
     //quick a list of items to exist in our database
-    [SerializeField] private List<Item> items = new List<Item>();
+    public static Item[] itemDatabase
+    {
+        get
+        {
+            Item[] foundItems = Resources.LoadAll<Item>("Items");
+
+            return foundItems;
+        }
+
+    }
 
     //method for retreiving the list.`
-    public Item[] GetItems() => items.ToArray();
-
 
     //have a method to find an item in the database, by the name of the item
-    public Item GetItem(string itemName)
+    public static Item GetItem(string itemName)
     {
         //chedck if the name is null, and is so debug and return.
         if (itemName == null)        
@@ -24,15 +30,11 @@ public class Database : ScriptableObject
         
         
         //loop through all the items to find the item with the same name
-        for(int i = 0; i < items.Count; i++)
+        for(int i = 0; i < itemDatabase.Length; i++)
         {
-            //if an item is nul, return out so we dont get an error
-            if (items[i] == null)
-                return null;
-
             //if we find an item with the same name, return it
-            if (itemName == items[i].name)
-                return items[i];           
+            if (itemName == itemDatabase[i].name)
+                return itemDatabase[i];           
         }
 
         //otherwise return null
@@ -41,20 +43,21 @@ public class Database : ScriptableObject
 
     //essentially the same method as above, but instead of returning an Item we return a bool 
     //incase we need to simply check if the item exists, instead of getting its properties.
-    public bool HasItem(string itemName)
+    public static bool HasItem(string itemName)
     {
+        Debug.Log(itemDatabase);
         if (itemName == null)
         {
             Debug.Log("Item is null while trying to see if item exists, try again.");
             return false;
         }
 
-        for (int i = 0; i < items.Count; i++)
+        for (int i = 0; i < itemDatabase.Length; i++)
         {
-            if (items[i] == null)
+            if (itemDatabase[i] == null)
                 return false;
 
-            if (itemName == items[i].name)
+            if (itemName == itemDatabase[i].name)
                 return true;
         }
 
@@ -62,12 +65,12 @@ public class Database : ScriptableObject
     }
 
     //method for finding a random item in the database
-    public Item FindRandomItem()
+    public static Item FindRandomItem()
     {
-        if (items.Count <= 0)
+        if (itemDatabase.Length <= 0)
             return null;
 
         //return a item with a random index between 0 and the length of the list.
-        return items[Random.Range(0, items.Count)];
+        return itemDatabase[Random.Range(0, itemDatabase.Length)];
     }
 }

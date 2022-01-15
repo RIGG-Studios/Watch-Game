@@ -11,7 +11,6 @@ public class PlayerInventory : MonoBehaviour
     [Range(3, 10)] public int inventorySize;
 
     //quick references to the database and slot manager.
-    public Database database;
     public SlotManager slots;
 
     private PlayerWatchBuildingMode playerWatchBuildingMode
@@ -30,16 +29,22 @@ public class PlayerInventory : MonoBehaviour
         }
     }
 
-    private void Start()
+    private void Awake()
     {
         slots.InitializeSlots(inventorySize);
+
+        if (PlayerPrefs.GetInt("FirstTime") == 0)
+        {
+            AddItem(Database.GetItem("Screwdriver"), 1);
+            AddItem(Database.GetItem("Tweezers"), 1);
+        }
     }
 
     //method for adding items to our inventory
     public void AddItem(Item item, int amount)
     {
         //when we add an item, check for a bunch of conditions to make sure we can add the item without errors
-        if (item == null && database.HasItem(item.itemName) || inventory.Count - 1 > inventorySize)
+        if (item == null && Database.HasItem(item.itemName) || inventory.Count - 1 > inventorySize)
             return;
 
         if (inventory.ContainsKey(item))
@@ -49,19 +54,8 @@ public class PlayerInventory : MonoBehaviour
             return;
         }
 
-        if (item.itemName == "Screwdriver")
-        {
-            playerWatchBuildingMode.screwDriver.UpdateUses(10);
-        }
-        else if (item.itemName == "Tweezers")
-        {
-            playerWatchBuildingMode.tweezers.UpdateUses(10);
-        }
-
         inventory.Add(item, amount);
-        slots.AddItemToSlot(item);
-
-        slots.FindSlotFromItem(item).SetQuantity("x" + amount);
+        slots.AddItemToSlot(item, amount);
     }
 
 
@@ -100,6 +94,19 @@ public class PlayerInventory : MonoBehaviour
         return false;
     }
 
+    public bool HasItem(string item, int amount)
+    {
+        foreach (KeyValuePair<Item, int> items in inventory)
+        {
+            //has item
+            if (item == items.Key.itemName)
+            {
+                if ((items.Value - amount) >= 0)
+                    return true;
+            }
+        }
+        return false;
+    }
     public void SelectSlot(int index)
     {
         Slot slot = slots.FindSlotFromIndex(index);
@@ -111,15 +118,19 @@ public class PlayerInventory : MonoBehaviour
             {
                 case "Screwdriver":
                     playerWatchBuildingMode.currentTool = playerWatchBuildingMode.screwDriver;
+                    playerWatchBuildingMode.screwDriver.UpdateUses(10);
                     break;
 
                 case "Tweezers":
                     playerWatchBuildingMode.currentTool = playerWatchBuildingMode.tweezers;
+                    playerWatchBuildingMode.tweezers.UpdateUses(10);
                     break;
             }
 
+
             canvas.FindElementGroupByID("GameGroup").FindElement("toolicon").OverrideValue(item.itemSprite);
             canvas.FindElementGroupByID("GameGroup").FindElement("tooluses").OverrideValue(playerWatchBuildingMode.currentTool.GetRemainingUses().ToString() + "/" + playerWatchBuildingMode.currentTool.maxUses);
+            canvas.FindElementGroupByID("GameGroup").FindElement("toolicon").SetActive(true);
             canvas.FindElementGroupByID("GameGroup").FindElement("toolicon").FadeElement(1, 0.25f);
             canvas.FindElementGroupByID("GameGroup").FindElement("tooluses").FadeElement(1, 0.25f);
         }

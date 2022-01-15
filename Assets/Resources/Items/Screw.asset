@@ -17,4 +17,4 @@ MonoBehaviour:
   itemCost: 0
   itemSprite: {fileID: -7904977244744513839, guid: a867c8be2be948e44bc2db0ca4326c3a, type: 3}
   equippable: 0
-  dependentItem: {fileID: 11400000, guid: 4c7aac1147b7259498d5369e93124706, type: 2}
+  itemStack: 100

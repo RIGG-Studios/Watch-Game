@@ -40,6 +40,14 @@ public class SpecialOrdersManager : EventBase
         }
     }
 
+    private PlayerInventory playerInventory
+    {
+        get
+        {
+            return FindObjectOfType<PlayerInventory>();
+        }
+    }
+
     //add watch to special order list, with the correct item requirements
     public void AddComponentsToGrid(int gridType)
     {

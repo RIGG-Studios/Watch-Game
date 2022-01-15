@@ -1,5 +1,6 @@
 using UnityEngine;
 
+[System.Serializable]
 //create a scriptable object with the create asset menu implentation.
 [CreateAssetMenu(fileName = "New Item", menuName = "New Item", order = 0)]
 public class Item : ScriptableObject
@@ -15,8 +16,8 @@ public class Item : ScriptableObject
     public Sprite itemSprite;
     //let us know if we can equip the item, for example a tool such as a screwdriver or tweezers
     public bool equippable;
-    //item this item is required to have
-    public Item dependentItem;
+
+    public int itemStack;
 
 
     //constructor for the item with only arguement for the base item properties

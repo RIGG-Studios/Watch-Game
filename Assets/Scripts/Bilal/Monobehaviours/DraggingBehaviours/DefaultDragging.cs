@@ -5,6 +5,9 @@ using UnityEngine;
 //Default dragging behaviour, the object follows the mouse when dragged
 public class DefaultDragging : MonoBehaviour, IDraggable
 {
+    public bool inserted { get; set; }
+    public bool misPlaced { get; set; }
+
     //item that this draggable gameobject belongs too
     public Item correspondingItem;
 
@@ -16,7 +19,7 @@ public class DefaultDragging : MonoBehaviour, IDraggable
     //Doing nothing
     public void StartDraggingObject(Vector2 mousePosition)
     {
-        return;
+        inserted = true;
     }
 
     //Doing nothing

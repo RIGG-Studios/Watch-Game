@@ -22,6 +22,7 @@ public class DefaultWatchDecorator : EventBase, IWatch
 
     List<GameObject> instantiatedParts = new List<GameObject>();
 
+
     private void Start()
     {
         //When a new layer is activated, we will send an event to the game manager
@@ -31,6 +32,8 @@ public class DefaultWatchDecorator : EventBase, IWatch
         insertLogic = GetComponent<IInsertable>();
         childWatchPart.GetGameObject().SetActive(false);
         StartCoroutine(MoveToRestingPosition());
+
+        FindObjectOfType<PlayerWatchBuildingMode>().canDrag = false;
     }
 
     //Changed this method so it spawns objects first at the destination position then lerps them to the resting position
@@ -53,6 +56,8 @@ public class DefaultWatchDecorator : EventBase, IWatch
 
             yield return null;
         }
+
+        FindObjectOfType<PlayerWatchBuildingMode>().canDrag = true;
     }
 
     private void SpawnMissingParts()
@@ -72,7 +77,6 @@ public class DefaultWatchDecorator : EventBase, IWatch
             watchPartClone.transform.GetChild(0).transform.localScale = destinations[i].transform.localScale;
             watchPartClone.name = destinations[i].missingPiece.name;
             instantiatedParts.Add(watchPartClone);
-
             destinations[i].gameObject.SetActive(true);
         }
     }
@@ -110,24 +114,20 @@ public class DefaultWatchDecorator : EventBase, IWatch
     //Insert method, handles inserting behaviour
     public virtual void Insert(GameObject insertObject, Transform destination)
     {
-        //get the distance between the destination and the inserted object
-        float dist = (destination.position - insertObject.transform.position).magnitude;
+        DefaultDragging dragging = insertObject.GetComponent<DefaultDragging>();
 
-        //check if its higher than a very smaller than threshold, meaning its off place from where its supposed to be
-        if (dist > 5.106f)
-        {
-            //for now, simply log that its happening and return the function
-            Debug.Log("Part misplaced, restarting layer!");
-     //       return;
-        }
+        dragging.inserted = true;
 
         //check if the scale of the inserted object is not equal to the destination, or if the pieces dont fit in size
         if (insertObject.transform.GetChild(0).transform.localScale != destination.localScale)
         {
+            dragging.misPlaced = true;
             //for now, simply log that its happening and return the function
             Debug.Log("part doesn't fit in destination, restarting layer!");
             return;
         }
+        else
+            dragging.misPlaced = false;
 
         //If the object trying to be inserted is the missingPart and the destination is valid
         if (insertObject.name == destination.GetComponent<DefaultInsertion>().missingPiece.name && DestinationExists(destination))
@@ -137,14 +137,12 @@ public class DefaultWatchDecorator : EventBase, IWatch
             //when a object is succesfully inserted, we will send an event to the game manager
             GameManager.WatchObjectInsertEvent.Invoke();
             filledDestinations++;
-
             //check if the layer has do not hide, if not hide it
             if (destination.GetComponent<DoNotHide>() == null)
             {
                 //disable the destination 
                 destination.GetComponent<SpriteRenderer>().enabled = false;
             }
-
 
             if (filledDestinations >= destinations.Count)
             {
@@ -154,7 +152,6 @@ public class DefaultWatchDecorator : EventBase, IWatch
                 }
 
                 GameManager.WatchBuildLayerCompleteEvent.Invoke(componentName);
-
                 childWatchPart.GetGameObject().SetActive(true);
             }
         }

@@ -5,7 +5,6 @@ using UnityEngine;
 //this class handles all of our shop management
 public class ShopManager : MonoBehaviour
 {
-    public Database database;
     public SlotManager slots;
 
     //our shop is essentially a list of items, but we also need to keep track of the stock of the items,
@@ -37,17 +36,12 @@ public class ShopManager : MonoBehaviour
     private void Start()
     {
         //find all items in the database
-        Item[] items = database.GetItems();
+        Item[] items = Database.itemDatabase;
 
         //loop through all the items in the shop
         for(int i = 0; i < items.Length; i++)
         {
-            //check if an item is sellable by checking if the price is greater than 0,
-            //maybe we have an item that isnt sellable.
-            bool sellable = items[i].itemCost > 0;
-
-            //if its sellable, an that item to our shop list
-            if (sellable)
+            if(items[i].itemCost > 0)
                 AddItem(items[i], 100);
         }
 
@@ -64,7 +58,7 @@ public class ShopManager : MonoBehaviour
             return;
 
         itemsInShop.Add(item, stock);
-        slots.AddItemToSlot(item);
+        slots.AddItemToSlot(item, 0);
     }
 
     //method for removing an item from the shop

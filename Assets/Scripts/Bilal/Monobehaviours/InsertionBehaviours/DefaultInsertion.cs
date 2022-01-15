@@ -24,6 +24,7 @@ public class DefaultInsertion : MonoBehaviour, IInsertable
         {
             insertObject.GetComponentInChildren<Animator>().SetTrigger("onInsert");
         }
+
         insertObject.gameObject.layer = 11;
         insertObject.transform.position = destination.position;
         occupied = true;

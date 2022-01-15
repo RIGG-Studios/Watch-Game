@@ -24,7 +24,7 @@ public class DefaultTool : ATool
 
     public override void LeftClickTool(RaycastHit2D hit, IWatch currentWatch, bool pressed)
     {
-        if(currentUses > 0)
+        if(currentUses > 1)
         {
             if (pressed)
             {

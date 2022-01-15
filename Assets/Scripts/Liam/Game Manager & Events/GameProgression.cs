@@ -10,6 +10,11 @@ public class GameProgression : EventBase
         GameManager.SceneLoadEvent.Invoke();
     }
 
+    public void StartGame()
+    {
+        GameManager.GameLoadEvent.Invoke();
+    }
+
     public override void GameLoadCallback()
     {
         GameManager.WatchBuildStartEvent.Invoke(WatchTypes.Normal);

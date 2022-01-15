@@ -19,3 +19,4 @@ MonoBehaviour:
   itemCost: 1
   itemSprite: {fileID: 21300000, guid: 8fa2115af1f1e0b44afa6430b69e6395, type: 3}
   equippable: 1
+  itemStack: 100

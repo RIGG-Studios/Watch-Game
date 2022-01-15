@@ -9,6 +9,9 @@ public class PlayerManager : MonoBehaviour
     public int playerWatches;
     //the amount of watches monkeys make
     public int playerMonkeys;
+
+    public float monkeysPerMinute;
+
     //The player's camera
     Camera mainCamera;
     //reference to the game manager
@@ -31,10 +34,7 @@ public class PlayerManager : MonoBehaviour
     }
 
     //refence to the ui element group watches
-    UIElementGroup specialWatch;
-    UIElement difficultyText;
-    UIElement timeText;
-    UIElement gameTimer;
+    UIElement monkeyBonusText;
 
     int correctWatchHands;
 
@@ -56,6 +56,7 @@ public class PlayerManager : MonoBehaviour
 
     private void Start()
     {
+
         gameModes = GetComponents<IGamemode>();
         gameManager = FindObjectOfType<GameManager>();
         canvas = FindObjectOfType<CanvasManager>();
@@ -67,11 +68,10 @@ public class PlayerManager : MonoBehaviour
         currentGamemode = gameModes[0];
         mainCamera = Camera.main;
 
-        specialWatch = canvas.FindElementGroupByID("NewSpecialOrderGroup");
-        gameTimer = canvas.FindElementGroupByID("GameGroup").FindElement("gametimer");
+        monkeyBonusText = canvas.FindElementGroupByID("GameGroup").FindElement("monkeyconversioncounter");
+        monkeyBonusText.OverrideValue(string.Format("{0} MONKEYS = {1} WATCHES/MINUTE", playerMonkeys, (int)(playerMonkeys * monkeysPerMinute)));
 
-        difficultyText = specialWatch.FindElement("difficultytext");
-        timeText = specialWatch.FindElement("timetext");
+        StartCoroutine(MonkeyBonusCycle());
     }
 
     private void Awake()
@@ -91,9 +91,6 @@ public class PlayerManager : MonoBehaviour
         //Whenever the player right clicks
         inputActions.PCMap.RightClick.performed += ctx => currentGamemode.OnRightClick();
 
-        inputActions.PCMap.Space.performed += ctx => OnSpacePress();
-
-        //loop throhgh the size of the inventory so we can add input corresponding to the slot #
         inputActions.PCMap._1.performed += ctx => inventory.SelectSlot(0);
         inputActions.PCMap._2.performed += ctx => inventory.SelectSlot(1);
         inputActions.PCMap._3.performed += ctx => inventory.SelectSlot(2);
@@ -101,6 +98,15 @@ public class PlayerManager : MonoBehaviour
         inputActions.PCMap._5.performed += ctx => inventory.SelectSlot(4);
         inputActions.PCMap._6.performed += ctx => inventory.SelectSlot(5);
 
+    }
+
+    private void Update()
+    {
+        if (playerMonkeys < 0)
+            playerMonkeys = 0;
+
+        if (playerWatches < 0)
+            playerWatches = 0;
     }
 
     public void TransitionGamemode(bool backToDefault)
@@ -125,11 +131,6 @@ public class PlayerManager : MonoBehaviour
         }
     }
 
-    private void OnSpacePress()
-    {
-        GameManager.GameLoadEvent.Invoke();
-    }
-
     public bool CanBuildWatch(ComponentRequirement[] components)
     {
         for(int i = 0; i < components.Length; i++)
@@ -138,13 +139,18 @@ public class PlayerManager : MonoBehaviour
                 return false;
         }
 
+        Debug.Log("can build watch");
         return true;
     }
 
     public void AddItem(Item item, int amount)
     {
         if (item.itemName.Contains("Monkey"))
+        {
             playerMonkeys++;
+
+            monkeyBonusText.OverrideValue(string.Format("{0} MONKEYS = {1} WATCHES/MINUTE", playerMonkeys, (int)(playerMonkeys * monkeysPerMinute)));
+        }
 
         inventory.AddItem(item, amount);
     }
@@ -155,6 +161,20 @@ public class PlayerManager : MonoBehaviour
             gameModes[i].SetCurrentWatch(watchObj.transform);
 
         correctWatchHands = 0;
+    }
+
+    private IEnumerator MonkeyBonusCycle()
+    {
+        yield return new WaitForSeconds(60f);
+
+        if (playerMonkeys >= 0)
+        {
+            playerWatches += (int)(playerMonkeys * monkeysPerMinute);
+            canvas.FindElementGroupByID("GameGroup").FindElement("watchcounttext").OverrideValue(playerWatches.ToString());
+            monkeyBonusText.OverrideValue(string.Format("{0} MONKEYS = {1} WATCHES/MINUTE", playerMonkeys, (int)(playerMonkeys * monkeysPerMinute)));
+        }
+
+        StartCoroutine(MonkeyBonusCycle());
     }
 
     public bool CanBuyItem(int cost) => (playerWatches - cost) >= 0;
