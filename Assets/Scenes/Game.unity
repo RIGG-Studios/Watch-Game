@@ -1418,11 +1418,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7782087324684316043, guid: 23583d2ca49b32d49bb6274c3404a085, type: 3}
       propertyPath: m_SizeDelta.y
-      value: 77.376
+      value: 82.993
       objectReference: {fileID: 0}
     - target: {fileID: 7782087324684316043, guid: 23583d2ca49b32d49bb6274c3404a085, type: 3}
       propertyPath: m_AnchoredPosition.y
-      value: 77.001
+      value: 74.192
       objectReference: {fileID: 0}
     - target: {fileID: 7848748269937276833, guid: 23583d2ca49b32d49bb6274c3404a085, type: 3}
       propertyPath: m_Pivot.x

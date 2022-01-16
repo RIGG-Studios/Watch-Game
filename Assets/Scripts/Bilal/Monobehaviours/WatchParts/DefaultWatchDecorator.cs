@@ -121,9 +121,12 @@ public class DefaultWatchDecorator : EventBase, IWatch
         //check if the scale of the inserted object is not equal to the destination, or if the pieces dont fit in size
         if (insertObject.transform.GetChild(0).transform.localScale != destination.localScale)
         {
-            dragging.misPlaced = true;
-            dragging.stuckInDestination = destination.gameObject;
-            GameObject.Find("Audio Manager").GetComponent<AudioManager>().PlayMisplaceSound();
+            if(insertObject.layer != 8)
+            {
+                dragging.misPlaced = true;
+                dragging.stuckInDestination = destination.gameObject;
+                GameObject.Find("Audio Manager").GetComponent<AudioManager>().PlayMisplaceSound();
+            }
 
             if (!destination.GetComponent<DefaultInsertion>().HasObject() && insertObject.layer != 8)
             {
