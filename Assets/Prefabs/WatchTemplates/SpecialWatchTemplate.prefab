@@ -1085,6 +1085,7 @@ MonoBehaviour:
   - {fileID: 7575595032197846757}
   - {fileID: 7051232415621799651}
   - {fileID: 4115595369585977211}
+  tolorence: 0.1
   componentName: Springs
 --- !u!114 &6682423221179719470
 MonoBehaviour:
@@ -3603,6 +3604,7 @@ MonoBehaviour:
   - {fileID: 7673252224276734475}
   - {fileID: 311601111003832152}
   - {fileID: 5277437710494602964}
+  tolorence: 0.1
   componentName: Gears 1
 --- !u!114 &6335048381964977785
 MonoBehaviour:
@@ -5909,6 +5911,7 @@ MonoBehaviour:
   - {fileID: 5025175162050203976}
   - {fileID: 4167891554338528678}
   - {fileID: 897253880234225970}
+  tolorence: 0.1
   componentName: Gears 2
 --- !u!114 &9084144903173236252
 MonoBehaviour:

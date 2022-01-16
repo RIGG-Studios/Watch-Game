@@ -1585,6 +1585,7 @@ MonoBehaviour:
   - {fileID: 4220337969981631759}
   - {fileID: 5131047955867111335}
   - {fileID: 5702045170384488069}
+  tolorence: 0.1
   componentName: BigGears
 --- !u!114 &1844531383095870060
 MonoBehaviour:
@@ -3163,6 +3164,7 @@ MonoBehaviour:
   - {fileID: 7495785049271900370}
   - {fileID: 4024721676758862218}
   - {fileID: 3146684787908772209}
+  tolorence: 0.1
   componentName: MedGears
 --- !u!114 &3486585309070762505
 MonoBehaviour:
@@ -5240,6 +5242,7 @@ MonoBehaviour:
   - {fileID: 549462442697710000}
   - {fileID: 3511912264100913865}
   - {fileID: 4554910522454783123}
+  tolorence: 0.1
   componentName: MedGears
 --- !u!114 &4945932681439025905
 MonoBehaviour:
@@ -5622,6 +5625,7 @@ MonoBehaviour:
   - {fileID: 3632694709492269375}
   - {fileID: 7916576708855830955}
   - {fileID: 2207504723177037389}
+  tolorence: 0.1
   componentName: BigGears
 --- !u!114 &4936081253320375521
 MonoBehaviour:
@@ -5968,6 +5972,7 @@ MonoBehaviour:
   - {fileID: 7688886698523252930}
   - {fileID: 7969629355457718960}
   - {fileID: 7400210455157481583}
+  tolorence: 0.1
   componentName: BigGears
 --- !u!114 &5312502761527300136
 MonoBehaviour:
@@ -6479,6 +6484,7 @@ MonoBehaviour:
   - {fileID: 8112275740211441514}
   - {fileID: 1648493554899884368}
   - {fileID: 6375023589583086774}
+  tolorence: 0.1
   componentName: MedGears
 --- !u!114 &9185713130552383476
 MonoBehaviour:

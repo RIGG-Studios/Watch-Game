@@ -13,6 +13,7 @@ public class DefaultWatchDecorator : EventBase, IWatch
     //Destinations denotes which destinations this missing part will be accepted into
     public GameObject missingPartPrefab;
     public List<DefaultInsertion> destinations = new List<DefaultInsertion>();
+    public float tolorence;
 
     //Component name is used solely in the GetAllComponentsLeft() as a unique key to identify this part by
     public string componentName;
@@ -119,7 +120,7 @@ public class DefaultWatchDecorator : EventBase, IWatch
         dragging.inserted = true;
 
         //check if the scale of the inserted object is not equal to the destination, or if the pieces dont fit in size
-        if (insertObject.transform.GetChild(0).transform.localScale != destination.localScale)
+        if (insertObject.transform.GetChild(0).transform.localScale.x >= destination.localScale.x + tolorence || insertObject.transform.GetChild(0).transform.localScale.x <= destination.localScale.x - tolorence)
         {
             if(insertObject.layer != 8)
             {
